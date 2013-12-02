@@ -1,0 +1,248 @@
+/* ***** BEGIN LICENSE BLOCK *****
+* Version: CDDL 1.0/LGPL 2.1
+*
+* The contents of this file are subject to the COMMON DEVELOPMENT AND
+* DISTRIBUTION LICENSE (CDDL) Version 1.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of
+* the License at http://www.sun.com/cddl/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is "NOM" Netlabs Object Model
+*
+* The Initial Developer of the Original Code is
+* netlabs.org: Chris Wohlgemuth <cinc-ml@netlabs.org>.
+* Portions created by the Initial Developer are Copyright (C) 2005-2007
+* the Initial Developer. All Rights Reserved.
+*
+* Contributor(s):
+*
+* Alternatively, the contents of this file may be used under the terms of
+* the GNU Lesser General Public License Version 2.1 (the "LGPL"), in which
+* case the provisions of the LGPL are applicable instead of those above. If
+* you wish to allow use of your version of this file only under the terms of
+* the LGPL, and not to allow others to use your version of this file under
+* the terms of the CDDL, indicate your decision by deleting the provisions
+* above and replace them with the notice and other provisions required by the
+* LGPL. If you do not delete the provisions above, a recipient may use your
+* version of this file under the terms of any one of the CDDL or the LGPL.
+*
+* ***** END LICENSE BLOCK ***** */
+/** \file nomclassmanager.idl 
+    
+Class definition file for the NOM class NOMClassMgr
+*/
+
+#ifndef nomcm_idl
+#define nomcm_idl
+
+#include "nomobj.idl"
+#include "nomcls.idl"
+
+/** \interface NOMClassMgr
+
+    The NOMClassMgr class provides methods for managing the whole
+    object system. One single instance is created and a pointer is to it is
+    put into the global variable \i NOMClassMgrObject.
+    
+ */
+
+interface NOMClassMgr : NOMObject
+{
+#ifdef __NOM_IDL_COMPILER__
+  filestem=nomclassmanager;
+#endif
+  NOMCLASSVERSION(1, 0 );
+
+  /**
+     Find the class object for the class with the given nomId in the internal class list managed by the
+     class manager.
+
+     \remark This method is only a stub for now.
+
+     \par How to override
+     This method is usually not overriden.
+
+     \param classId The id of the class to be found.
+     \param ulMajorVersion This parameter is not used at the moment and should be set to 0.
+     \param ulMinorVersion This parameter is not used at the moment and should be set to 0.
+     \return
+     The class object for the class with the given name or NULL if not found.
+   */
+  NOMClass* nomFindClassFromId(in gulong classId, 
+                            in gulong ulMajorVersion, 
+                            in gulong ulMinorVersion);
+  
+  /**
+     Find the class object for the class with the given name in the internal class list managed by the
+     class manager. 
+     
+     \remark
+     This method will return the metaclasses for the given class name.
+
+     \par How to override
+     This method is usually not overriden.
+     
+     \param className The name of the class as a C string.
+     \param ulMajorVersion This parameter is not used at the moment and should be set to 0.
+     \param ulMinorVersion This parameter is not used at the moment and should be set to 0.
+     \return
+     The class object for the class with the given name or NULL if not found.
+   */
+  NOMClass* nomFindClassFromName(in string className, 
+                              in long ulMajorVersion, 
+                              in long ulNinorVersion);
+
+  /**
+     Register a given class in the internal list of classes.
+     
+     We register mtabs as unique pointers to classes. It's possible to get every
+     information from an mtab. We don't use the class name because in case of
+     meta classes several different meta classes for creating different objects 
+     may have the same name because the default meta class is always NOMClass.
+     The mtab of each of this meta classes is different.
+
+     In addition to maintaining a list of registered classes we also register the
+     mtab in a balanced binary tree for fast retrieval. The data in this tree is
+     used by nomIsObject() to check if a block of memory is actually an object by
+     checking the memories mtab pointer against the registered list of mtabs.
+
+     \remarks Classes are registered usually from within nomClassReady(). 
+
+     \par How to override
+     This method is usually not overriden.
+
+     \param classMtab The mtab of the class to be registered.
+   */
+  void nomRegisterClass(in gpointer classMtab);
+
+  /**
+     Get the internal list of classes.
+
+     \remarks This method is only for NOM kernel implemeters. You can gather all
+     information of this list by using provided methods.
+
+     \par How to override:
+     This method is usually not overriden.
+
+     \return
+     A pointer on the head of a GData list. Note that this is not a copy.
+
+   */
+  gpointer nomGetClassList();
+
+  /**
+     This method returns a pointer to a class specific private structure holding additional
+     information. The structure is only used by the NOM kernel.
+
+     \remarks This method is only for NOM kernel implemeters.
+
+     \par How to override:
+     This method is usually not overriden.
+
+     \param className The class name as a C string.
+     \return A nomClsInfo pointer for the given class. This structure is private and only used
+     internally.
+   */
+  gpointer nomGetClassInfoPtrFromName(in string className);
+
+  /**
+     Register a method with the class manager. The data is used to find the class
+     implementing a method from the method name.
+
+     \param classMtab The mtab of a class.
+     \param chrMethodName Method to be registered. 
+   */
+  void nomRegisterMethod(in gpointer classMtab, in string chrMethodName);
+
+  /**
+     Method to check if the given object is indeed an object or just arbitrary
+     storage. This is done by checking the mtab in the given object against a registered
+     list of mtabs.
+
+     \remarks You probably want to use the function nomIsObj() instead which subsequently
+     calls this method.
+
+     \par How to override:
+     This method is usually not overriden.
+
+     \param nomObject The object to be checked.
+
+     \returns True if the given object is a NOMObject.
+   */
+  boolean nomIsObject(in PNOMObject nomObject);
+
+  /**
+     This method substitutes \e oldClass with \e replacementClass. This means that after
+     replacing whenever class \e oldClass is requested \e replacementClass is returned.
+     \e oldClassNew() will create \e replacementClass objects etc.
+
+     The class \e replacementClass must be a direct subclass of \e oldClass.
+
+     \remark Both classes must already be registered with the class manager when calling this
+     method.
+
+     \par How to override:
+     This method is usually not overriden.
+
+     \param oldClass The class to be replaced
+     \param replacementClass The class which will be used instead of \e oldClass 
+     \returns TRUE if replacement succeeded.
+
+     \warning
+     This method is not implemented yet.
+
+   */
+  boolean nomSubstituteClass(in string oldClass, in string replacementClass);
+
+  /**
+     Query the name of the DLL in which the class can be found. The name can be used to
+     dynamically load the DLL get the class exports and finally create the class.
+
+     \remark The returned path is in the system encoding.
+
+     \warning
+     This method is not implemented yet.
+   */
+  string nomQueryDLLForClass(in string chrClassName);
+  /**
+     Override of nomInit(). The list of methods and the list of classes are initialized
+     in that method. In addition the balanced binary tree for registering mtabs is created.
+   */
+  //NOMOVERRIDE(nomInit);
+  nomInit : override;
+  /**
+     The list of registered classes. Normal classes and metaclasses are registered.
+     The method nomGetClassList() can be used to get it.
+     If doing so be aware that it's the real thing no copy.
+   */     
+  NOMINSTANCEVAR(PGData gdataClassList); 
+
+  /**
+     The list of registered methods.
+   */     
+  NOMINSTANCEVAR(PGData gdataMethodList);
+
+  /**
+     Balanced binary tree holding the mtabs of all known classes. You can't access
+     this from the outside. It's entirely private to NOMClassMgr.
+   */
+  NOMINSTANCEVAR(PGTree pClassListTree); 
+  /* nomInit : override;*/
+
+};
+
+#endif  /* nomcm_idl */
+
+
+
+
+
+
+
+
+
+

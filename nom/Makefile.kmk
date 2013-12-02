@@ -1,0 +1,112 @@
+# $Id: $
+## @file
+# Makefile for the NOM Object Toolkit.
+#
+
+DEPTH ?= ..
+SUB_DEPTH = ..
+include $(PATH_KBUILD)/subheader.kmk
+
+#
+# The libnobjtk dll. (static lib isn't working for windows)
+#
+DLLS += libnomobjtk
+libnomobjtk_TEMPLATE = basedll
+libnomobjtk_NAME.os2 = nobjtk
+libnomobjtk_SDKS = glib2
+libnomobjtk_DEFS = \
+	NOM_NOMObject_IMPLEMENTATION_FILE \
+	NOM_NOMClass_IMPLEMENTATION_FILE \
+	NOM_NOMClassMgr_IMPLEMENTATION_FILE
+libnomobjtk_INCS = idl
+libnomobjtk_LDFLAGS.darwin = -install_name @executable_path/../lib/libnomobjtk.dylib
+libnomobjtk_SOURCES = \
+	idl/nombase.idl \
+	idl/nomclassmanager.idl \
+	idl/nomcls.idl \
+	idl/nomobj.idl \
+	idl/nomstring.idl \
+	idl/nomarray.idl \
+	idl/nomtestcase.idl \
+	idl/nomtestresult.idl \
+	idl/nommethod.idl \
+	\
+	src/nomtkinit.c \
+	src/nommemory.c \
+	src/nombuildclass.c \
+	src/nomdebug.c \
+	src/nombuildnomobj.c \
+	src/nombuildnomcls.c \
+	src/nomid.c \
+	src/nomgc.c \
+	src/thunk.c \
+	class_c/nomobj.c \
+	class_c/nomclassmanager.c \
+	class_c/nomcls.c \
+	class_c/nomstring.c \
+	class_c/nomarray.c \
+	class_c/nomtestcase.c \
+	class_c/nomtestresult.c \
+	class_c/nommethod.c
+libnomobjtk_SOURCES.os2 = \
+	$(PATH_TARGET)/nobjtk-os2.def
+libnomobjtk_SOURCES.win = \
+	$(PATH_TARGET)/libnomobjtk-win.def
+ifeq ($(BUILD_TARGET),win)
+ libnomobjtk_LIBS += $(PATH_LIB)/libnomgc$(SUFF_LIB)
+else
+ifeq ($(BUILD_TARGET),darwin_)
+	   libnomobjtk_LIBS += /opt/local/lib/libgc.dylib
+else
+ifeq ($(BUILD_TARGET),freebsd)
+	   libnomobjtk_LIBS += /usr/local/lib/libgc$(SUFF_DLL)
+else
+ifeq ($(BUILD_TARGET),linux)
+	   libnomobjtk_LIBS += /usr/lib/libgc$(SUFF_DLL)
+else
+	   libnomobjtk_LIBS += $(PATH_LIB)/libnomgc$(SUFF_DLL)
+endif
+endif
+endif
+endif
+
+#
+# Generates the OS/2 linker definition file.
+#
+$(PATH_TARGET)/nobjtk-os2.def: $(PATH_SUB_CURRENT)/exports.def | $(call DIRDEP,$(PATH_TARGET))
+	$(RM) -f $@
+#	$(APPEND) $@ 'LIBRARY nobjtk INITGLOBAL'
+	$(APPEND) $@ 'LIBRARY nobjtk INITINSTANCE TERMINSTANCE'
+	$(APPEND) $@ 'PROTMODE'
+	$(APPEND) $@ 'CODE PRELOAD DISCARDABLE'
+#	$(APPEND) $@ 'DATA SHARED LOADONCALL'
+	$(APPEND) $@ 'DATA MULTIPLE NONSHARED'
+	$(APPEND) $@ "DESCRIPTION 'fixme using $(PRINTF)'"
+	$(APPEND) $@ ""
+	$(SED) \
+		-e '/^PROTMODE/d' \
+		-e '/^CODE/d' \
+		-e '/^DATA/d' \
+		-e '/^ *;/d' \
+		--append $@ \
+		$<
+
+#
+# Generates the Windows linker definition file.
+#
+$(PATH_TARGET)/libnomobjtk-win.def: $(PATH_SUB_CURRENT)/exports.def | $(call DIRDEP,$(PATH_TARGET))
+	$(RM) -f $@
+	$(APPEND) $@ 'LIBRARY libnomobjtk'
+	$(SED) \
+		-e '/^PROTMODE/d' \
+		-e '/^CODE/d' \
+		-e '/^DATA/d' \
+		-e '/^[[:space:]]*;/d' \
+		-e '/^[[:space:]]*$$/d' \
+		-e 's/^[[:space:]][[:space:]]*/ /' \
+		-e 's/^ _\([a-zA-Z0-9_]*Data\)/ \1 DATA/' \
+		--append $@ \
+		$<
+
+include $(PATH_KBUILD)/subfooter.kmk
+

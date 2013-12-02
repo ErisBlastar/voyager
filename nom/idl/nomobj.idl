@@ -1,0 +1,234 @@
+/* ***** BEGIN LICENSE BLOCK *****
+* Version: CDDL 1.0/LGPL 2.1
+*
+* The contents of this file are subject to the COMMON DEVELOPMENT AND
+* DISTRIBUTION LICENSE (CDDL) Version 1.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of
+* the License at http://www.sun.com/cddl/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is "NOM" Netlabs Object Model
+*
+* The Initial Developer of the Original Code is
+* netlabs.org: Chris Wohlgemuth <cinc-ml@netlabs.org>.
+* Portions created by the Initial Developer are Copyright (C) 2005-2007
+* the Initial Developer. All Rights Reserved.
+*
+* Contributor(s):
+*
+* Alternatively, the contents of this file may be used under the terms of
+* the GNU Lesser General Public License Version 2.1 (the "LGPL"), in which
+* case the provisions of the LGPL are applicable instead of those above. If
+* you wish to allow use of your version of this file only under the terms of
+* the LGPL, and not to allow others to use your version of this file under
+* the terms of the CDDL, indicate your decision by deleting the provisions
+* above and replace them with the notice and other provisions required by the
+* LGPL. If you do not delete the provisions above, a recipient may use your
+* version of this file under the terms of any one of the CDDL or the LGPL.
+*
+* ***** END LICENSE BLOCK ***** */
+/** \file nomobj.idl 
+    
+Class definition file for the NOM class NOMObject.
+*/
+
+#ifndef NOMOBJ_IDL_INCLUDED
+#define NOMOBJ_IDL_INCLUDED
+
+#include "nombase.idl"
+
+interface NOMClass;
+
+/** \interface NOMObject
+
+    This is the root class of NOM. It provides methods common to all objects.
+
+    \remarks NOMObject can't be replaced.
+    
+ */
+interface NOMObject
+{
+#ifdef __NOM_IDL_COMPILER__
+  filestem=nomobj;
+#endif
+
+  NOMCLASSVERSION(1, 0 );
+
+  /**
+     This method is intended to be overriden by classes which need some initialization.
+
+     \remarks This method is called by the system during object creation. Don't call it
+     from your code or unexpected things may happen.
+
+     \par How to override:
+     The parent class must always be called first when overriden.
+
+     \sa impl_NOMObject_nomInit(), nomUnInit() 
+   */
+  void nomInit();
+
+  /**
+     This method is intended to be overriden by classes which need some uninitialization.
+     Note that when overriding the method the garbage collector will add the object
+     to the list of objects with a finalizer. The finalizer will be run when the object is
+     collected and calls nomUnInit() to give the object a chance for cleanup. 
+
+     \remarks It's not necessary to free memory in nomUnInit(). This is the job of the garbage collector.
+     Only system resources like file handles etc. must be explicitely freed. 
+     This method is called by the system during object deletion. Don't call it
+     from your code or unexpected things may happen.
+
+     \par How to override:
+     The parent method must be called after doing the own processing.
+
+     \sa impl_NOMObject_nomUnInit(), nomInit();
+   */
+  void nomUnInit();
+
+  /** 
+     Return the size of the object. That is sizeof(mTab*)+sizeof(all instance vars)
+
+     \par How to override:
+     This method is usually not overriden.
+
+     \sa impl_NOMObject_nomGetSize()
+  */
+  long nomGetSize();
+
+  /**
+     Delete an object. This method is useful if you have to control the point in time when
+     an object is actually destroyed. Normally the garbage collector destroys any object when
+     no longer in use but there is no way to control when this happens.
+
+     \remarks This method calls nomUnInit() to give the object a chance of freeing system resources.
+     Afterwards the memory occupied by the object is given back to the system and the
+     object is not accessible anymore.
+
+     \par HowTo override:
+     This method is usually not overriden. If you need some own processing during object
+     destruction override nomUnInit().
+
+     \sa impl_NOMObject_delete(), nomUnInit()
+   */
+  void delete();
+
+  /**
+     This method returns a pointer to the class object of this object.
+
+     \par How to override:
+     This method is usually not overriden.
+
+     \return Pointer to the class object
+
+     \sa impl_NOMObject_nomQueryClass()
+   */
+  PNOMClass nomQueryClass();
+
+  /**
+     Create a new class of the kind the caller is. This method ensures that subclasses
+     are properly handled without the need to override this method in every subclass.
+
+     When deriving from classes new methods are added to a class but the already present ones are
+     usually not changed. If one of these classes creates a new object of the class itself
+     is an instance of unexpected things may happen. Consider the
+     following class hierarchy:
+
+     \code
+     NOMObject->NOMString->NOMPath
+     \endcode
+
+     When a method introduced by \e NOMString tries to create a new \e NOMString object it may
+     use the \e NOMStringNew() macro to do so. Problems arise if the method is called from
+     within a \e NOMPath object. The caller probably doesn't want a \e NOMString but rather
+     a \e NOMPath object. So instead of having to override the method using the creation macro
+     which may mean to recreate the whole method implementation the macro should be replaced
+     by a call to new().
+
+     This method will get the class object of nomSelf and call nomNew() on it creating
+     a new object which has exactly the same class hierarchy of nomSelf.
+
+     \remarks Because a new object is created the whole object creation sequence will take
+     place which means a call to nomInit() will be made by the system.
+
+     \par How to override:
+     This method is usually not overriden.
+
+     \return Pointer to a new object of the same kind as nomSelf. Note that this won't
+     create an exact copy but a completely new objecct.
+
+     \sa impl_NOMObject_new()
+   */
+  NOMObject* new();
+
+  /**
+     This method checks if the object is an instance of the given class or some subclass. Using
+     this method one can make sure some feature is available if the introducing class is known.
+     Every subclass of a given class also supports the features of the introducing class. 
+
+     \remarks This method checks the validity of \e nomClass using nomIsObj() and returns FALSE
+     in case it's not an object.
+
+     \param nomClass Pointer to a class object.
+
+     \returns TRUE if the object is an instance of the given class or one of its
+     subclasses.
+
+     \sa nomIsInstanceOf(), nomIsANoClsCheck()
+   */
+  boolean nomIsA(in PNOMClass nomClass);
+
+  /**
+     This method checks if the object is an instance of exactly the given class.
+
+
+     \remarks This method checks the validity of \e nomClass using nomIsObj() and returns FALSE
+     in case it's not an object.
+
+     \param nomClass Pointer to a class object.
+
+     \returns TRUE if the object is an instance of exactly the given class.
+
+     \sa nomIsA(), nomIsANoClsCheck()
+   */
+  boolean nomIsInstanceOf(in PNOMClass nomClass);
+
+  /**
+     This method returns the name of the class this object is an instance of.
+     
+     \par How to override:
+     This method is usually not overriden.
+     
+     \returns A null terminated C string. Note that this is not a copy. The string
+     is valid as long as the class object exists (not the instance).
+
+     \sa impl_NOMClass_nomQueryClassName()
+  */
+  string nomQueryClassName();
+
+  /**
+     This method checks if the object is an instance of the given class or some subclass. Using
+     this method one can make sure some feature is available if the introducing class is known.
+     Every subclass of a given class also supports the features of the introducing class. 
+
+     \remarks This method does \e not check the validity of \e nomClass using nomIsObj(). So
+     make sure to have checked it beforehand. You may want to use nomIsA() instead;
+
+     \param nomClass Pointer to a class object.
+
+     \returns TRUE if the object is an instance of the given class or one of its
+     subclasses.
+
+     \sa nomIsInstanceOf(), nomIsA()
+   */
+  boolean nomIsANoClsCheck(in PNOMClass nomClass);
+
+  NOMObject* nomGetMethodList(in boolean bIncludingParents);
+};
+
+#endif /* NOMOBJ_IDL_INCLUDED */
+
+

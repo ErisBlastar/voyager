@@ -1,0 +1,20 @@
+PROTMODE
+CODE PRELOAD DISCARDABLE
+DATA SHARED LOADONCALL
+
+EXPORTS  
+	_AClassClassData    
+	_AClassCClassData  
+	AClassNewClass     
+
+	_BClassClassData    
+	_BClassCClassData  
+	BClassNewClass     
+
+	_TestNomObjectClassData    
+	_TestNomObjectCClassData  
+	TestNomObjectNewClass     
+
+	_TestNOMClassMgrClassData    
+	_TestNOMClassMgrCClassData  
+	TestNOMClassMgrNewClass     

@@ -1,0 +1,149 @@
+# $Id: $
+## @file
+# Makefile for the NOM testcase.
+#
+
+DEPTH ?= ..
+SUB_DEPTH = ..
+include $(PATH_KBUILD)/subheader.kmk
+
+ifdef NOM_WITH_TESTCASES
+
+#
+# The libnobjtk dll. (static lib isn't working for windows)
+#
+DLLS += libnomtest
+libnomtest_TEMPLATE = nomdll
+libnomtest_NAME.os2 = nomtest
+libnomtest_DEFS = \
+	NOM_AClass_IMPLEMENTATION_FILE \
+	NOM_BClass_IMPLEMENTATION_FILE \
+	NOM_TestNomObject_IMPLEMENTATION_FILE
+libnomtest_INCS = idl
+libnomtest_LDFLAGS.darwin = -install_name @executable_path/../lib/libnomtest.dylib
+libnomtest_SOURCES = \
+	idl/aclass.idl \
+	idl/bclass.idl \
+	idl/testnomclassmgr.idl \
+	idl/testnomobject.idl \
+	class_c/aclass.c \
+	class_c/bclass.c \
+	class_c/testnomclassmgr.c \
+	class_c/testnomobject.c
+libtest_SOURCES.os2 = \
+	$(PATH_TARGET)/libnomtest-os2.def
+libtest_SOURCES.win = \
+	$(PATH_TARGET)/libnomtest-win.def
+
+
+#
+# Generates the OS/2 linker definition file.
+#
+$(PATH_TARGET)/libnomtest-os2.def: $(PATH_SUB_CURRENT)/exports.def | $(call DIRDEP,$(PATH_TARGET))
+	$(RM) -f $@
+	$(APPEND) $@ 'LIBRARY nobjtk INITINSTANCE TERMINSTANCE'
+	$(APPEND) $@ 'PROTMODE'
+	$(APPEND) $@ 'CODE PRELOAD DISCARDABLE'
+	$(APPEND) $@ 'DATA MULTIPLE NONSHARED'
+	$(APPEND) $@ "DESCRIPTION 'fixme using $(PRINTF)'"
+	$(APPEND) $@ ""
+	$(SED) \
+		-e '/^PROTMODE/d' \
+		-e '/^CODE/d' \
+		-e '/^DATA/d' \
+		-e '/^ *;/d' \
+		--append $@ \
+		$<
+
+#
+# Generates the Windows linker definition file.
+#
+$(PATH_TARGET)/libnomtest-win.def: $(PATH_SUB_CURRENT)/exports.def | $(call DIRDEP,$(PATH_TARGET))
+	$(RM) -f $@
+	$(APPEND) $@ 'LIBRARY libnomobjtk'
+	$(SED) \
+		-e '/^PROTMODE/d' \
+		-e '/^CODE/d' \
+		-e '/^DATA/d' \
+		-e '/^[[:space:]]*;/d' \
+		-e '/^[[:space:]]*$$/d' \
+		-e 's/^[[:space:]][[:space:]]*/ /' \
+		-e 's/^ _\([a-zA-Z0-9_]*Data\)/ \1 DATA/' \
+		--append $@ \
+		$<
+
+#
+# The test program.
+#
+PROGRAMS += test-nom
+test-nom_TEMPLATE = nombin
+test-nom_SOURCES = \
+	c/test-nom.c
+ifeq ($(BUILD_TARGET),win)
+ test-nom_LIBS = \
+	$(TARGET_libnomtest:.dll=.lib)
+else
+ test-nom_LIBS = \
+	$(TARGET_libnomtest)
+endif
+
+#test-nom_LIBS= glib-2.0 \
+#	$(TARGET_nobjtk_a) \
+#	$(TARGET_nomtest_a)
+
+
+#test-nom_LIBS.linux = $(PATH_LIB)/libnomgc.so
+
+
+#
+# The garbage collector test program.
+#
+PROGRAMS += test-gc
+test-gc_TEMPLATE = nombin
+test-gc_SOURCES = \
+	c/test-gc.c
+ifeq ($(BUILD_TARGET),win)
+ test-gc_LIBS = \
+	$(TARGET_libnomtest:.dll=.lib)
+else
+ test-gc_LIBS = \
+	$(TARGET_libnomtest)
+endif
+
+
+#
+# NOM test program with hefty GC use.
+#
+PROGRAMS += test-nom-2
+test-nom-2_TEMPLATE = nombin
+test-nom-2_SOURCES = \
+	c/test-nom-2.c
+ifeq ($(BUILD_TARGET),win)
+ test-nom-2_LIBS = \
+	$(TARGET_libnomtest:.dll=.lib)
+else
+ test-nom-2_LIBS = \
+	$(TARGET_libnomtest)
+endif
+
+
+#
+# Program for playing around.
+#
+PROGRAMS += nom-play
+nom-play_TEMPLATE = nombin
+nom-play_SOURCES = \
+	c/nom-play.c
+ifeq ($(BUILD_TARGET),win)
+ nom-play_LIBS = \
+	$(TARGET_libnomtest:.dll=.lib)
+else
+ 	nom-play_LIBS = \
+	$(TARGET_libnomtest)
+endif
+
+endif # NOM_WITH_TESTCASES
+
+include $(PATH_KBUILD)/subfooter.kmk
+
+

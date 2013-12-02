@@ -1,0 +1,71 @@
+# $Id: $
+## @file
+# Makefile for the boehm garbage collector.
+#
+
+DEPTH ?= ..
+SUB_DEPTH = ..
+include $(PATH_KBUILD)/subheader.kmk
+
+#
+# The libnomgc dll. (static lib isn't working for windows)
+#
+DLLS += libnomgc
+libnomgc_TEMPLATE = basedll
+libnomgc_DEFS = ALL_INTERIOR_POINTERS SILENT GC_BUILD
+libnomgc_DEFS.win = GC_WIN32_THREADS WIN32 _WINDOWS # GC_DLL is defined in the template.
+libnomgc_LDFLAGS.darwin = -install_name @executable_path/../lib/libnomgc.dylib
+libnomgc_SOURCES = \
+	allchblk.c \
+	alloc.c \
+	blacklst.c \
+	checksums.c \
+	dyn_load.c \
+	finalize.c \
+	headers.c \
+	mach_dep.c \
+	malloc.c \
+	mallocx.c \
+	mark.c \
+	mark_rts.c \
+	misc.c \
+	new_hblk.c \
+	obj_map.c \
+	os_dep.c \
+	ptr_chck.c \
+	reclaim.c \
+	stubborn.c \
+	typd_mlc.c
+libnomgc_SOURCES.win = \
+	dbg_mlc.c \
+	gc_cpp.cc \
+	win32_threads.c
+## @todo linux barfs with this setup, run configure and check what's different.
+#ifn1of ($(BUILD_TARGET),win os2)
+# libnomgc_DEFS += GC_PTHREADS
+# libnomgc_SOURCES += \
+#	pthread_support.c \
+#	pthread_stop_world.c
+#endif
+
+ifdef NOM_WITH_TESTCASES
+ #
+ # The testcases.
+ #
+ PROGRAMS += gctest
+ gctest_TEMPLATE = basetst
+ gctest_SOURCES = tests/test.c
+ ifeq ($(BUILD_TARGET),win)
+  gctest_LIBS = $(PATH_LIB)/libnomgc.lib
+ else
+  gctest_LIBS = $(TARGET_libnomgc)
+ endif
+
+ PROGRAMS += gctestcpp
+ gctestcpp_TEMPLATE = basetst
+ gctestcpp_SOURCES = tests/test_cpp.cc
+ gctestcpp_LIBS = $(gctest_LIBS)
+endif # NOM_WITH_TESTCASES
+
+include $(PATH_KBUILD)/subfooter.kmk
+

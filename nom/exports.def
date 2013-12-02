@@ -1,0 +1,86 @@
+PROTMODE
+CODE PRELOAD DISCARDABLE
+DATA SHARED LOADONCALL
+
+EXPORTS  
+	nomTkInit
+        nomTkUnInit
+
+	NOMMalloc
+	NOMCalloc
+	NOMFree		
+
+	nomIsObj               
+
+	nomInitGarbageCollection
+	nomRegisterDataAreaForGC
+	nomBeginRegisterDLLWithGC
+	nomEndRegisterDLLWithGC
+	nomRegisterDLLByName
+	nomQueryUsingNameIsDLLRegistered
+;        nomPrintObjectPointerErrorMsg
+	nomCheckNOMObjectPtr
+	nomCheckObjectPtr
+	nomCreateEnvNoObjectCheck
+
+	nomPrintf		
+
+	nomStringFromId	
+	nomIdFromString	
+
+;	somDataResolve	@11
+;
+;	somParentNumResolve   
+;        _NOMClassMgrObject     
+
+        nomEnvironmentNew
+	nomEnvironmentEnd
+
+	nomBuildClass		
+
+	_NOMObjectClassData    
+	_NOMObjectCClassData  
+	NOMObjectNewClass     
+
+	_NOMClassClassData    
+	_NOMClassCClassData   
+	NOMClassNewClass      
+
+	_NOMClassMgrClassData    
+	_NOMClassMgrCClassData   
+	NOMClassMgrNewClass      
+
+	_NOMArrayClassData    
+	_NOMArrayCClassData  
+	NOMArrayNewClass 
+
+	_NOMStringClassData    
+	_NOMStringCClassData  
+	NOMStringNewClass 
+
+	_NOMTestCaseClassData      
+	_NOMTestCaseCClassData     
+	NOMTestCaseNewClass       
+
+	_NOMTestResultClassData      
+	_NOMTestResultCClassData     
+	NOMTestResultNewClass       
+
+	_NOMMethodClassData    
+	_NOMMethodCClassData  
+	NOMMethodNewClass 
+
+;	_NOMTest2ClassData      
+;	_NOMTest2CClassData     
+;	NOMTest2NewClass       
+
+        dumpClasses
+
+        ;_dumpMtab
+
+;_dumpParentMTab @100
+;_dumpObj            @101
+;_dumpMTabListPrivClass @102
+;_dumpObjShort      @103
+
+;IMPORTS

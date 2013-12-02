@@ -1,0 +1,235 @@
+<bibliography>
+	<title>References</title>
+	
+	<bibliodiv>
+		
+		<title>Books</title>
+		
+		<biblioentry>
+			
+			<abbrev>Kogan92</abbrev>
+			<authorgroup>
+				
+				<author>
+					<personname>
+						<firstname>Mike</firstname>
+						<surname>Kogan</surname>
+					</personname>
+				</author>
+				
+				<author>
+					<personname>
+						<firstname>Harvey M.</firstname>
+						<surname>Deitel</surname>
+					</personname>
+				</author>
+				
+			</authorgroup>
+			
+			<copyright>
+				<year>1992</year>
+			</copyright>
+			<biblioid class="isbn">0201548895</biblioid>
+			<publisher>
+				<publishername>Addison-Wesley</publishername>
+			</publisher>
+			<title>The Design of OS/2</title>
+			
+		</biblioentry>
+		<biblioentry>
+			
+			<abbrev>SG24-4630</abbrev>
+			<authorgroup>
+				
+				<author>
+					<personname>
+						<firstname>Joachim</firstname>
+						<surname>Birke</surname>
+					</personname>
+				</author>
+				
+				<author>
+					<personname>
+						<firstname>Rudi</firstname>
+						<surname>van Emmenes</surname>
+					</personname>
+				</author>
+				
+				<author>
+					<personname>
+						<firstname>Juliandri</firstname>
+						<surname>Jenie</surname>
+					</personname>
+				</author>
+				
+				<author>
+					<personname>
+						<firstname>Scott</firstname>
+						<surname>Rigby</surname>
+					</personname>
+				</author>
+				
+				<author>
+					<personname>
+						<firstname>Terje</firstname>
+						<surname>Storstein</surname>
+					</personname>
+				</author>
+				
+			</authorgroup>
+			
+			<copyright>
+				<year>1995</year>
+			</copyright>
+			<biblioid class="other">SG24-4630</biblioid>
+			<publisher>
+				<publishername>IBM Corporation, International Technical Support
+					Organization</publishername>
+			</publisher>
+			<title>OS/2 Warp (PowerPC Edition) A First Look</title>
+			
+		</biblioentry>
+		
+		<biblioentry>
+			
+			<abbrev>SG24-4639</abbrev>
+			<authorgroup>
+				
+				<author>
+					<personname>
+						<firstname>Mike</firstname>
+						<surname>Kogan</surname>
+					</personname>
+				</author>
+				
+				<author>
+					<personname>
+						<firstname>Harvey M.</firstname>
+						<surname>Deitel</surname>
+					</personname>
+				</author>
+				
+			</authorgroup>
+			
+			<copyright>
+				<year>1995</year>
+			</copyright>
+			<biblioid class="other">SG24-4639</biblioid>
+			<publisher>
+				<publishername>IBM Corporation, International Technical Support
+					Organization</publishername>
+			</publisher>
+			<title>OS/2 Warp (PowerPC Edition) Graphical Subsystem</title>
+			
+		</biblioentry>
+		
+		<biblioentry>
+			
+			<abbrev>Forman99</abbrev>
+			<authorgroup>
+				
+				<author>
+					<personname>
+						<firstname>Ira R.</firstname>
+						<surname>Forman</surname>
+					</personname>
+				</author>
+				
+				<author>
+					<personname>
+						<firstname>Scott H.</firstname>
+						<surname>Danforth</surname>
+					</personname>
+				</author>
+				
+			</authorgroup>
+			
+			<copyright>
+				<year>1999</year>
+			</copyright>
+			<biblioid class="isbn">111111</biblioid>
+			<publisher>
+				<publishername>Addison-Wesley</publishername>
+			</publisher>
+			<title>Putting Metaclasses to Work</title>
+			
+		</biblioentry>
+		
+	</bibliodiv>
+	<bibliodiv>
+		<title>Papers</title>
+		
+		<biblioentry>
+			<abbrev>Forman94</abbrev>
+			<biblioset relation='journal'>
+				<title>OOPSLA 94</title>
+				<publisher>
+					<publishername>ACM</publishername>
+				</publisher>
+				<issn>1111</issn>
+			</biblioset>
+			<biblioset relation='article'>
+				<title>Release-to-Release Binary Compatibility in SOM</title>
+				<author>
+					<surname>Forman</surname>
+					<firstname>Ira R.</firstname>
+				</author>
+				<author>
+					<surname>Conner</surname>
+					<firstname>Michael H.</firstname>
+				</author>
+				<author>
+					<surname>Danforth</surname>
+					<firstname>Scott</firstname>
+				</author>
+				<author>
+					<surname>Raper</surname>
+					<firstname>Larry K.</firstname>
+				</author>
+				
+				<copyright>
+					<year>1994</year>
+					<holder>ACM</holder>
+				</copyright>
+				<pagenums>1-10</pagenums>
+			</biblioset>
+		</biblioentry>
+		
+		<biblioentry>
+			<abbrev>Forman94</abbrev>
+			<biblioset relation='journal'>
+				<title>OOPSLA `94 Conference Proceedings</title>
+				<publisher>
+					<publishername>ACM</publishername>
+				</publisher>
+			</biblioset>
+			<biblioset relation='article'>
+				<title>Release-to-Release Binary Compatibility in SOM</title>
+				<author>
+					<surname>Forman</surname>
+					<firstname>Ira R.</firstname>
+				</author>
+				<author>
+					<surname>Conner</surname>
+					<firstname>Michael H.</firstname>
+				</author>
+				<author>
+					<surname>Danforth</surname>
+					<firstname>Scott</firstname>
+				</author>
+				<author>
+					<surname>Raper</surname>
+					<firstname>Larry K.</firstname>
+				</author>
+				
+				<copyright>
+					<year>1994</year>
+					<holder>ACM</holder>
+				</copyright>
+				<pagenums>1-10</pagenums>
+			</biblioset>
+		</biblioentry>
+
+	</bibliodiv>
+	
+</bibliography>

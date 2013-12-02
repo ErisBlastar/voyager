@@ -1,0 +1,1217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>orbit2-small</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.68.1">
+<link rel="start" href="index.html" title="ORBit2 Reference Manual">
+<link rel="up" href="general.html" title="API">
+<link rel="prev" href="ORBit2-orbit2-allocators.html" title="Allocators">
+<meta name="generator" content="GTK-Doc V1.4 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="general.html" title="API">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ORBit2-orbit2-allocators.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="general.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">ORBit2 Reference Manual</th>
+<td>&#160;</td>
+</tr>
+<tr><td colspan="5" class="shortcuts"><nobr><a href="#top_of_page" class="shortcut">Top</a>
+                  &#160;|&#160;
+                  <a href="#desc" class="shortcut">Description</a></nobr></td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="ORBit2-orbit2-small"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="top_of_page"></a>orbit2-small</span></h2>
+<p>orbit2-small &#8212; </p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+
+
+
+            <a href="ORBit2-orbit2-small.html#ORBit-IModule">ORBit_IModule</a>;
+const char* <a href="ORBit2-orbit2-small.html#ORBit-get-safe-tmp">ORBit_get_safe_tmp</a>              (void);
+gpointer    <a href="ORBit2-orbit2-small.html#ORBit-small-alloc">ORBit_small_alloc</a>               (CORBA_TypeCode tc);
+gpointer    <a href="ORBit2-orbit2-small.html#ORBit-small-allocbuf">ORBit_small_allocbuf</a>            (CORBA_TypeCode tc,
+                                             CORBA_unsigned_long length);
+void        <a href="ORBit2-orbit2-small.html#ORBit-small-freekids">ORBit_small_freekids</a>            (CORBA_TypeCode tc,
+                                             gpointer p,
+                                             gpointer d);
+gpointer    <a href="ORBit2-orbit2-small.html#ORBit-sequence-alloc">ORBit_sequence_alloc</a>            (CORBA_TypeCode sequence_tc,
+                                             CORBA_unsigned_long length);
+void        <a href="ORBit2-orbit2-small.html#ORBit-sequence-append">ORBit_sequence_append</a>           (gpointer sequence,
+                                             gconstpointer element);
+void        <a href="ORBit2-orbit2-small.html#ORBit-sequence-set-size">ORBit_sequence_set_size</a>         (gpointer sequence,
+                                             CORBA_unsigned_long length);
+#define     <a href="ORBit2-orbit2-small.html#ORBit-sequence-index">ORBit_sequence_index</a>            (sequence,idx)
+void        <a href="ORBit2-orbit2-small.html#ORBit-sequence-concat">ORBit_sequence_concat</a>           (gpointer sequence,
+                                             gconstpointer append);
+enum        <a href="ORBit2-orbit2-small.html#ORBitConnectionStatus">ORBitConnectionStatus</a>;
+gpointer    <a href="ORBit2-orbit2-small.html#ORBit-small-get-servant">ORBit_small_get_servant</a>         (CORBA_Object obj);
+<a href="ORBit2-orbit2-small.html#ORBitConnectionStatus">ORBitConnectionStatus</a> <a href="ORBit2-orbit2-small.html#ORBit-small-get-connection-status">ORBit_small_get_connection_status</a>
+                                            (CORBA_Object obj);
+<a href="ORBit2-orbit2-small.html#ORBitConnectionStatus">ORBitConnectionStatus</a> <a href="ORBit2-orbit2-small.html#ORBit-small-listen-for-broken">ORBit_small_listen_for_broken</a>
+                                            (CORBA_Object obj,
+                                             GCallback fn,
+                                             gpointer user_data);
+<a href="ORBit2-orbit2-small.html#ORBitConnectionStatus">ORBitConnectionStatus</a> <a href="ORBit2-orbit2-small.html#ORBit-small-unlisten-for-broken-full">ORBit_small_unlisten_for_broken_full</a>
+                                            (CORBA_Object obj,
+                                             GCallback fn,
+                                             gpointer user_data);
+<a href="ORBit2-orbit2-small.html#ORBitConnectionStatus">ORBitConnectionStatus</a> <a href="ORBit2-orbit2-small.html#ORBit-small-unlisten-for-broken">ORBit_small_unlisten_for_broken</a>
+                                            (CORBA_Object obj,
+                                             GCallback fn);
+            <a href="ORBit2-orbit2-small.html#ORBitConnection">ORBitConnection</a>;
+<a href="ORBit2-orbit2-small.html#ORBitConnection">ORBitConnection</a>* <a href="ORBit2-orbit2-small.html#ORBit-small-get-connection">ORBit_small_get_connection</a> (CORBA_Object obj);
+<a href="ORBit2-orbit2-small.html#ORBitConnection">ORBitConnection</a>* <a href="ORBit2-orbit2-small.html#ORBit-small-get-connection-ref">ORBit_small_get_connection_ref</a>
+                                            (CORBA_Object obj);
+void        <a href="ORBit2-orbit2-small.html#ORBit-small-connection-unref">ORBit_small_connection_unref</a>    (<a href="ORBit2-orbit2-small.html#ORBitConnection">ORBitConnection</a> *cnx);
+void        <a href="ORBit2-orbit2-small.html#ORBit-connection-set-max-buffer">ORBit_connection_set_max_buffer</a> (<a href="ORBit2-orbit2-small.html#ORBitConnection">ORBitConnection</a> *cnx,
+                                             gulong max_buffer_bytes);
+ORBit_IInterface* <a href="ORBit2-orbit2-small.html#ORBit-small-get-iinterface">ORBit_small_get_iinterface</a>
+                                            (CORBA_Object opt_object,
+                                             const CORBA_char *repo_id,
+                                             CORBA_Environment *ev);
+extern      int     <a href="ORBit2-orbit2-small.html#ORBit-small-flags">ORBit_small_flags</a>;
+CORBA_sequence_ORBit_IInterface* <a href="ORBit2-orbit2-small.html#ORBit-small-get-iinterfaces">ORBit_small_get_iinterfaces</a>
+                                            (const char *name);
+            <a href="ORBit2-orbit2-small.html#ORBitAsyncQueueEntry">ORBitAsyncQueueEntry</a>;
+void        <a href="ORBit2-orbit2-small.html#ORBit-small-invoke-stub-n">ORBit_small_invoke_stub_n</a>       (CORBA_Object object,
+                                             ORBit_IMethods *methods,
+                                             glong index,
+                                             gpointer ret,
+                                             gpointer *args,
+                                             CORBA_Context ctx,
+                                             CORBA_Environment *ev);
+CORBA_char* <a href="ORBit2-orbit2-small.html#ORBit-small-get-type-id">ORBit_small_get_type_id</a>         (CORBA_Object object,
+                                             CORBA_Environment *ev);
+void        (<a href="ORBit2-orbit2-small.html#ORBitAsyncInvokeFunc">*ORBitAsyncInvokeFunc</a>)         (CORBA_Object object,
+                                             ORBit_IMethod *m_data,
+                                             <a href="ORBit2-orbit2-small.html#ORBitAsyncQueueEntry">ORBitAsyncQueueEntry</a> *aqe,
+                                             gpointer user_data,
+                                             CORBA_Environment *ev);
+void        <a href="ORBit2-orbit2-small.html#ORBit-small-demarshal-async">ORBit_small_demarshal_async</a>     (<a href="ORBit2-orbit2-small.html#ORBitAsyncQueueEntry">ORBitAsyncQueueEntry</a> *aqe,
+                                             gpointer ret,
+                                             gpointer *args,
+                                             CORBA_Environment *ev);
+void        <a href="ORBit2-orbit2-small.html#ORBit-small-invoke-stub">ORBit_small_invoke_stub</a>         (CORBA_Object object,
+                                             ORBit_IMethod *m_data,
+                                             gpointer ret,
+                                             gpointer *args,
+                                             CORBA_Context ctx,
+                                             CORBA_Environment *ev);
+void        <a href="ORBit2-orbit2-small.html#ORBit-small-invoke-async">ORBit_small_invoke_async</a>        (CORBA_Object obj,
+                                             ORBit_IMethod *m_data,
+                                             <a href="ORBit2-orbit2-small.html#ORBitAsyncInvokeFunc">ORBitAsyncInvokeFunc</a> fn,
+                                             gpointer user_data,
+                                             gpointer *args,
+                                             CORBA_Context ctx,
+                                             CORBA_Environment *ev);
+#define     <a href="ORBit2-orbit2-small.html#ORBIT-SMALL-FAST-LOCALS:CAPS">ORBIT_SMALL_FAST_LOCALS</a>
+#define     <a href="ORBit2-orbit2-small.html#ORBIT-SMALL-FORCE-GENERIC-MARSHAL:CAPS">ORBIT_SMALL_FORCE_GENERIC_MARSHAL</a>
+CORBA_sequence_CORBA_TypeCode* <a href="ORBit2-orbit2-small.html#ORBit-small-get-types">ORBit_small_get_types</a>
+                                            (const char *name);
+gboolean    <a href="ORBit2-orbit2-small.html#ORBit-small-load-typelib">ORBit_small_load_typelib</a>        (const char *libname);
+
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="desc"></a><h2>Description</h2>
+<p>
+
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="id284875"></a><h3>
+<a name="ORBit-IModule"></a>ORBit_IModule</h3>
+<a class="indexterm" name="id284886"></a><pre class="programlisting">typedef struct {
+	CORBA_unsigned_long           version;
+	ORBit_IInterface            **interfaces;
+	CORBA_sequence_CORBA_TypeCode types;
+} ORBit_IModule;
+</pre>
+<p>
+
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id284902"></a><h3>
+<a name="ORBit-get-safe-tmp"></a>ORBit_get_safe_tmp ()</h3>
+<a class="indexterm" name="id284914"></a><pre class="programlisting">const char* ORBit_get_safe_tmp              (void);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id284951"></a><h3>
+<a name="ORBit-small-alloc"></a>ORBit_small_alloc ()</h3>
+<a class="indexterm" name="id284963"></a><pre class="programlisting">gpointer    ORBit_small_alloc               (CORBA_TypeCode tc);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>tc</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id285018"></a><h3>
+<a name="ORBit-small-allocbuf"></a>ORBit_small_allocbuf ()</h3>
+<a class="indexterm" name="id285030"></a><pre class="programlisting">gpointer    ORBit_small_allocbuf            (CORBA_TypeCode tc,
+                                             CORBA_unsigned_long length);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>tc</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>length</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id285106"></a><h3>
+<a name="ORBit-small-freekids"></a>ORBit_small_freekids ()</h3>
+<a class="indexterm" name="id285118"></a><pre class="programlisting">void        ORBit_small_freekids            (CORBA_TypeCode tc,
+                                             gpointer p,
+                                             gpointer d);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>tc</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>p</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>d</code></em>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id285203"></a><h3>
+<a name="ORBit-sequence-alloc"></a>ORBit_sequence_alloc ()</h3>
+<a class="indexterm" name="id285215"></a><pre class="programlisting">gpointer    ORBit_sequence_alloc            (CORBA_TypeCode sequence_tc,
+                                             CORBA_unsigned_long length);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>sequence_tc</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>length</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id285292"></a><h3>
+<a name="ORBit-sequence-append"></a>ORBit_sequence_append ()</h3>
+<a class="indexterm" name="id285304"></a><pre class="programlisting">void        ORBit_sequence_append           (gpointer sequence,
+                                             gconstpointer element);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>sequence</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>element</code></em>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id285370"></a><h3>
+<a name="ORBit-sequence-set-size"></a>ORBit_sequence_set_size ()</h3>
+<a class="indexterm" name="id285382"></a><pre class="programlisting">void        ORBit_sequence_set_size         (gpointer sequence,
+                                             CORBA_unsigned_long length);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>sequence</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>length</code></em>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id285448"></a><h3>
+<a name="ORBit-sequence-index"></a>ORBit_sequence_index()</h3>
+<a class="indexterm" name="id285460"></a><pre class="programlisting">#define        ORBit_sequence_index(sequence,idx) (sequence)-&gt;_buffer[(idx)]
+</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>sequence</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>idx</code></em>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id285507"></a><h3>
+<a name="ORBit-sequence-concat"></a>ORBit_sequence_concat ()</h3>
+<a class="indexterm" name="id285519"></a><pre class="programlisting">void        ORBit_sequence_concat           (gpointer sequence,
+                                             gconstpointer append);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>sequence</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>append</code></em>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id285585"></a><h3>
+<a name="ORBitConnectionStatus"></a>enum ORBitConnectionStatus</h3>
+<a class="indexterm" name="id285597"></a><pre class="programlisting">typedef enum {
+	ORBIT_CONNECTION_CONNECTED,
+	ORBIT_CONNECTION_CONNECTING,
+	ORBIT_CONNECTION_DISCONNECTED,
+	ORBIT_CONNECTION_IN_PROC
+} ORBitConnectionStatus;
+</pre>
+<p>
+
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id285613"></a><h3>
+<a name="ORBit-small-get-servant"></a>ORBit_small_get_servant ()</h3>
+<a class="indexterm" name="id285625"></a><pre class="programlisting">gpointer    ORBit_small_get_servant         (CORBA_Object obj);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>obj</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id285680"></a><h3>
+<a name="ORBit-small-get-connection-status"></a>ORBit_small_get_connection_status ()</h3>
+<a class="indexterm" name="id285693"></a><pre class="programlisting"><a href="ORBit2-orbit2-small.html#ORBitConnectionStatus">ORBitConnectionStatus</a> ORBit_small_get_connection_status
+                                            (CORBA_Object obj);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>obj</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id285748"></a><h3>
+<a name="ORBit-small-listen-for-broken"></a>ORBit_small_listen_for_broken ()</h3>
+<a class="indexterm" name="id285761"></a><pre class="programlisting"><a href="ORBit2-orbit2-small.html#ORBitConnectionStatus">ORBitConnectionStatus</a> ORBit_small_listen_for_broken
+                                            (CORBA_Object obj,
+                                             GCallback fn,
+                                             gpointer user_data);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>obj</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>fn</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>user_data</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id285858"></a><h3>
+<a name="ORBit-small-unlisten-for-broken-full"></a>ORBit_small_unlisten_for_broken_full ()</h3>
+<a class="indexterm" name="id285870"></a><pre class="programlisting"><a href="ORBit2-orbit2-small.html#ORBitConnectionStatus">ORBitConnectionStatus</a> ORBit_small_unlisten_for_broken_full
+                                            (CORBA_Object obj,
+                                             GCallback fn,
+                                             gpointer user_data);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>obj</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>fn</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>user_data</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id285967"></a><h3>
+<a name="ORBit-small-unlisten-for-broken"></a>ORBit_small_unlisten_for_broken ()</h3>
+<a class="indexterm" name="id285980"></a><pre class="programlisting"><a href="ORBit2-orbit2-small.html#ORBitConnectionStatus">ORBitConnectionStatus</a> ORBit_small_unlisten_for_broken
+                                            (CORBA_Object obj,
+                                             GCallback fn);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>obj</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>fn</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id286056"></a><h3>
+<a name="ORBitConnection"></a>ORBitConnection</h3>
+<a class="indexterm" name="id286068"></a><pre class="programlisting">typedef struct _ORBitConnection ORBitConnection;</pre>
+<p>
+
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id286082"></a><h3>
+<a name="ORBit-small-get-connection"></a>ORBit_small_get_connection ()</h3>
+<a class="indexterm" name="id286095"></a><pre class="programlisting"><a href="ORBit2-orbit2-small.html#ORBitConnection">ORBitConnection</a>* ORBit_small_get_connection (CORBA_Object obj);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>obj</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id286150"></a><h3>
+<a name="ORBit-small-get-connection-ref"></a>ORBit_small_get_connection_ref ()</h3>
+<a class="indexterm" name="id286162"></a><pre class="programlisting"><a href="ORBit2-orbit2-small.html#ORBitConnection">ORBitConnection</a>* ORBit_small_get_connection_ref
+                                            (CORBA_Object obj);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>obj</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id286218"></a><h3>
+<a name="ORBit-small-connection-unref"></a>ORBit_small_connection_unref ()</h3>
+<a class="indexterm" name="id286230"></a><pre class="programlisting">void        ORBit_small_connection_unref    (<a href="ORBit2-orbit2-small.html#ORBitConnection">ORBitConnection</a> *cnx);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td>
+<span class="term"><em class="parameter"><code>cnx</code></em>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id286276"></a><h3>
+<a name="ORBit-connection-set-max-buffer"></a>ORBit_connection_set_max_buffer ()</h3>
+<a class="indexterm" name="id286288"></a><pre class="programlisting">void        ORBit_connection_set_max_buffer (<a href="ORBit2-orbit2-small.html#ORBitConnection">ORBitConnection</a> *cnx,
+                                             gulong max_buffer_bytes);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>cnx</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>max_buffer_bytes</code></em>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id286354"></a><h3>
+<a name="ORBit-small-get-iinterface"></a>ORBit_small_get_iinterface ()</h3>
+<a class="indexterm" name="id286366"></a><pre class="programlisting">ORBit_IInterface* ORBit_small_get_iinterface
+                                            (CORBA_Object opt_object,
+                                             const CORBA_char *repo_id,
+                                             CORBA_Environment *ev);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>opt_object</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>repo_id</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>ev</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id286464"></a><h3>
+<a name="ORBit-small-flags"></a>ORBit_small_flags</h3>
+<a class="indexterm" name="id286476"></a><pre class="programlisting">extern int     ORBit_small_flags;
+</pre>
+<p>
+
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id286490"></a><h3>
+<a name="ORBit-small-get-iinterfaces"></a>ORBit_small_get_iinterfaces ()</h3>
+<a class="indexterm" name="id286503"></a><pre class="programlisting">CORBA_sequence_ORBit_IInterface* ORBit_small_get_iinterfaces
+                                            (const char *name);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>name</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id286560"></a><h3>
+<a name="ORBitAsyncQueueEntry"></a>ORBitAsyncQueueEntry</h3>
+<a class="indexterm" name="id286572"></a><pre class="programlisting">typedef struct _ORBitAsyncQueueEntry ORBitAsyncQueueEntry;</pre>
+<p>
+
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id286587"></a><h3>
+<a name="ORBit-small-invoke-stub-n"></a>ORBit_small_invoke_stub_n ()</h3>
+<a class="indexterm" name="id286600"></a><pre class="programlisting">void        ORBit_small_invoke_stub_n       (CORBA_Object object,
+                                             ORBit_IMethods *methods,
+                                             glong index,
+                                             gpointer ret,
+                                             gpointer *args,
+                                             CORBA_Context ctx,
+                                             CORBA_Environment *ev);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>object</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>methods</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>index</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>ret</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>args</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>ctx</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>ev</code></em>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id286769"></a><h3>
+<a name="ORBit-small-get-type-id"></a>ORBit_small_get_type_id ()</h3>
+<a class="indexterm" name="id286781"></a><pre class="programlisting">CORBA_char* ORBit_small_get_type_id         (CORBA_Object object,
+                                             CORBA_Environment *ev);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>object</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>ev</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id286857"></a><h3>
+<a name="ORBitAsyncInvokeFunc"></a>ORBitAsyncInvokeFunc ()</h3>
+<a class="indexterm" name="id286869"></a><pre class="programlisting">void        (*ORBitAsyncInvokeFunc)         (CORBA_Object object,
+                                             ORBit_IMethod *m_data,
+                                             <a href="ORBit2-orbit2-small.html#ORBitAsyncQueueEntry">ORBitAsyncQueueEntry</a> *aqe,
+                                             gpointer user_data,
+                                             CORBA_Environment *ev);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>object</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>m_data</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>aqe</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>user_data</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>ev</code></em>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id286996"></a><h3>
+<a name="ORBit-small-demarshal-async"></a>ORBit_small_demarshal_async ()</h3>
+<a class="indexterm" name="id287009"></a><pre class="programlisting">void        ORBit_small_demarshal_async     (<a href="ORBit2-orbit2-small.html#ORBitAsyncQueueEntry">ORBitAsyncQueueEntry</a> *aqe,
+                                             gpointer ret,
+                                             gpointer *args,
+                                             CORBA_Environment *ev);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>aqe</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>ret</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>args</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>ev</code></em>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id287115"></a><h3>
+<a name="ORBit-small-invoke-stub"></a>ORBit_small_invoke_stub ()</h3>
+<a class="indexterm" name="id287128"></a><pre class="programlisting">void        ORBit_small_invoke_stub         (CORBA_Object object,
+                                             ORBit_IMethod *m_data,
+                                             gpointer ret,
+                                             gpointer *args,
+                                             CORBA_Context ctx,
+                                             CORBA_Environment *ev);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>object</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>m_data</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>ret</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>args</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>ctx</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>ev</code></em>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id287276"></a><h3>
+<a name="ORBit-small-invoke-async"></a>ORBit_small_invoke_async ()</h3>
+<a class="indexterm" name="id287288"></a><pre class="programlisting">void        ORBit_small_invoke_async        (CORBA_Object obj,
+                                             ORBit_IMethod *m_data,
+                                             <a href="ORBit2-orbit2-small.html#ORBitAsyncInvokeFunc">ORBitAsyncInvokeFunc</a> fn,
+                                             gpointer user_data,
+                                             gpointer *args,
+                                             CORBA_Context ctx,
+                                             CORBA_Environment *ev);</pre>
+<p>
+This method is used to invoke a remote (or local) method
+asynchronously. <em class="parameter"><code>fn</code></em> is called back on return - either with an empty
+CORBA_Environment indicating success, or with the error.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>obj</code></em>&#160;:</span></td>
+<td> 
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>m_data</code></em>&#160;:</span></td>
+<td> 
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>fn</code></em>&#160;:</span></td>
+<td> 
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>user_data</code></em>&#160;:</span></td>
+<td> 
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>args</code></em>&#160;:</span></td>
+<td> 
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>ctx</code></em>&#160;:</span></td>
+<td> 
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>ev</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id287467"></a><h3>
+<a name="ORBIT-SMALL-FAST-LOCALS:CAPS"></a>ORBIT_SMALL_FAST_LOCALS</h3>
+<a class="indexterm" name="id287480"></a><pre class="programlisting">#define ORBIT_SMALL_FAST_LOCALS           1
+</pre>
+<p>
+
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id287495"></a><h3>
+<a name="ORBIT-SMALL-FORCE-GENERIC-MARSHAL:CAPS"></a>ORBIT_SMALL_FORCE_GENERIC_MARSHAL</h3>
+<a class="indexterm" name="id287508"></a><pre class="programlisting">#define ORBIT_SMALL_FORCE_GENERIC_MARSHAL 2
+</pre>
+<p>
+
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id287523"></a><h3>
+<a name="ORBit-small-get-types"></a>ORBit_small_get_types ()</h3>
+<a class="indexterm" name="id287535"></a><pre class="programlisting">CORBA_sequence_CORBA_TypeCode* ORBit_small_get_types
+                                            (const char *name);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>name</code></em>&#160;:</span></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id287591"></a><h3>
+<a name="ORBit-small-load-typelib"></a>ORBit_small_load_typelib ()</h3>
+<a class="indexterm" name="id287603"></a><pre class="programlisting">gboolean    ORBit_small_load_typelib        (const char *libname);</pre>
+<p>
+This method has security issues if you do not use
+an absolute path in <em class="parameter"><code>libname</code></em>. The environment variables
+ORBIT_TYPELIB_PATH and GNOME2_PATH are used to scan for
+type libraries.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td>
+<span class="term"><em class="parameter"><code>libname</code></em>&#160;:</span></td>
+<td> the name of the type library to load
+</td>
+</tr>
+<tr>
+<td>
+<span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td> FALSE if load failed.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</body>
+</html>

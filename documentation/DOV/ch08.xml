@@ -1,0 +1,79 @@
+<?xml version='1.0'?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3b2/docbookx.dtd">
+<chapter>
+
+  <title>OS/2 and eComStation Backward Compatibility</title>
+
+  <para>Support for legacy applications.</para>
+
+  <section>
+
+    <title>Motivation</title>
+
+    <para>Pro/cons etc.</para>
+
+  </section>
+
+  <section>
+
+    <title>Options</title>
+
+    <para>Discussion of the various options.</para>
+
+    <section>
+
+      <title>Virtual Machines</title>
+
+      <para>qemu, XEN...</para>
+
+    </section>
+
+    <section>
+
+      <title>OS/2 API Layer</title>
+
+      <para>GRADD on OpenGL, OS/2 API personality on POSIX.</para>
+
+    </section>
+
+  </section>
+
+  <section>
+
+    <title>Coding for eComStation and Voyager</title>
+
+    <para>How can we write current applications in a more or less 
+    portable way. Talk about Cairo, GTK+, SDL...</para>
+
+    <section>
+
+      <title>kLIBC</title>
+
+      <para>What is kLIBC, maybe a short quickstart guide etc. Should 
+      be done by Paul, Yuri, Bart or another porter and be reviewed by 
+      Knut.</para>
+
+    </section>
+
+    <section>
+
+      <title>Everblue</title>
+
+      <para>Explain what Everblue is and how it is used for Voyager 
+      development. Ask Sebastian Wittmeier to contribute/do it.</para>
+
+    </section>
+
+    <section>
+
+      <title>Example: eComStation Development</title>
+
+      <para>Explain how we focus on Unix based applications/backends 
+      with WPS integration.</para>
+
+    </section>
+
+  </section>
+
+</chapter>
+

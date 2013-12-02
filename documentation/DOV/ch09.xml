@@ -1,0 +1,69 @@
+<?xml version='1.0'?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3b2/docbookx.dtd">
+<chapter>
+
+  <title>Voyager Toolkit</title>
+
+  <para>Header with data types for OS/2, information about glib, OS 
+  abstractions etc. Should be done as well by the current coders 
+  (Chris, Peter, Sebastian, Knut...).</para>
+
+  <section>
+
+    <title>Documentation</title>
+
+    <para>An essential part for a project like Voyager is its 
+    documentation. Add more blabla.</para>
+
+  </section>
+
+  <section>
+
+    <title>Programming Guidelines</title>
+
+    <para>Describe the programming guidelines.</para>
+
+  </section>
+
+  <section>
+
+    <title>Sample Code</title>
+
+    <para>Sample code, templates etc. Christian Langanke&apos;s 
+    business :-) This should be a starting point for new developers as 
+    well, like write your first Voyager component in an hour or 
+    something.</para>
+
+  </section>
+
+  <section>
+
+    <title>I18n</title>
+
+    <para>Talk about translating it to other languages. Ask Jan van der 
+    Heide &amp; Jacques Van Leeuwen to do it. Also ask Yuri Proniakin 
+    for a technical part about Unicode/UTF-8/UTF-16/UTF-32.</para>
+
+  </section>
+
+  <section>
+
+    <title>CUA Guidelines</title>
+
+    <para>CUA Guidelines, again ask the (former) IBM-Crew to 
+    contribute.</para>
+
+  </section>
+
+  <section>
+
+    <title>License</title>
+
+    <para>Explain the Voyager license, like what can be done etc with 
+    the sample code. Make sure we do not mix that with the license 
+    stuff in the earlier sections.</para>
+
+  </section>
+
+</chapter>
+

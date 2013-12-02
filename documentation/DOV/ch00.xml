@@ -1,0 +1,79 @@
+<?xml version='1.0'?>
+<!DOCTYPE preface PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3b2/docbookx.dtd">
+<preface>
+
+  <title>Preface</title>
+
+  <simplesect>
+
+    <blockquote>
+
+      <attribution>Achim calling IBM&apos;s Software Support in 
+      2000</attribution>
+
+      <para>OS/2—this is an IBM product, correct?</para>
+
+    </blockquote>
+
+  </simplesect>
+
+  <section>
+
+    <title>Audience</title>
+
+    <para>This book is intended for everyone who loves good software 
+    design—and it is for OS/2 and the users of it.</para>
+
+    <para>One can write a lot about IBM but the design of OS/2 was 
+    definitely good, unlike many other software out there. The team 
+    working on OS/2 implemented some concepts that are still unique in 
+    their way, for example the WPS (Workplace Shell). Designed in the 
+    early 90&apos;s it shows concepts of object orientation that do not 
+    exist like this in any other desktop until today. Projects like 
+    Gnome claimed to use the WPS as a reference but they still 
+    haven&apos;t reached the same degree of object orientation that the 
+    WPS did many years before. The WPS itself was built on top of PM, 
+    the Presentation Manager. While no one would use an API as 
+    complicated as PM for writing user interfaces anymore, it still 
+    provides components that cannot be found in other systems, like 
+    GDI/GPI (Graphic Device Interface/Graphic Programming Interface). 
+    Its matrix-based backend allows one to write complex software like 
+    CAD or DTP applications by design, it does not have to implement 
+    all the mathematical functions on its own.</para>
+
+    <para>So where is the link to good software design? It is mainly 
+    about thinking what one wants to reach before sitting down and 
+    writing it. Our group of programmers and users has years of 
+    experience with both open source and commercial software, in both 
+    using and implementing it, and one of the main complaints is the 
+    lack of quality and documentation in both source code and usage of 
+    the program. Voyager tries to implement many things that can be 
+    found in OS/2 as open source software, parts of them rewritten from 
+    scratch. We have been using and programming for the WPS and its 
+    object-oriented concept for many years, we know the API, we know 
+    the power of it, and we also know the pitfalls. So what we are 
+    going to do should be done right from the beginning—simply because 
+    we know what works and what does not work in this object-oriented 
+    concept.</para>
+
+    <para>If you do not know OS/2 nor its concepts yet, do not worry. 
+    We will explain what the technology is about, why it is done that 
+    way and, even more important, we will give you examples of how to 
+    use it. That is, after all, the main idea of this book.</para>
+
+  </section>
+
+  <section>
+
+    <title>Acknowledgments</title>
+
+    <para>So far credits go out to all the users and especially 
+    developers of OS/2, eComStation, and everything related to them. We 
+    have reached a lot in the past 8 years with netlabs.org and all 
+    related projects and we are looking forward to a fascinating new 
+    chapter of object orientation on the desktop!</para>
+
+  </section>
+
+</preface>
+

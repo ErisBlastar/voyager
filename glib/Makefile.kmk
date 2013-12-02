@@ -1,0 +1,404 @@
+# $Id: $
+## @file
+# Makefile for GLib.
+#
+# This is only intended for simplify the building of NOM
+# on OS/2 and Windows. We omit bits that aren't needed.
+#
+# The 2.16.1 GLib tarball is required. Add
+# GLIB_SRC_PATH=unpack-location to you LocalConfig.kmk file.
+#
+
+DEPTH ?= ..
+include $(PATH_KBUILD)/header.kmk
+
+
+# GLib source path.
+ifndef GLIB_SRC_PATH
+ ifeq ($(firstword $(USERNAME) $(USER)),bird)
+GLIB_SRC_PATH := $(abspath $(patsubst %/glib-2.0.pc.in,%, $(firstword $(wildcard \
+	$(PATH_SUB_CURRENT)/../../../glib/glib-2.16.1/glib-2.0.pc.in \
+	))))
+ endif
+endif
+
+
+#
+# The GLib DLL.
+#
+DLLS += libnomglib
+libnomglib_TEMPLATE = basedll
+libnomglib_CFLAGS.win = -FI$(GLIB_SRC_PATH)/msvc_recommended_pragmas.h
+libnomglib_DEFS = \
+	HAVE_CONFIG_H \
+	GLIB_COMPILATION \
+	G_LOG_DOMAIN=\"GLib\" \
+	G_ENABLE_DEBUG \
+	PCRE_STATIC \
+	\
+	PCRE_STATIC \
+	HAVE_LONG_LONG_FORMAT \
+	SUPPORT_UCP \
+	SUPPORT_UTF8 \
+	NEWLINE=-1 \
+	MATCH_LIMIT=10000000 \
+	MATCH_LIMIT_RECURSION=10000000 \
+	MAX_NAME_SIZE=32 \
+	MAX_NAME_COUNT=10000 \
+	MAX_DUPLENGTH=30000 \
+	LINK_SIZE=2 \
+	EBCDIC=0 \
+	POSIX_MALLOC_THRESHOLD=10 \
+
+libnomglib_INCS = \
+	$(PATH_TARGET) \
+	$(GLIB_SRC_PATH)/glib \
+	$(GLIB_SRC_PATH)/glib/pcre \
+	$(GLIB_SRC_PATH)/
+libnomglib_INCS.win = \
+	$(GLIB_SRC_PATH)/build/win32/dirent
+
+libnomglib_LDFLAGS.darwin = -install_name @executable_path/../lib/libnomglib.dylib
+
+libnomglib_SOURCES = \
+	$(GLIB_SRC_PATH)/glib/gnulib/asnprintf.c \
+	$(GLIB_SRC_PATH)/glib/gnulib/printf.c \
+	$(GLIB_SRC_PATH)/glib/gnulib/printf-args.c \
+	$(GLIB_SRC_PATH)/glib/gnulib/printf-parse.c \
+	$(GLIB_SRC_PATH)/glib/gnulib/vasnprintf.c \
+	\
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_compile.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_chartables.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_config.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_dfa_exec.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_exec.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_fullinfo.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_get.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_globals.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_info.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_maketables.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_newline.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_ord2utf8.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_refcount.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_study.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_tables.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_try_flipped.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_ucp_searchfuncs.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_valid_utf8.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_version.c \
+	$(GLIB_SRC_PATH)/glib/pcre/pcre_xclass.c \
+	\
+	$(GLIB_SRC_PATH)/glib/garray.c \
+	$(GLIB_SRC_PATH)/glib/gasyncqueue.c \
+	$(GLIB_SRC_PATH)/glib/gatomic.c \
+	$(GLIB_SRC_PATH)/glib/gbacktrace.c \
+	$(GLIB_SRC_PATH)/glib/gbase64.c	\
+	$(GLIB_SRC_PATH)/glib/gbookmarkfile.c \
+	$(GLIB_SRC_PATH)/glib/gcache.c \
+	$(GLIB_SRC_PATH)/glib/gchecksum.c \
+	$(GLIB_SRC_PATH)/glib/gcompletion.c \
+	$(GLIB_SRC_PATH)/glib/gconvert.c \
+	$(GLIB_SRC_PATH)/glib/gdataset.c \
+	$(GLIB_SRC_PATH)/glib/gdate.c \
+	$(GLIB_SRC_PATH)/glib/gdir.c \
+	$(GLIB_SRC_PATH)/glib/gerror.c \
+	$(GLIB_SRC_PATH)/glib/gfileutils.c \
+	$(GLIB_SRC_PATH)/glib/ghash.c \
+	$(GLIB_SRC_PATH)/glib/ghook.c \
+	$(GLIB_SRC_PATH)/glib/giochannel.c \
+	$(GLIB_SRC_PATH)/glib/gkeyfile.c \
+	$(GLIB_SRC_PATH)/glib/glist.c \
+	$(GLIB_SRC_PATH)/glib/gmain.c \
+	$(GLIB_SRC_PATH)/glib/gmappedfile.c \
+	$(GLIB_SRC_PATH)/glib/gmarkup.c \
+	$(GLIB_SRC_PATH)/glib/gmem.c \
+	$(GLIB_SRC_PATH)/glib/gmessages.c \
+	$(GLIB_SRC_PATH)/glib/gnode.c \
+	$(GLIB_SRC_PATH)/glib/goption.c \
+	$(GLIB_SRC_PATH)/glib/gpattern.c \
+	$(GLIB_SRC_PATH)/glib/gprimes.c \
+	$(GLIB_SRC_PATH)/glib/gprintf.c \
+	$(GLIB_SRC_PATH)/glib/gqsort.c \
+	$(GLIB_SRC_PATH)/glib/gqueue.c \
+	$(GLIB_SRC_PATH)/glib/grand.c \
+	$(GLIB_SRC_PATH)/glib/gregex.c \
+	$(GLIB_SRC_PATH)/glib/grel.c \
+	$(GLIB_SRC_PATH)/glib/gscanner.c \
+	$(GLIB_SRC_PATH)/glib/gsequence.c \
+	$(GLIB_SRC_PATH)/glib/gshell.c \
+	$(GLIB_SRC_PATH)/glib/gslice.c \
+	$(GLIB_SRC_PATH)/glib/gslist.c \
+	$(GLIB_SRC_PATH)/glib/gstdio.c \
+	$(GLIB_SRC_PATH)/glib/gstrfuncs.c \
+	$(GLIB_SRC_PATH)/glib/gstring.c \
+	$(GLIB_SRC_PATH)/glib/gtestutils.c \
+	$(GLIB_SRC_PATH)/glib/gthread.c \
+	$(GLIB_SRC_PATH)/glib/gthreadpool.c \
+	$(GLIB_SRC_PATH)/glib/gtimer.c \
+	$(GLIB_SRC_PATH)/glib/gtree.c \
+	$(GLIB_SRC_PATH)/glib/gunibreak.c \
+	$(GLIB_SRC_PATH)/glib/gunicollate.c \
+	$(GLIB_SRC_PATH)/glib/gunidecomp.c \
+	$(GLIB_SRC_PATH)/glib/guniprop.c \
+	$(GLIB_SRC_PATH)/glib/gurifuncs.c \
+	$(GLIB_SRC_PATH)/glib/gutf8.c \
+	$(GLIB_SRC_PATH)/glib/gutils.c
+
+libnomglib_SOURCES.darwin = \
+	$(GLIB_SRC_PATH)/glib/libcharset/localcharset.c
+
+libnomglib_SOURCES.win = \
+	$(GLIB_SRC_PATH)/glib/libcharset/localcharset.c \
+	$(GLIB_SRC_PATH)/glib/gwin32.c \
+	$(GLIB_SRC_PATH)/glib/giowin32.c \
+	$(GLIB_SRC_PATH)/glib/gspawn-win32.c \
+	$(GLIB_SRC_PATH)/build/win32/dirent/dirent.c \
+	$(GLIB_SRC_PATH)/build/win32/dirent/wdirent.c \
+	$(PATH_TARGET)/glib-win.def
+
+libnomglib_ORDERDEPS = \
+	$(PATH_TARGET)/config.h \
+	$(PATH_TARGET)/glibconfig.h \
+	$(PATH_TARGET)/pcre_printint.src
+libnomglib_ORDERDEPS.darwin = \
+	$(PATH_TARGET)/libintl.h
+libnomglib_ORDERDEPS.win = \
+	$(PATH_TARGET)/libintl.h
+
+$(GLIB_SRC_PATH)/glib/libcharset/localcharset.c_DEFS += LIBDIR=\"/usr/lib\"
+
+
+#
+# Helper program for win32 spawn.
+#
+PROGRAMS.win += gspawn-win32-helper
+gspawn-win32-helper_TEMPLATE = basebin
+gspawn-win32-helper_INCS = \
+	$(libnomglib_INCS)
+gspawn-win32-helper_DEFS = \
+	$(filter-out G_LOG_DOMAIN%,$(libnomglib_DEFS)) \
+	G_LOG_DOMAIN=\"gspawn-win32-helper\"
+gspawn-win32-helper_SOURCES = \
+	$(GLIB_SRC_PATH)/glib/gspawn-win32-helper.c
+gspawn-win32-helper_LDFLAGS = /subsystem:windows
+gspawn-win32-helper_LIBS = \
+	$(PATH_LIB)/libnomglib.lib
+
+
+#
+# For later...
+#
+libnomgobject_DEFS = \
+	GOBJECT_COMPILATION
+libnomgobject_INCS = \
+	$(libnomglib_INCS) \
+	$(PATH_TARGET)/libnomglib
+libnomgobject_SOURCES = \
+	$(GLIB_SRC_PATH)/gobject/gboxed.c \
+	$(GLIB_SRC_PATH)/gobject/gclosure.c \
+	$(GLIB_SRC_PATH)/gobject/genums.c \
+	$(GLIB_SRC_PATH)/gobject/gobject.c \
+	$(GLIB_SRC_PATH)/gobject/gparam.c \
+	$(GLIB_SRC_PATH)/gobject/gparamspecs.c \
+	$(GLIB_SRC_PATH)/gobject/gsignal.c \
+	$(GLIB_SRC_PATH)/gobject/gsourceclosure.c \
+	$(GLIB_SRC_PATH)/gobject/gtype.c	\
+	$(GLIB_SRC_PATH)/gobject/gtypemodule.c \
+	$(GLIB_SRC_PATH)/gobject/gtypeplugin.c \
+	$(GLIB_SRC_PATH)/gobject/gvalue.c \
+	$(GLIB_SRC_PATH)/gobject/gvaluearray.c \
+	$(GLIB_SRC_PATH)/gobject/gvaluetransform.c \
+	$(GLIB_SRC_PATH)/gobject/gvaluetypes.c \
+
+libnomgthread_SOURCES = \
+	$(GLIB_SRC_PATH)/gthread/gthread-impl.c
+
+libnomgmodule_SOURCES = \
+	$(GLIB_SRC_PATH)/gmodule/gmodule.c
+libnomgmodule_ORDERDEPS = \
+	$(PATH_TARGET)/gmoduleconf.h
+
+
+#
+# GLib header installation.
+#
+INSTALLS += glibinclude
+glibinclude_TEMPLATE = basebin
+glibinclude_INST = include/glib-2.0/
+glibinclude_SOURCES = \
+	$(GLIB_SRC_PATH)/glib/glib.h \
+	$(GLIB_SRC_PATH)/glib/glib-object.h
+
+INSTALLS += glibsubinclude
+glibsubinclude_TEMPLATE = basebin
+glibsubinclude_INST = include/glib-2.0/glib/
+glibsubinclude_SOURCES = \
+	$(GLIB_SRC_PATH)/glib/galloca.h \
+	$(GLIB_SRC_PATH)/glib/garray.h \
+	$(GLIB_SRC_PATH)/glib/gasyncqueue.h \
+	$(GLIB_SRC_PATH)/glib/gatomic.h \
+	$(GLIB_SRC_PATH)/glib/gbacktrace.h \
+	$(GLIB_SRC_PATH)/glib/gbase64.h \
+	$(GLIB_SRC_PATH)/glib/gbookmarkfile.h \
+	$(GLIB_SRC_PATH)/glib/gcache.h \
+	$(GLIB_SRC_PATH)/glib/gchecksum.h \
+	$(GLIB_SRC_PATH)/glib/gcompletion.h \
+	$(GLIB_SRC_PATH)/glib/gconvert.h \
+	$(GLIB_SRC_PATH)/glib/gdataset.h \
+	$(GLIB_SRC_PATH)/glib/gdate.h \
+	$(GLIB_SRC_PATH)/glib/gdir.h \
+	$(GLIB_SRC_PATH)/glib/gerror.h \
+	$(GLIB_SRC_PATH)/glib/gfileutils.h \
+	$(GLIB_SRC_PATH)/glib/ghash.h \
+	$(GLIB_SRC_PATH)/glib/ghook.h \
+	$(GLIB_SRC_PATH)/glib/gi18n.h \
+	$(GLIB_SRC_PATH)/glib/gi18n-lib.h \
+	$(GLIB_SRC_PATH)/glib/giochannel.h \
+	$(GLIB_SRC_PATH)/glib/gkeyfile.h 	\
+	$(GLIB_SRC_PATH)/glib/glist.h \
+	$(GLIB_SRC_PATH)/glib/gmacros.h \
+	$(GLIB_SRC_PATH)/glib/gmain.h \
+	$(GLIB_SRC_PATH)/glib/gmappedfile.h \
+	$(GLIB_SRC_PATH)/glib/gmarkup.h \
+	$(GLIB_SRC_PATH)/glib/gmem.h \
+	$(GLIB_SRC_PATH)/glib/gmessages.h \
+	$(GLIB_SRC_PATH)/glib/gnode.h \
+	$(GLIB_SRC_PATH)/glib/goption.h \
+	$(GLIB_SRC_PATH)/glib/gpattern.h \
+	$(GLIB_SRC_PATH)/glib/gprimes.h \
+	$(GLIB_SRC_PATH)/glib/gqsort.h \
+	$(GLIB_SRC_PATH)/glib/gquark.h \
+	$(GLIB_SRC_PATH)/glib/gqueue.h \
+	$(GLIB_SRC_PATH)/glib/grand.h \
+	$(GLIB_SRC_PATH)/glib/grel.h \
+	$(GLIB_SRC_PATH)/glib/gregex.h \
+	$(GLIB_SRC_PATH)/glib/gscanner.h \
+	$(GLIB_SRC_PATH)/glib/gsequence.h \
+	$(GLIB_SRC_PATH)/glib/gshell.h \
+	$(GLIB_SRC_PATH)/glib/gslice.h \
+	$(GLIB_SRC_PATH)/glib/gslist.h \
+	$(GLIB_SRC_PATH)/glib/gspawn.h \
+	$(GLIB_SRC_PATH)/glib/gstdio.h \
+	$(GLIB_SRC_PATH)/glib/gstrfuncs.h \
+	$(GLIB_SRC_PATH)/glib/gtestutils.h \
+	$(GLIB_SRC_PATH)/glib/gstring.h \
+	$(GLIB_SRC_PATH)/glib/gthread.h \
+	$(GLIB_SRC_PATH)/glib/gthreadpool.h \
+	$(GLIB_SRC_PATH)/glib/gtimer.h \
+	$(GLIB_SRC_PATH)/glib/gtree.h \
+	$(GLIB_SRC_PATH)/glib/gtypes.h \
+	$(GLIB_SRC_PATH)/glib/gunicode.h \
+	$(GLIB_SRC_PATH)/glib/gurifuncs.h \
+	$(GLIB_SRC_PATH)/glib/gutils.h \
+	$(GLIB_SRC_PATH)/glib/gwin32.h \
+	$(GLIB_SRC_PATH)/glib/gprintf.h
+
+INSTALLS += configexecinclude
+configexecinclude_TEMPLATE = basebin
+configexecinclude_INST = lib/glib-2.0/include/
+configexecinclude_SOURCES = \
+	$(PATH_TARGET)/glibconfig.h
+
+# HACK ALERT! Make sure the headers are installed extremely early.
+LIBRARIES += libglibdummy
+libglibdummy_TEMPLATE = baselib
+libglibdummy_NOINST = yes
+libglibdummy_ORDERDEPS = \
+	$(TARGET_glibinclude) \
+	$(TARGET_glibsubinclude) \
+	$(TARGET_configexecinclude)
+
+#
+# Generated files.
+#
+$(PATH_TARGET)/config.h: $(PATH_SUB_CURRENT)/config.h.$(BUILD_TARGET).$(BUILD_TARGET_ARCH) | $(call DIRDEP,$(PATH_TARGET))
+	$(INSTALL) $< $@
+
+$(PATH_TARGET)/glibconfig.h: $(PATH_SUB_CURRENT)/glibconfig.h.$(BUILD_TARGET).$(BUILD_TARGET_ARCH) | $(call DIRDEP,$(PATH_TARGET))
+	$(INSTALL) $< $@
+
+ifeq ($(BUILD_TARGET),win)
+$(PATH_TARGET)/gmoduleconf.h: $(GLIB_SRC_PATH)/gmodule/gmoduleconf.h.win32 | $(call DIRDEP,$(PATH_TARGET))
+	$(INSTALL) $< $@
+else
+$(PATH_TARGET)/gmoduleconf.h: $(GLIB_SRC_PATH)/gmodule/gmoduleconf.h.in | $(call DIRDEP,$(PATH_TARGET))
+ ifeq ($(BUILD_TARGET),os2)
+	$(SED) \
+		-e 's/@G_MODULE_IMPL@/G_MODULE_IMPL_OS2/'
+		-e 's/@G_MODULE_HAVE_DLERROR@/1/'
+		-e 's/@G_MODULE_NEED_USCORE@/0/'
+		-e 's/@G_MODULE_BROKEN_RTLD_GLOBAL@/0/' \
+		--output $@ \
+		$<
+ else ifeq ($(BUILD_TARGET),darwin)
+	$(SED) \
+		-e 's/@G_MODULE_IMPL@/G_MODULE_IMPL_DYLD/'
+		-e 's/@G_MODULE_HAVE_DLERROR@/1/'
+		-e 's/@G_MODULE_NEED_USCORE@/0/'
+		-e 's/@G_MODULE_BROKEN_RTLD_GLOBAL@/0/' \
+		--output $@ \
+		$<
+ else
+	$(SED) \
+		-e 's/@G_MODULE_IMPL@/G_MODULE_IMPL_DL/'
+		-e 's/@G_MODULE_HAVE_DLERROR@/1/'
+		-e 's/@G_MODULE_NEED_USCORE@/0/'
+		-e 's/@G_MODULE_BROKEN_RTLD_GLOBAL@/0/' \
+		--output $@ \
+		$<
+ endif
+endif
+
+
+$(PATH_TARGET)/libintl.h: Makefile.kmk
+	$(RM) -f $@
+	$(APPEND) $@ '#define _(String) (String)'
+	$(APPEND) $@ '#define N_(String) (String)'
+	$(APPEND) $@ '#define P_(String) (String)'
+	$(APPEND) $@ '#define textdomain(String) (String)'
+	$(APPEND) $@ '#define gettext(String) (String)'
+	$(APPEND) $@ '#define dgettext(Domain,String) (String)'
+	$(APPEND) $@ '#define dcgettext(Domain,String,Type) (String)'
+	$(APPEND) $@ '#define bindtextdomain(Domain,Directory) (Domain)'
+
+$(PATH_TARGET)/glib-win.def: $(GLIB_SRC_PATH)/glib/glib.symbols | $(call DIRDEP,$(PATH_TARGET))
+	$(RM) -f $@
+	$(APPEND) $@ 'LIBRARY libnomglib'
+	$(APPEND) $@ 'EXPORTS'
+	$(REDIRECT) -ao $@ -- $(TOOL_$(TEMPLATE_basebin_TOOL)_CC) -EP \
+		-DINCLUDE_VARIABLES \
+		-DG_OS_WIN32 \
+		-DINCLUDE_INTERNAL_SYMBOLS \
+		-DALL_FILES \
+		-DG_GNUC_MALLOC= \
+		-DG_GNUC_CONST= \
+		-DG_GNUC_NULL_TERMINATED= \
+		-DG_GNUC_NORETURN= \
+		'-DG_GNUC_PRINTF=;G_GNUC_PRINTF' \
+		$<
+
+$(PATH_TARGET)/pcre_printint.src:
+	$(RM) -f $@
+	$(APPEND) $@ ''
+	$(APPEND) $@ '#define pcre_printint(a,b,c) do {} while (0)'
+	$(APPEND) $@ ''
+
+$(PATH_TARGET)/gobject-win.def: $(GLIB_SRC_PATH)/gobject/gobject.symbols | $(call DIRDEP,$(PATH_TARGET))
+	$(RM) -f $@
+	$(APPEND) $@ 'LIBRARY libnomgobject'
+	$(APPEND) $@ 'EXPORTS'
+	$(REDIRECT) -ao $@ -- $(TOOL_$(TEMPLATE_basebin_TOOL)_CC) -EP \
+		-DINCLUDE_VARIABLES \
+		-DG_OS_WIN32 \
+		-DINCLUDE_INTERNAL_SYMBOLS \
+		-DALL_FILES \
+		-DG_GNUC_MALLOC= \
+		-DG_GNUC_CONST= \
+		-DG_GNUC_NULL_TERMINATED= \
+		-DG_GNUC_NORETURN= \
+		'-DG_GNUC_PRINTF=;G_GNUC_PRINTF' \
+		$<
+
+include $(PATH_KBUILD)/footer.kmk
+
+

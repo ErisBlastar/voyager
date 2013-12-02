@@ -1,0 +1,209 @@
+<?xml version='1.0'?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3b2/docbookx.dtd">
+<chapter id="dov.contrib">
+
+  <title>Contributing to Voyager</title>
+
+  <para>As you can see this book is far away from being complete. Also, 
+  there is not that much source code available yet for Voyager so we 
+  need any support we can get to go on with this project. This project 
+  is a big undertaking and it will need months of work before we will 
+  get first results. But every project starts out small and if we do 
+  not try it, we will never know if we can succeed with it.</para>
+
+  <para>It is important that people start supporting Voyager right from 
+  the beginning. After all we design Voyager not just for us, but also 
+  for you. This part of the book will show you how 
+  <emphasis>you</emphasis> can contribute to Voyager.</para>
+
+  <section id="dov.contrib.d">
+
+    <title>Developers</title>
+
+    <para>Probably the best case right now for Voyager would be if you 
+    are a developer that likes the idea and wants to contribute. If 
+    this is the case for you, welcome on board! As you could see 
+    Voyager consists of quite some parts, some of them are more, some 
+    less defined so far. It doesn&apos;t matter on which part you want 
+    to work, we are open to any contributions. Note that some parts 
+    already have a lead developer and we might be quite picky about 
+    technical details. So we hope we can have some positive discussions 
+    and later also contributions from your side.</para>
+
+    <para>It is not just coding that needs help from developers, right 
+    now there are many open questions and maybe you have a lot of know 
+    how about kernel design. So you could for example contribute to the 
+    kernel chapter in this book to make sure that we get more details 
+    in there. It is up to you, feel free to contact us on any of the 
+    ways mentioned here.</para>
+
+    <para>Please introduce yourself quickly when you join IRC or the 
+    mailing-list. Don&apos;t give up if no one gives an answer right 
+    away, we live in different timezones and we have daytime jobs, so 
+    it is not always easy to find the time needed for an answer.</para>
+
+    <section id="dov.contrib.d.i">
+
+      <title>IRC</title>
+
+      <para>Some of the core developers of Voyager are online in IRC on 
+      a regular base, you will find us in the <computeroutput>
+      #netlabs</computeroutput> channel on <command>
+      irc.netlabs.org</command>. You will get a list of other servers 
+      when you connect to it.</para>
+
+    </section>
+
+    <section id="dov.contrib.d.m">
+
+      <title>Mailing-lists/Newsgroups</title>
+
+      <para>netlabs.org provides mailing-lists as well, there is a 
+      specific Voyager mailinglist called <computeroutput>
+      voyager-dev@netlabs.org</computeroutput>. To subscribe to it send 
+      an email to <computeroutput>
+      voyager-dev-subscribe@netlabs.org</computeroutput>, you will get 
+      a confirmation email shortly afterwards.</para>
+
+      <para>If you do not like mailing-lists you can use a web/news 
+      (nntp) interace as well. This is provided by gmane.org, a 
+      mail-to-news and vice versa gateway. The Voyager mailinglist can 
+      be found here: <ulink url="http://dir.gmane.org/"/></para>
+
+    </section>
+
+    <section id="dov.contrib.d.gs">
+
+      <title>Getting the Source</title>
+
+      <para>Souce code of Voyager is managed in a Subversion repository 
+      at netlabs.org. We also provide TRAC for managing the projects. 
+      You can get more information about that at 
+      <ulink url="http://svn.netlabs.org/voyager"/>.</para>
+
+      <para>Please check this page as well for instructions about 
+      Subversion. The structure of the Voyager repository is a bit 
+      complex, the most recent information about how to get it can be 
+      found in TRAC as well.</para>
+
+    </section>
+
+  </section>
+
+  <section id="dov.contrib.u">
+
+    <title>Users</title>
+
+    <para>Users can contribute to Voyager right now as well. While 
+    there is nothing to test yet and probably won&apos;t be for the 
+    next months, it is important that people know Voyager right from 
+    the beginning. As mentioned in this book, there seems to be a big 
+    confusion among users about what Voyager is, or will be. Also, many 
+    people think that netlabs.org will now stop developing for eCS and 
+    OS/2. Again, this is absolutely not the case and you can help us if 
+    you talk to users about that and explain the idea of Voyager. The 
+    worst thing that could happen would be when the already small OS/2 
+    and eCS community splitted up into two parts. So help us doing 
+    Voyager advocacy but also listen to the arguments and fears of 
+    people who do not understand or like the idea of Voyager yet. It is 
+    important that we take them seriously and try to show them that 
+    their arguments are not valid. Even sceptical people might come up 
+    with great ideas we did not think of. If this is the case, let us 
+    know. See <xref linkend="dov.contrib.d"/> about how to get in touch 
+    with us.</para>
+
+    <para>There are a few more things you can do for Voyager:</para>
+
+    <itemizedlist>
+
+      <listitem>
+
+        <para>Present Voyager to your local usergroup, distribute this 
+        book to people, and show presentations available at 
+        netlabs.org. The Developers Workshop presentation is also 
+        available as Ogg-file so you could listen to it to get some 
+        more details.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Correct the text in this book. Most authors right now are 
+        not native English speakers so it might sound a bit rough. See 
+        <xref linkend="dov.appb.c"/> for more information about 
+        that.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>CUA (FIXME)</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Try to bring Voyager into the news, write articles about 
+        it if you have contacts. We need to attract more people and 
+        getting news coverage might help a lot about that.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Try to find sponsors for Voyager, see 
+        <xref linkend="dov.contrib.s"/>.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Help us translating Voyager, see 
+        <xref linkend="dov.contrib.t"/>.</para>
+
+      </listitem>
+
+    </itemizedlist>
+
+  </section>
+
+  <section id="dov.contrib.t">
+
+    <title>Translators</title>
+
+    <para>Explain where to get the strings to translate, explain how 
+    one can get Subversion commiter for a language, etc.</para>
+
+    <para>It is a bit too early for that, will be described as soon as 
+    it is ready.</para>
+
+  </section>
+
+  <section id="dov.contrib.s">
+
+    <title>Sponsoring/Fund Raising</title>
+
+    <para>As you can imagine, Voyager is a very big project. So far all 
+    programmers working on Voyager do this for free in their 
+    spare-time. While this works for quite some open source project, it 
+    is also a fact that almost all big successful projects do have 
+    fulltime programmers working on them. The benefit is quite obvious: 
+    There is a difference if one can workon a project 8 hours a day, 5 
+    days a week or just a few hours a week or in best case a few hours 
+    a day. Projects like OpenOffice.org, Mozilla but also Gnome and KDE 
+    do have fulltime programmers.</para>
+
+    <para>netlabs.org already hires developers, on project or permanent 
+    base. So far the development was payed with sponsoring from users 
+    and companies, and if there was not enough money, the founder of 
+    netlabs.org, Adrian Gschwend, payed the difference on his own. 
+    During the last three years Adrian Gschwend invested around 
+    20&apos;000 Euro of his very own money into netlabs.org.</para>
+
+    <para>While this was ok for the last three years he has to change 
+    that now. netlabs.org should get self-supporting.</para>
+
+  </section>
+
+</chapter>
+

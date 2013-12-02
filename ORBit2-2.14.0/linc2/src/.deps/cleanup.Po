@@ -1,0 +1,295 @@
+cleanup.o cleanup.o: cleanup.c ../../config.h L:/usr/include/stdio.h \
+  L:/usr/include/sys/cdefs.h L:/usr/include/sys/gnu/cdefs.h \
+  L:/usr/include/features.h L:/usr/include/sys/_types.h \
+  L:/usr/include/machine/_types.h L:/usr/include/386/_types.h \
+  L:/usr/include/fcntl.h L:/usr/include/sys/fcntl.h \
+  L:/usr/include/sys/stat.h L:/usr/include/sys/time.h \
+  L:/usr/include/sys/_timeval.h L:/usr/include/sys/types.h \
+  L:/usr/include/machine/endian.h L:/usr/include/386/endian.h \
+  L:/usr/include/sys/select.h L:/usr/include/sys/_sigset.h \
+  L:/usr/include/sys/timespec.h L:/usr/include/time.h \
+  L:/usr/include/unistd.h L:/usr/include/sys/unistd.h \
+  L:/usr/include/sys/_null.h L:/usr/include/dirent.h \
+  L:/usr/include/sys/dirent.h L:/usr/include/sys/param.h \
+  L:/usr/include/types.h L:/usr/include/machine/ansi.h \
+  L:/usr/include/386/ansi.h L:/usr/include/sys/syslimits.h \
+  L:/usr/include/sys/signal.h L:/usr/include/machine/signal.h \
+  L:/usr/include/386/signal.h L:/usr/include/machine/trap.h \
+  L:/usr/include/386/trap.h L:/usr/include/machine/param.h \
+  L:/usr/include/386/param.h L:/usr/include/machine/limits.h \
+  L:/usr/lib/gcc-lib/i386-pc-os2-emx/3.3.5/include/limits.h \
+  L:/usr/lib/gcc-lib/i386-pc-os2-emx/3.3.5/include/syslimits.h \
+  L:/usr/include/limits.h L:/usr/include/sys/limits.h \
+  L:/usr/include/machine/_limits.h L:/usr/include/386/_limits.h \
+  /usr/include/glib-2.0/glib.h /usr/include/glib-2.0/glib/galloca.h \
+  /usr/include/glib-2.0/glib/gtypes.h \
+  /usr/lib/glib-2.0/include/glibconfig.h \
+  /usr/include/glib-2.0/glib/gmacros.h L:/usr/include/stddef.h \
+  L:/usr/include/float.h /usr/include/glib-2.0/glib/garray.h \
+  /usr/include/glib-2.0/glib/gasyncqueue.h \
+  /usr/include/glib-2.0/glib/gthread.h \
+  /usr/include/glib-2.0/glib/gerror.h /usr/include/glib-2.0/glib/gquark.h \
+  /usr/include/glib-2.0/glib/gatomic.h \
+  /usr/include/glib-2.0/glib/gbacktrace.h \
+  /usr/include/glib-2.0/glib/gcache.h /usr/include/glib-2.0/glib/glist.h \
+  /usr/include/glib-2.0/glib/gmem.h \
+  /usr/include/glib-2.0/glib/gcompletion.h \
+  /usr/include/glib-2.0/glib/gconvert.h \
+  /usr/include/glib-2.0/glib/gdataset.h \
+  /usr/include/glib-2.0/glib/gdate.h /usr/include/glib-2.0/glib/gdir.h \
+  /usr/include/glib-2.0/glib/gfileutils.h \
+  /usr/include/glib-2.0/glib/ghash.h /usr/include/glib-2.0/glib/ghook.h \
+  /usr/include/glib-2.0/glib/giochannel.h \
+  /usr/include/glib-2.0/glib/gmain.h /usr/include/glib-2.0/glib/gslist.h \
+  /usr/include/glib-2.0/glib/gstring.h \
+  /usr/include/glib-2.0/glib/gunicode.h \
+  /usr/include/glib-2.0/glib/gutils.h \
+  L:/usr/lib/gcc-lib/i386-pc-os2-emx/3.3.5/include/stdarg.h \
+  /usr/include/glib-2.0/glib/gkeyfile.h \
+  /usr/include/glib-2.0/glib/gmarkup.h \
+  /usr/include/glib-2.0/glib/gmessages.h \
+  /usr/include/glib-2.0/glib/gnode.h /usr/include/glib-2.0/glib/goption.h \
+  /usr/include/glib-2.0/glib/gpattern.h \
+  /usr/include/glib-2.0/glib/gprimes.h \
+  /usr/include/glib-2.0/glib/gqsort.h /usr/include/glib-2.0/glib/gqueue.h \
+  /usr/include/glib-2.0/glib/grand.h /usr/include/glib-2.0/glib/grel.h \
+  /usr/include/glib-2.0/glib/gscanner.h \
+  /usr/include/glib-2.0/glib/gshell.h /usr/include/glib-2.0/glib/gspawn.h \
+  /usr/include/glib-2.0/glib/gstrfuncs.h \
+  /usr/include/glib-2.0/glib/gthreadpool.h \
+  /usr/include/glib-2.0/glib/gtimer.h /usr/include/glib-2.0/glib/gtree.h \
+  linc-compat.h L:/usr/include/sys/socket.h L:/usr/include/sys/uio.h \
+  L:/usr/include/sys/ioccom.h L:/usr/include/netinet/in.h \
+  L:/usr/include/netdb.h L:/usr/include/netinet/tcp.h \
+  L:/usr/include/sys/un.h L:/usr/include/arpa/inet.h \
+  L:/usr/include/arpa/nameser.h L:/usr/include/resolv.h \
+  L:/usr/include/stdlib.h L:/usr/include/malloc.h L:/usr/include/utime.h \
+  L:/usr/include/sys/utime.h L:/usr/include/errno.h \
+  L:/usr/include/sys/errno.h L:/usr/include/string.h \
+  L:/usr/include/strings.h
+
+../../config.h:
+
+L:/usr/include/stdio.h:
+
+L:/usr/include/sys/cdefs.h:
+
+L:/usr/include/sys/gnu/cdefs.h:
+
+L:/usr/include/features.h:
+
+L:/usr/include/sys/_types.h:
+
+L:/usr/include/machine/_types.h:
+
+L:/usr/include/386/_types.h:
+
+L:/usr/include/fcntl.h:
+
+L:/usr/include/sys/fcntl.h:
+
+L:/usr/include/sys/stat.h:
+
+L:/usr/include/sys/time.h:
+
+L:/usr/include/sys/_timeval.h:
+
+L:/usr/include/sys/types.h:
+
+L:/usr/include/machine/endian.h:
+
+L:/usr/include/386/endian.h:
+
+L:/usr/include/sys/select.h:
+
+L:/usr/include/sys/_sigset.h:
+
+L:/usr/include/sys/timespec.h:
+
+L:/usr/include/time.h:
+
+L:/usr/include/unistd.h:
+
+L:/usr/include/sys/unistd.h:
+
+L:/usr/include/sys/_null.h:
+
+L:/usr/include/dirent.h:
+
+L:/usr/include/sys/dirent.h:
+
+L:/usr/include/sys/param.h:
+
+L:/usr/include/types.h:
+
+L:/usr/include/machine/ansi.h:
+
+L:/usr/include/386/ansi.h:
+
+L:/usr/include/sys/syslimits.h:
+
+L:/usr/include/sys/signal.h:
+
+L:/usr/include/machine/signal.h:
+
+L:/usr/include/386/signal.h:
+
+L:/usr/include/machine/trap.h:
+
+L:/usr/include/386/trap.h:
+
+L:/usr/include/machine/param.h:
+
+L:/usr/include/386/param.h:
+
+L:/usr/include/machine/limits.h:
+
+L:/usr/lib/gcc-lib/i386-pc-os2-emx/3.3.5/include/limits.h:
+
+L:/usr/lib/gcc-lib/i386-pc-os2-emx/3.3.5/include/syslimits.h:
+
+L:/usr/include/limits.h:
+
+L:/usr/include/sys/limits.h:
+
+L:/usr/include/machine/_limits.h:
+
+L:/usr/include/386/_limits.h:
+
+/usr/include/glib-2.0/glib.h:
+
+/usr/include/glib-2.0/glib/galloca.h:
+
+/usr/include/glib-2.0/glib/gtypes.h:
+
+/usr/lib/glib-2.0/include/glibconfig.h:
+
+/usr/include/glib-2.0/glib/gmacros.h:
+
+L:/usr/include/stddef.h:
+
+L:/usr/include/float.h:
+
+/usr/include/glib-2.0/glib/garray.h:
+
+/usr/include/glib-2.0/glib/gasyncqueue.h:
+
+/usr/include/glib-2.0/glib/gthread.h:
+
+/usr/include/glib-2.0/glib/gerror.h:
+
+/usr/include/glib-2.0/glib/gquark.h:
+
+/usr/include/glib-2.0/glib/gatomic.h:
+
+/usr/include/glib-2.0/glib/gbacktrace.h:
+
+/usr/include/glib-2.0/glib/gcache.h:
+
+/usr/include/glib-2.0/glib/glist.h:
+
+/usr/include/glib-2.0/glib/gmem.h:
+
+/usr/include/glib-2.0/glib/gcompletion.h:
+
+/usr/include/glib-2.0/glib/gconvert.h:
+
+/usr/include/glib-2.0/glib/gdataset.h:
+
+/usr/include/glib-2.0/glib/gdate.h:
+
+/usr/include/glib-2.0/glib/gdir.h:
+
+/usr/include/glib-2.0/glib/gfileutils.h:
+
+/usr/include/glib-2.0/glib/ghash.h:
+
+/usr/include/glib-2.0/glib/ghook.h:
+
+/usr/include/glib-2.0/glib/giochannel.h:
+
+/usr/include/glib-2.0/glib/gmain.h:
+
+/usr/include/glib-2.0/glib/gslist.h:
+
+/usr/include/glib-2.0/glib/gstring.h:
+
+/usr/include/glib-2.0/glib/gunicode.h:
+
+/usr/include/glib-2.0/glib/gutils.h:
+
+L:/usr/lib/gcc-lib/i386-pc-os2-emx/3.3.5/include/stdarg.h:
+
+/usr/include/glib-2.0/glib/gkeyfile.h:
+
+/usr/include/glib-2.0/glib/gmarkup.h:
+
+/usr/include/glib-2.0/glib/gmessages.h:
+
+/usr/include/glib-2.0/glib/gnode.h:
+
+/usr/include/glib-2.0/glib/goption.h:
+
+/usr/include/glib-2.0/glib/gpattern.h:
+
+/usr/include/glib-2.0/glib/gprimes.h:
+
+/usr/include/glib-2.0/glib/gqsort.h:
+
+/usr/include/glib-2.0/glib/gqueue.h:
+
+/usr/include/glib-2.0/glib/grand.h:
+
+/usr/include/glib-2.0/glib/grel.h:
+
+/usr/include/glib-2.0/glib/gscanner.h:
+
+/usr/include/glib-2.0/glib/gshell.h:
+
+/usr/include/glib-2.0/glib/gspawn.h:
+
+/usr/include/glib-2.0/glib/gstrfuncs.h:
+
+/usr/include/glib-2.0/glib/gthreadpool.h:
+
+/usr/include/glib-2.0/glib/gtimer.h:
+
+/usr/include/glib-2.0/glib/gtree.h:
+
+linc-compat.h:
+
+L:/usr/include/sys/socket.h:
+
+L:/usr/include/sys/uio.h:
+
+L:/usr/include/sys/ioccom.h:
+
+L:/usr/include/netinet/in.h:
+
+L:/usr/include/netdb.h:
+
+L:/usr/include/netinet/tcp.h:
+
+L:/usr/include/sys/un.h:
+
+L:/usr/include/arpa/inet.h:
+
+L:/usr/include/arpa/nameser.h:
+
+L:/usr/include/resolv.h:
+
+L:/usr/include/stdlib.h:
+
+L:/usr/include/malloc.h:
+
+L:/usr/include/utime.h:
+
+L:/usr/include/sys/utime.h:
+
+L:/usr/include/errno.h:
+
+L:/usr/include/sys/errno.h:
+
+L:/usr/include/string.h:
+
+L:/usr/include/strings.h:

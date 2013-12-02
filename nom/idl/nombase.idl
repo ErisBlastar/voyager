@@ -1,0 +1,94 @@
+/* ***** BEGIN LICENSE BLOCK *****
+* Version: CDDL 1.0/LGPL 2.1
+*
+* The contents of this file are subject to the COMMON DEVELOPMENT AND
+* DISTRIBUTION LICENSE (CDDL) Version 1.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of
+* the License at http://www.sun.com/cddl/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is "NOM" Netlabs Object Model
+*
+* The Initial Developer of the Original Code is
+* netlabs.org: Chris Wohlgemuth <cinc-ml@netlabs.org>.
+* Portions created by the Initial Developer are Copyright (C) 2005-2007
+* the Initial Developer. All Rights Reserved.
+*
+* Contributor(s):
+*
+* Alternatively, the contents of this file may be used under the terms of
+* the GNU Lesser General Public License Version 2.1 (the "LGPL"), in which
+* case the provisions of the LGPL are applicable instead of those above. If
+* you wish to allow use of your version of this file only under the terms of
+* the LGPL, and not to allow others to use your version of this file under
+* the terms of the CDDL, indicate your decision by deleting the provisions
+* above and replace them with the notice and other provisions required by the
+* LGPL. If you do not delete the provisions above, a recipient may use your
+* version of this file under the terms of any one of the CDDL or the LGPL.
+*
+* ***** END LICENSE BLOCK ***** */
+
+#ifndef NOMBASE_IDL_INCLUDED
+#define NOMBASE_IDL_INCLUDED
+
+#ifndef __NOM_IDL_COMPILER__
+/* Helper */
+#define _doconc(a,b) a ## b
+#define _conc(a,b) _doconc(a,b)
+
+/* Macro to define overriden methods from parent classes. Since we don't want to
+   rewrite orbit2, we just create a special method here which is marked in the
+   name as an override. In orbit2 we just discard this method and create some
+   override info instead. */
+#define NOMOVERRIDE(a) _conc(void _, _conc(a,_conc(__OVERRIDE__,__LINE__())))
+
+/* The ',' in 'attri,bute' is no typo */
+#define NOMINSTANCEVAR(a) _conc(attri,bute _conc(a, _conc(__INSTANCEVAR__, _conc(__LINE__, __NOMCLSNAME__))))
+
+/* */
+#define NOMCLASSVERSION(a, b ) const long MajorVersion = (a) ; const long MinorVersion = (b) 
+
+#define DEFAULTMETACLASS "NOMClass"
+
+//#define NOMMETACLASS( a ) const string METACLASS_TO_USE = (a)
+#define NOMMETACLASS( a ) const string _conc(_conc(METACLASS_TO_USE_,_conc(__LINE__, __INCLUDE_LEVEL__)), a) = #a
+
+/* Define a pointer on a class for IDL using the classname. This is only one half of the work.
+   The rest is done by the IDL compiler which typedefs this in the *.h file so it can be used
+   in the C code. */
+#define NOMCLASSNAME( a ) native P ## a 
+#endif
+#ifndef _MSC_VER /* doesn't work here yet. */
+/* For doing parameter checks */
+#define NOMPARMCHECK(a ,...)   const string _conc(a, _conc(__PARMCHECK__, _conc(__LINE__,__INCLUDE_LEVEL__))) = #__VA_ARGS__
+#endif
+
+
+/* Native types we want to use in the IDL */
+//native PNOMObject;
+//native PNOMClass;
+
+native  gint;
+native  gulong;
+native  pgulong;
+native  gpointer;
+native  PGData;
+native  PGTree;
+
+native  PGdkPixmap;
+native  PGdkBitmap;
+
+native  PGArray;
+native  PGdkDragContext;
+native  GdkDragAction;
+
+native  nomId; /* This is a typedef for a GQuark */
+native  pnomId;/* ...and the pointer on it.      */
+#endif /* NOMBASE_IDL_INCLUDED */
+
+
+

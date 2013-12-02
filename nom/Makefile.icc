@@ -1,0 +1,101 @@
+# Makefile
+
+#include ./../make.inc
+
+CC           = icc
+
+#LDFLAGS =	-Ge- /Gm+ -G4 /ss -Gl /O+ -Oc+ -Ol-  /Q+
+#CFLAGS       =  -Ge- /Gm+ -G4 /ss -Gl /O+ -Oc+ -Ol- /Q+ /C
+
+LDFLAGS =	-Ge- /Gm+ -Gl /Q+ /DEBUG /Ti+
+CFLAGS       =  -Ge- /Gm+ -G4 /ss -Gl /Q+ /C /Ti+
+#/FA
+# /Ls /Le
+
+#Used for the WPS replacement so (hopefully) easy migration to gcc3.x.x later
+GCCFLAGS	=	-Zmt -Zomf -Zcrtdll -D__OS2__ -D__ST_MT_ERRNO__ -c 
+GCCLDFLAGS	=	-Zmt -Zomf -Zcrtdll -Zdll
+GCCINC		=	$(INC) -I f:/ibmcpp/include/som
+INC		=	./include -I ./class_h
+LIBS		=
+WPSLIBS	=	$(OBJDIR)/cwsomtk.lib
+
+# Define search directories
+CDIR		=	./src
+CLASSCDIR	=	./class_c
+WPSCDIR	=	./wpsclass_c
+CLASSINC	=	./class_h
+WPSINC		=	./wps_h
+IDLDIR		=	./idl
+WPSIDLDIR	=	./wps_idl
+
+INCDIR		=	./include
+OBJDIR		=	./../obj
+
+# Define objects to build
+TKOBJECTS	= 	$(OBJDIR)/somtkinit.obj \
+			$(OBJDIR)/cwsomtk.obj \
+			$(OBJDIR)/sombuildclass.obj \
+			$(OBJDIR)/calculatehash.obj \
+			$(OBJDIR)/sommemory.obj \
+			$(OBJDIR)/dumpobj.obj
+
+SOMOBJECTS	=	$(OBJDIR)/cwsomobj.obj \
+			$(OBJDIR)/somclassmanager.obj \
+			$(OBJDIR)/cwsomcls.obj 
+
+WPSOBJECTS	=	$(OBJDIR)/cwwpobject.obj
+
+OBJECTS	=	$(TKOBJECTS) $(SOMOBJECTS)
+# $(WPSOBJECTS)
+
+IHFILES		=	$(CLASSINC)/cwsomobj.ih $(CLASSINC)/cwsomcls.ih $(CLASSINC)/somclassmanager.ih
+
+WPSIHFILES		=	$(CLASSINC)/cwwpobject.ih
+
+.PRECIOUS:	$(CLASSCDIR)/%.c $(CDIR)/%.c $(WPSCDIR)/%.c
+
+all:	$(OBJDIR)/cwsomtk.dll
+# $(OBJDIR)/cwwp.dll
+
+$(OBJDIR)/cwsomtk.dll:	 $(IHFILES) $(OBJECTS)
+	@echo "[33;1;mLinking "$@"...[0;m"
+	$(CC) $(LDFLAGS) /L /Fm$(OBJDIR)/$(basename $@)  /Fe$(OBJDIR)/$@ $(OBJECTS) $(LIBS) cwsomtk.def
+	implib $(basename $@).lib cwsomtk.def
+	@echo "[32;1;mDone linking "$@"...[0;m"
+
+$(OBJDIR)/cwwp.dll:	 $(WPSIHFILES) $(WPSOBJECTS)
+	@echo "[33;1;mLinking "$@"...[0;m"
+	gcc -o $@ $(GCCLDFLAGS) $(WPSOBJECTS) $(WPSLIBS) cwwp.def
+	implib $(basename $@).lib cwwp.def
+	@echo "[32;1;mDone linking "$@"...[0;m"
+
+###################################
+#
+#    Rules for compiling
+#
+###################################
+
+BASE_SCCOMPILEC	=	sc -I $(IDLDIR) -p -r -sc -d$(CLASSCDIR) -maddstar -mnoint -S128000 -C128000  $<
+BASE_SCCOMPILEIH	=	sc -I $(IDLDIR) -p -r -sih";"h -d$(CLASSINC) -maddstar -mnoint -S128000 -C128000  $<
+
+$(OBJDIR)/%.obj:	$(CLASSCDIR)/%.c $(INCDIR)/cwsomtk.h
+	$(CC) -I $(INC) $(CFLAGS)  /Fo$@ $<
+
+$(OBJDIR)/%.obj:	$(CDIR)/%.c $(INCDIR)/cwsomtk.h
+	$(CC) -I $(INC) $(CFLAGS)  /Fo$@ $<
+
+# For WPS classes
+$(OBJDIR)/%.obj:	$(WPSCDIR)/%.c $(INCDIR)/cwsomtk.h
+	gcc -I $(GCCINC) $(GCCFLAGS) -o $@ $<
+
+$(CLASSINC)/%.ih:	$(IDLDIR)/%.idl
+	$(BASE_SCCOMPILEIH)
+
+$(CLASSCDIR)/%.c:	$(IDLDIR)/%.idl
+	$(BASE_SCCOMPILEIH)
+	$(BASE_SCCOMPILEC)
+
+clean:
+	@cd $(OBJDIR) && rm *
+

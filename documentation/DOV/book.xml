@@ -1,0 +1,77 @@
+<?xml version='1.0'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3b2/docbookx.dtd"
+[
+<!ENTITY foreword SYSTEM "foreword.xml">
+<!ENTITY ch00     SYSTEM "ch00.xml">
+<!ENTITY ch01     SYSTEM "ch01.xml">
+<!ENTITY ch02     SYSTEM "ch02.xml">
+<!ENTITY ch03     SYSTEM "ch03.xml">
+<!ENTITY ch04     SYSTEM "ch04.xml">
+<!ENTITY ch05     SYSTEM "ch05.xml">
+<!ENTITY ch06     SYSTEM "ch06.xml">
+<!ENTITY ch07     SYSTEM "ch07.xml">
+<!ENTITY ch08     SYSTEM "ch08.xml">
+<!ENTITY ch09     SYSTEM "ch09.xml">	
+<!ENTITY appa     SYSTEM "appa.xml">
+<!ENTITY appb     SYSTEM "appb.xml">
+<!ENTITY appc     SYSTEM "appc.xml">
+<!ENTITY bibl     SYSTEM "bibl.xml">
+]>
+
+<book id="dov">
+	<title>The Design of Voyager</title>
+	<subtitle>A Desktop for the 21th Century.</subtitle>
+	
+	<bookinfo>
+		<edition>0.1, First</edition>
+		<copyright>
+			<year>2006</year>
+			<holder>netlabs.org</holder>
+		</copyright>
+		
+		<authorgroup>
+			<author>
+				<firstname>Adrian</firstname>
+				<surname>Gschwend</surname>
+			</author>
+			<author>
+				<firstname>Chris</firstname>
+				<surname>Wohlgemuth</surname>
+			</author>
+			<author>
+				<firstname>Peter</firstname>
+				<surname>Kocsis</surname>
+			</author>			
+		</authorgroup>
+		
+		<legalnotice>
+			<para>This work is licensed under the Creative Commons
+				Attribution-NonCommercial-NoDerivs 2.5 License. To view a copy of this
+				license, visit <ulink
+					url="http://creativecommons.org/licenses/by-nc-nd/2.5/"/> or
+				send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford,
+				California 94305, USA.</para>
+		</legalnotice>
+		
+	</bookinfo>
+	
+	<!-- External entity refs -->
+	
+	&foreword;
+	&ch00;
+	&ch01;
+	&ch02;
+	&ch03;
+	&ch04;
+	&ch05;
+	&ch06;
+	&ch07;
+	&ch08;
+	&ch09;
+	&appa;
+	&appb;
+	&appc;
+	&bibl;
+	
+</book>
+

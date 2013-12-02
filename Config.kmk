@@ -1,0 +1,403 @@
+# $Id: $
+## @file
+# The main kBuild configration file for NOM.
+#
+
+
+#
+# Default build configuration.
+#
+
+# Override the installation path (anticipating kBuild changes).
+PATH_INS = $(PATH_OUT)/installed
+ifn1of ($(BUILD_TARGET),win)
+PATH_DLL = $(PATH_INS)/lib
+endif
+
+# Enable automatic installation of what's built.
+KBUILD_DO_AUTO_INSTALL := 1
+
+# Where to install the idl headers.
+NOM_INS_CLASS_H  = include/nom/class_h/
+NOM_PATH_CLASS_H = $(PATH_INS)/$(patsubst %/,%,$(NOM_INS_CLASS_H))
+
+# Enables the building of testcases. Comment out to speed up the build.
+NOM_WITH_TESTCASES = 1
+
+
+#
+# Version and author stuff.
+#
+NOM_VERSION_MAJOR := 0
+NOM_VERSION_MINOR := 0
+NOM_VERSION_PATCH := 1
+NOM_VERSION_DOTTED := $(NOM_VERSION_MAJOR).$(NOM_VERSION_MINOR).$(NOM_VERSION_PATCH)
+NOM_VERSION_STRING := "$(NOM_VERSION_DOTTED)"
+NOM_VERSION_UNDERSCORED := $(subst .,_,$(NOM_VERSION_DOTTED))
+NOM_AUTHOR_STRING := "(C) Chris Wohlgemuth 2003-2007"
+
+
+
+#
+# Include any configuration files.
+# The AutoConfig.kmk is generated, while LocalConfig.kmk is where local modifications go.
+#
+NOM_AUTO_CONFIG := $(wildcard $(PATH_ROOT)/AutoConfig.kmk)
+ifneq ($(NOM_AUTO_CONFIG),)
+ include $(NOM_AUTO_CONFIG)
+endif
+
+NOM_LOCAL_CONFIG := $(wildcard $(PATH_ROOT)/LocalConfig.kmk)
+ifneq ($(NOM_LOCAL_CONFIG),)
+ include $(NOM_LOCAL_CONFIG)
+endif
+
+
+#
+# .idl -> .h and .ih.
+#
+
+# The name of the IDL compiler we're using during compilation
+ifeq ($(BUILD_TARGET).$(BUILD_TARGET_ARCH),$(BUILD_PLATFORM).$(BUILD_PLATFORM_ARCH))
+ NOM_IDL_COMPILER = $(PATH_BIN)/nom-idl-compiler$(SUFF_EXE)
+else
+ NOM_IDL_COMPILER = $(PATH_BIN)/nom-idl-compiler$(HOSTSUFF_EXE)
+endif
+
+# Tell kBuild about the IDLINCS and IDLDEFS.
+PROPS_ACCUMULATE_L     += IDLINCS
+PROPS_ACCUMULATE_R     += IDLDEFS
+PROPS_ACCUMULATE_L_LNK += IDLINCS
+PROPS_ACCUMULATE_R_LNK += IDLDEFS
+
+##
+# Double eval define that def_nom_hnadle_idl makes use of for defining the rules.
+## @todo fix missing dependencies here.
+define def_nom_handle_idl_rules
+
+$(idl_pre): $(mysrc) | $(call DIRDEP,$(idl_pre_dir))
+	$(call MSG_TOOL,CPP,$(target),$$<,$(mysrc))
+ifeq ($(BUILD_TARGET),win)
+	$(REDIRECT) -o $$@ -- $$(TOOL_$$(TEMPLATE_basebin_TOOL)_CC) -nologo -E $(addprefix -D,$(defs) __NOM_IDL_COMPILER__) $(addprefix -I,$(incs)) $(mysrc)
+else
+	$(REDIRECT) -o $$@ -- $$(TOOL_$$(TEMPLATE_basebin_TOOL)_CC)    -E -x c $(addprefix -D,$(defs) __NOM_IDL_COMPILER__) $(addprefix -I,$(incs)) $(mysrc)
+endif
+
+$(idl_h): $(idl_pre) | $(NOM_IDL_COMPILER) $(call DIRDEP,$(NOM_PATH_CLASS_H))
+	$(call MSG_TOOL,idl-h,$(target),$$<,$(mysrc))
+	$(QUIET2)$(RM) -f $$@
+	$(QUIET)$(NOM_IDL_COMPILER) --emit-h -d $$(@D) $$<
+	$(QUIET)$(TEST) '!' -f $$@ -- $(APPEND) $$@
+
+$(idl_ih): $(idl_pre) | $(NOM_IDL_COMPILER) $(call DIRDEP,$(NOM_PATH_CLASS_H))
+	$(call MSG_TOOL,idl-ih,$(target),$$<,$(mysrc))
+	$(QUIET2)$(RM) -f $$@
+	$(QUIET)$(NOM_IDL_COMPILER) --emit-ih -d $$(@D) $$<
+	$(QUIET)$(TEST) '!' -f $$@ -- $(APPEND) $$@
+
+$(idl_c): $(idl_pre) | $(NOM_IDL_COMPILER) $(call DIRDEP,$(idl_c_dir))
+	$(call MSG_TOOL,idl-c,$(target),$$<,$(mysrc))
+	$(QUIET2)$(RM) -f $$@
+	$(QUIET)$(NOM_IDL_COMPILER) --emit-c -d $$(@D) $$<
+	$(QUIET)$(TEST) '!' -f $$@ -- $(APPEND) $$@
+
+$(target)_INTERMEDIATES += $(idl_h) $(idl_ih) $(idl_c)
+
+endef # def_nom_handle_idl_rules
+
+##
+# Handler for .idl files listed in the SOURCES properties.
+#
+# .idl files are compiled into .ih and .h files which ends up in a class_h under
+# the target output dir.
+#
+# @param    target      The target file.
+# @param    source      The source file.
+# @param    lots more
+# @returns  quite a bit.
+# @remarks  This SRC_HANDLERS stuff is a kBuild concept that's currently being
+#           worked on, so this isn't working 100% the way it should quite yet (defs,++).
+define def_nom_handle_idl
+type := IDL
+
+# FIXME: This has to be put back to kBuild somehow.
+incs := $($(target)_IDLINCS) \
+	$($(target)_INCS)
+defs := \
+	$($(target)_IDLDEFS) \
+	$($(target)_DEFS)
+ifneq ($(defpath),)
+mysrc := $(abspathex $(source),$(defpath))
+incs := $(abspathex $(incs),$(defpath))
+else
+mysrc := $(source)
+endif
+
+# figure out the output
+idl_h   := $(NOM_PATH_CLASS_H)/$(notdir $(source:.idl=.h))
+idl_ih  := $(NOM_PATH_CLASS_H)/$(notdir $(source:.idl=.ih))
+idl_pre_dir := $(PATH_$(target))/class_pre
+idl_pre := $(idl_pre_dir)/$(notdir $(source:.idl=.pre))
+idl_c_dir := $(PATH_$(target))/class_c
+idl_c   := $(idl_c_dir)/$(notdir $(source:.idl=-template.c))
+
+$(eval $(def_nom_handle_idl_rules))
+
+_OUT_FILES += $(idl_h) $(idl_ih) $(idl_c) $(idl_pre)
+_DIRS += $(NOM_PATH_CLASS_H) $(idl_c_dir) $(idl_pre_dir)
+
+# cleanup
+idl_pre :=
+idl_h :=
+idl_c :=
+idl_ih :=
+idl_dir :=
+mysrc :=
+
+endef # def_nom_handle_idl
+
+
+#
+# GLib v2.x SDK.
+#
+SDK_glib2 = GLib v2.x
+ifndef PATH_SDK_glib2
+ if1of ($(BUILD_TARGET),win)
+  SDK_glib2_FROM_NOM = 1
+ endif
+ ifdef SDK_glib2_FROM_NOM
+  PATH_SDK_glib2 := $(PATH_INS)
+ else
+  PATH_SDK_glib2 := $(firstword $(wildcard $(PATH_ROOT)/tools/$(BUILD_TARGET).$(BUILD_TARGET_ARCH)/glib/v2*) )
+ endif
+ ifeq ($(PATH_SDK_glib2),)
+  PATH_SDK_glib2 := $(patsubst %/include/glib-2.0/glib.h,%,$(firstword $(wildcard /usr/include/glib-2.0/glib.h /usr/local/include/glib-2.0/glib.h /opt/local/include/glib-2.0/glib.h) ))
+ endif
+else
+ PATH_SDK_glib2 := $(PATH_SDK_glib2)
+endif
+SDK_glib2_INCS = \
+	$(PATH_SDK_glib2)/include/glib-2.0 \
+	$(PATH_SDK_glib2)/lib/glib-2.0/include
+ifdef SDK_glib2_FROM_NOM
+ SDK_glib2_LIBS.darwin = \
+ 	$(PATH_SDK_glib2)/lib/libnomglib.dylib
+ SDK_glib2_LIBS.freebsd = \
+ 	$(PATH_SDK_glib2)/lib/libnomglib.so
+ SDK_glib2_LIBS.linux = \
+ 	$(PATH_SDK_glib2)/lib/libnomglib.so
+ SDK_glib2_LIBS.netbsd = \
+ 	$(PATH_SDK_glib2)/lib/libnomglib.so
+ SDK_glib2_LIBS.openbsd = \
+ 	$(PATH_SDK_glib2)/lib/libnomglib.so
+ SDK_glib2_LIBS.os2 = \
+ 	$(PATH_SDK_glib2)/lib/nomglib.dll
+ SDK_glib2_LIBS.solaris = \
+ 	$(PATH_SDK_glib2)/lib/libnomglib.so
+ SDK_glib2_LIBS.win = \
+ 	$(PATH_SDK_glib2)/lib/libnomglib.lib
+else
+ SDK_glib2_LIBS.darwin = \
+ 	$(PATH_SDK_glib2)/lib/libglib-2.0.dylib
+ SDK_glib2_LIBS.freebsd = \
+ 	$(PATH_SDK_glib2)/lib/libglib-2.0.so
+ SDK_glib2_LIBS.linux = \
+ 	$(PATH_SDK_glib2)/lib/libglib-2.0.so
+ SDK_glib2_LIBS.netbsd = \
+ 	$(PATH_SDK_glib2)/lib/libglib-2.0.so
+ SDK_glib2_LIBS.openbsd = \
+ 	$(PATH_SDK_glib2)/lib/libglib-2.0.so
+ SDK_glib2_LIBS.os2 = \
+ 	$(PATH_SDK_glib2)/lib/glib-2.0.a
+ SDK_glib2_LIBS.solaris = \
+ 	$(PATH_SDK_glib2)/lib/libglib-2.0.so
+ SDK_glib2_LIBS.win = \
+ 	$(PATH_SDK_glib2)/lib/glib-2.0.lib
+endif
+
+
+#
+# The main template.
+# All other templates except nombldprog are derived from this.
+#
+TEMPLATE_basebin = Executables.
+if1of ($(BUILD_TARGET),win nt)
+ ifeq ($(BUILD_TARGET_ARCH),x86)
+  TEMPLATE_basebin_TOOL = VCC70
+ else
+  TEMPLATE_basebin_TOOL = VCC80AMD64
+ endif
+ TEMPLATE_basebin_CFLAGS = -Zi -Zl -EHsc -GF -W3 -MD
+ TEMPLATE_basebin_CFLAGS.release = -O2
+ TEMPLATE_basebin_LDFLAGS = /NoD /LargeAddressAware /Incremental:NO /Debug -MapInfo:Lines -MapInfo:Exports
+ TEMPLATE_basebin_LIBS = \
+	$(PATH_TOOL_$(TEMPLATE_basebin_TOOL)_LIB)/msvcrt.lib \
+	$(PATH_TOOL_$(TEMPLATE_basebin_TOOL)_LIB)/msvcprt.lib \
+	$(PATH_TOOL_$(TEMPLATE_basebin_TOOL)_LIB)/oldnames.lib
+ TEMPLATE_basebin_SDKS.win = WINPSDK
+ TEMPLATE_basebin_DEFS = HAVE_IO_H
+else
+ ifeq ($(BUILD_TARGET),os2)
+  TEMPLATE_basebin_TOOL = GXX3OMF
+ else ifeq ($(BUILD_TARGET),darwin)
+  TEMPLATE_basebin_TOOL = GXX4MACHO
+ else
+  TEMPLATE_basebin_TOOL = GXX3
+ endif
+ TEMPLATE_basebin_CFLAGS = -g
+ TEMPLATE_basebin_CFLAGS.release = -O2
+ TEMPLATE_basebin_LDFLAGS = -g
+ TEMPLATE_basebin_LDFLAGS.darwin = -framework Carbon
+ if1of ($(BUILD_TARGET), freebsd linux netbsd openbsd solaris)
+  TEMPLATE_basebin_LIBS += pthread
+ endif
+ if1of ($(BUILD_TARGET), darwin)
+  TEMPLATE_basebin_LIBS += iconv
+ endif
+ TEMPLATE_basebin_DEFS = HAVE_UNISTD_H
+endif
+TEMPLATE_basebin_DEFS += GC_DLL
+TEMPLATE_basebin_DEFS.debug = DEBUG
+TEMPLATE_basebin_DEFS.release = NDEBUG
+TEMPLATE_basebin_INCS = \
+	$(PATH_ROOT)/nom/include \
+	$(NOM_PATH_CLASS_H) \
+	$(PATH_ROOT)/gc6.8/include
+TEMPLATE_basebin_IDLINCS = \
+	$(PATH_ROOT)/nom/idl
+TEMPLATE_basebin_INST = bin/
+TEMPLATE_basebin_SRC_HANDLERS = .idl:def_nom_handle_idl
+
+
+#
+# The library template.
+#
+TEMPLATE_baselib = Static libraries for linking with executables (non-PIC).
+TEMPLATE_baselib_EXTENDS = basebin
+TEMPLATE_baselib_INST = lib/
+
+
+#
+# The DLL / shared objects template.
+#
+TEMPLATE_basedll = DLLs / shared objects.
+TEMPLATE_basedll_EXTENDS = basebin
+TEMPLATE_basedll_EXTENDS_BY = prepending
+if1of ($(BUILD_TARGET), win nt)
+ TEMPLATE_basedll_INST = bin/ testcase/
+else
+ TEMPLATE_basedll_INST = lib/
+endif
+ifn1of ($(BUILD_TARGET), win nt os2)
+ TEMPLATE_basedll_CFLAGS = -fPIC
+ TEMPLATE_basedll_CXXFLAGS = -fPIC
+ TEMPLATE_basedll_LDFLAGS = -fPIC
+ TEMPLATE_basedll_DEFS = PIC
+endif
+
+
+#
+# The DLL / shared objects library template.
+#
+TEMPLATE_basedlllib = DLLs / shared objects.
+TEMPLATE_basedlllib_EXTENDS = basebin
+TEMPLATE_basedlllib_INST = lib/
+
+
+#
+# The testcase programs.
+#
+TEMPLATE_basetst = Testcase programs.
+TEMPLATE_basetst_EXTENDS = basebin
+TEMPLATE_basetst_INST = testcase/
+
+
+#
+# The template for NOM executables.
+#
+TEMPLATE_nombin = NOM Executables.
+TEMPLATE_nombin_EXTENDS = basebin
+TEMPLATE_nombin_EXTENDS_BY = appending
+ifeq ($(BUILD_TARGET),win)
+ TEMPLATE_nombin_LIBS = $(PATH_LIB)/libnomobjtk$(SUFF_LIB)
+else ifeq ($(BUILD_TARGET),os2)
+ TEMPLATE_nombin_LIBS = $(PATH_DLL)/nobjtk$(SUFF_DLL)
+else
+ TEMPLATE_nombin_LIBS = $(PATH_DLL)/libnomobjtk$(SUFF_DLL)
+endif
+TEMPLATE_nombin_SDKS = glib2
+
+
+#
+# The library template.
+#
+TEMPLATE_nomlib = Static libraries for linking with executables (non-PIC).
+TEMPLATE_nomlib_EXTENDS = nombin
+TEMPLATE_nomlib_INST = lib/
+
+
+#
+# The DLL / shared objects template.
+#
+TEMPLATE_nomdll = DLLs / shared objects.
+TEMPLATE_nomdll_EXTENDS = nombin
+TEMPLATE_nomdll_EXTENDS_BY = prepending
+if1of ($(BUILD_TARGET), win nt)
+ TEMPLATE_nomdll_INST = bin/ testcase/
+else
+ TEMPLATE_nomdll_INST = lib/
+endif
+ifn1of ($(BUILD_TARGET), win nt os2)
+ TEMPLATE_nomdll_CFLAGS = -fPIC
+ TEMPLATE_nomdll_CXXFLAGS = -fPIC
+ TEMPLATE_nomdll_LDFLAGS = -fPIC
+ TEMPLATE_nomdll_DEFS = PIC
+endif
+
+
+#
+# The DLL / shared objects library template.
+#
+TEMPLATE_nomdlllib = DLLs / shared objects.
+TEMPLATE_nomdlllib_EXTENDS = nombin
+TEMPLATE_nomdlllib_INST = lib/
+
+
+#
+# The testcase programs.
+#
+TEMPLATE_nomtst = Testcase programs.
+TEMPLATE_nomtst_EXTENDS = nombin
+TEMPLATE_nomtst_INST = testcase/
+
+## Todo GTK variations.
+
+#
+# Build programs.
+#
+TEMPLATE_nombldprog = Build program (cat be static)
+if1of ($(BUILD_PLATFORM),win nt)
+ ifeq ($(BUILD_PLATFORM_ARCH),x86)
+  TEMPLATE_nombldprog_TOOL = VCC70
+ else
+  TEMPLATE_nombldprog_TOOL = VCC80AMD64
+ endif
+ TEMPLATE_nombldprog_CFLAGS = -Zi -Zl -EHsc -GF -W3 -MT
+ TEMPLATE_nombldprog_CFLAGS.release = -O2
+ TEMPLATE_nombldprog_LIBS = \
+	$(PATH_TOOL_$(TEMPLATE_nombldprog_TOOL)_LIB)/oldnames.lib \
+	$(PATH_TOOL_$(TEMPLATE_nombldprog_TOOL)_LIB)/libcmt.lib
+else
+ ifeq ($(BUILD_PLATFORM),os2)
+  TEMPLATE_nombldprog_TOOL = GCC3OMF
+ else ifeq ($(BUILD_PLATFORM),darwin)
+  TEMPLATE_nombldprog_TOOL = GCC4MACHO
+ else
+  TEMPLATE_nombldprog_TOOL = GCC3
+ endif
+ TEMPLATE_nombldprog_CFLAGS = -g
+ TEMPLATE_nombldprog_CFLAGS.release = -O2
+endif
+TEMPLATE_nombldprog_DEFS.debug = DEBUG
+TEMPLATE_nombldprog_DEFS.release = NDEBUG
+

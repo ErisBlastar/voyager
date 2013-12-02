@@ -1,0 +1,52 @@
+blacklst.lo blacklst.o: blacklst.c include/private/gc_priv.h include/gc.h \
+  include/gc_config_macros.h L:/usr/include/stddef.h \
+  L:/usr/include/sys/cdefs.h L:/usr/include/sys/gnu/cdefs.h \
+  L:/usr/include/features.h L:/usr/include/sys/_types.h \
+  L:/usr/include/machine/_types.h L:/usr/include/386/_types.h \
+  include/gc_mark.h include/private/gcconfig.h include/private/gc_hdrs.h \
+  L:/usr/include/stdlib.h L:/usr/include/sys/_null.h \
+  L:/usr/include/malloc.h include/private/gc_locks.h \
+  L:/usr/include/time.h L:/usr/include/sys/timespec.h \
+  L:/usr/include/string.h L:/usr/include/strings.h
+
+include/private/gc_priv.h:
+
+include/gc.h:
+
+include/gc_config_macros.h:
+
+L:/usr/include/stddef.h:
+
+L:/usr/include/sys/cdefs.h:
+
+L:/usr/include/sys/gnu/cdefs.h:
+
+L:/usr/include/features.h:
+
+L:/usr/include/sys/_types.h:
+
+L:/usr/include/machine/_types.h:
+
+L:/usr/include/386/_types.h:
+
+include/gc_mark.h:
+
+include/private/gcconfig.h:
+
+include/private/gc_hdrs.h:
+
+L:/usr/include/stdlib.h:
+
+L:/usr/include/sys/_null.h:
+
+L:/usr/include/malloc.h:
+
+include/private/gc_locks.h:
+
+L:/usr/include/time.h:
+
+L:/usr/include/sys/timespec.h:
+
+L:/usr/include/string.h:
+
+L:/usr/include/strings.h:

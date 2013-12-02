@@ -1,0 +1,26 @@
+<?xml version='1.0'?>
+<!DOCTYPE preface PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+	"http://www.oasis-open.org/docbook/xml/4.3b2/docbookx.dtd">
+<preface>
+	
+	<title>Foreword</title>
+	<simplesect>
+		
+		<para>For years the book <citetitle pubwork="book">The Design of
+			OS/2</citetitle> <citation>Kogan92</citation> was recommended by
+			programmers as a reference for everyone who wanted to write an operating system.
+			The book gave an insight into the design of a modern operating system at the time
+			but was still easy to read for not that experienced programmers.</para>
+		
+		<para>This book tries to provide the same for <quote>The Voyager Project</quote>,
+			an attempt to create an object oriented workplace for the 21th century. The
+			ultimate goal is to make it easy for new programmers to join the project. This book
+			will give you a starting point for that.</para>
+		
+		<para>&mdash; <author>
+			<firstname>Adrian</firstname>
+			<surname>Gschwend</surname> </author>, Biel, Autumn 2006</para>
+		
+	</simplesect>
+	
+</preface>

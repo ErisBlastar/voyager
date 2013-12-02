@@ -1,0 +1,363 @@
+<?xml version='1.0'?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3b2/docbookx.dtd">
+<chapter>
+
+  <title>Motivation</title>
+
+  <para>Every user of eComStation or OS/2 knows that: When people see 
+  your desktop, they usually ask what kind of Linux you are running. If 
+  you explain to them that it has nothing to do with Linux and that the 
+  original system was done by IBM and they called it OS/2, we either 
+  end up with a big question mark on their face or with a statement 
+  like <quote>Oh, I used to work with that as well, it was good but I 
+  didn&apos;t have any software/drivers/whatever for it.</quote> People 
+  who have worked with it a bit more explain that it was the best thing 
+  to administrate their fileservers, if they were even more skilled 
+  they start telling stories about how they did interact with the 
+  desktop and you can still see a twinkle in their eyes when they talk 
+  about it. The authors of this book are still using OS/2 or its 
+  official successor eComStation every day. We work on it, we write 
+  software for it, we extend it. But we are realistic. We know that one 
+  day there will not be any more hardware to run it on, at least not in 
+  native mode. We know that already nowadays we have to invest a lot of 
+  time, money, and energy to get things like ACPI done, and to port 
+  de-facto standards like OpenOffice and the Mozilla suite to it. We 
+  also know that we will never get the source code of the system by 
+  IBM, the thing we would desperately need to fix some very annoying 
+  bugs and limitations it has.</para>
+
+  <para>So we have to think about the options we have. Some of us have 
+  done that over the past years and some of us came up with more or 
+  less detailed ideas of how this could be done. Some of the ideas were 
+  simply not realistic but we finally think that we have found a good 
+  concept by now. A concept that provides all the things we love about 
+  OS/2, PM, and the WPS but also a concept that solves the limitations 
+  and restrictions of our current system, a concept that has a future. 
+  This is what this book is about.</para>
+
+  <section>
+
+    <title>Facts and Religion</title>
+
+    <para>In <xref linkend="dov.overview.tvp.h"/> we explain the 
+    history of the Voyager project, including some details of what IBM 
+    planned to do with OS/2 years ago. As we all know, things went 
+    differently. OS/2 never met the success it deserved from a 
+    technical point of view and the world is still dominated by 
+    Microsoft and Windows.</para>
+
+    <para>After the first presentation of Voyager to the public at 
+    Warpstock Europe 2006, we got a lot of feedback about the idea, 
+    both positive and negative. There were people who got the idea of 
+    Voyager right from the beginning, they understood that we do not 
+    want to take OS/2 away from anyone, nor give up development of new 
+    features for eComStation or anything. But still, the negative 
+    feedback was there, some people absolutely didn&apos;t want to 
+    understand why Voyager is necessary and why people should invest 
+    time into it. So before we go into the glory details let me explain 
+    why we think Voyager is necessary from our point of view. To 
+    explain that we go more that 10 years back in time, and we get a 
+    bit more personal than in the other chapters.</para>
+
+    <section>
+
+      <title>The Reason for OS/2</title>
+
+      <para>The author of these lines was using Windows 3.1 until some 
+      time in 1994. After a lot of system breakdowns on a rainy 
+      Saturday evening, I decided that it could not go on like that 
+      anymore. I went to my neighbour who was working at IBM and I told 
+      him <quote>Get me this operating system from IBM.</quote> I 
+      didn&apos;t know the name and I didn&apos;t know what it was 
+      about, I had just heard that it was more stable than Windows and 
+      that was tempting enough for me. A few weeks later I got a brand 
+      new box of OS/2 Warp 3, went home, and installed it. I started 
+      the desktop and shut down the system shortly afterwards. I had no 
+      idea what I was supposed to do with that system at that 
+      point.</para>
+
+      <para>It took me a few weeks to get used to it. I got software 
+      for the new system from German magazines which came with a lot of 
+      shareware and freeware. OS/2 was pretty popular in Germany back 
+      then, so there was a market for that. I never used the included 
+      Windows support a lot, the only application I wanted to run did 
+      not work because it was a MIDI sequencer which required support 
+      for sound cards that were not supported on OS/2. But I still 
+      liked it. It was stable, it was innovative, it was different. And 
+      I learned that, from a technical point of view, it was far 
+      superior to any Windows, including the upcoming Windows 95.</para>
+
+      <para>The following years I went through my advocacy phase where 
+      I tried to explain why I was using OS/2 to everyone, why 
+      <emphasis>they</emphasis> should use OS/2, and why Windows sucked 
+      and Microsoft was evil. I didn&apos;t have much success because 
+      for most friends it was more important to be able to play the 
+      latest games and get drivers for about every hardware they could 
+      buy for money. They lived with the fact that the system was not 
+      stable or that they had to reinstall it from scratch every few 
+      months. Recently, one of those friends told me that they were 
+      very jealous back then when I took my OS/2 machine to a demoscene 
+      event because I was the only one in there who could play Quake 
+      and burn a CD at the same time without the system crashing. So, 
+      at least for a little moment, I had my fame with OS/2.</para>
+
+      <para>My advocacy phase has been over for a long time, meanwhile 
+      I&apos;ve started a project called netlabs.org and I&apos;ve met 
+      a lot of great people from all over the world with the same 
+      spirit: The idea that there is more out there than Windows, 
+      MacOS, Linux, or any of the other operating systems. The 
+      knowledge that IBM <emphasis>did</emphasis> do some things right, 
+      even if that neither included marketing nor the technical 
+      implementation of some of the concepts they designed. I still use 
+      OS/2 every day, even if I work with many of the Unix-like 
+      operating systems out there every day to earn my living.</para>
+
+      <tip>
+
+        <title>netlabs.org</title>
+
+        <para>netlabs.org was founded in 1997 with the goal of creating 
+        a center for free Open Source Software for OS/2 and also 
+        eComStation (eCS). Today, netlabs.org is one of the largest 
+        developers of OS/2 software outside of IBM itself.</para>
+
+        <para>With its many ground-breaking projects, netlabs.org has 
+        won a name for itself in the great OS/2 and eCS Community. More 
+        information and projects can be found at 
+        <ulink url="http://www.netlabs.org/">
+        http://www.netlabs.org/</ulink>.</para>
+
+      </tip>
+
+      <para>You might ask why I write that in a book about Voyager. The 
+      reason is pretty simple: Every OS/2 user had a story of his own 
+      about how he or she started using it. I bet that for most people 
+      it had something to do with technical reasons, because you 
+      <emphasis>knew</emphasis> that it was better. So what was your 
+      motivation back then? Think about that again before you read the 
+      next sections.</para>
+
+    </section>
+
+    <section>
+
+      <title>The Reason for eComStation</title>
+
+      <para>While IBM was investing less and less time into the 
+      development of OS/2, a group of people at Serenity Systems 
+      International (SSI) managed to get a license from IBM to 
+      distribute the core of OS/2 under a new name and extend it with 
+      new software. The final product is now called eComStation and by 
+      now it has become the only legal way to get an OS/2-like 
+      operating system, especially since IBM stopped selling OS/2 in 
+      January 2006.</para>
+
+      <para>When eComStation 1.0 got released in 2001 IBM was still 
+      selling OS/2 but many OS/2 users switched to eComStation. The 
+      reason was pretty simple: eCS included a lot of things in the 
+      default installation that users of OS/2 installed anyway—and much 
+      more. It was no longer necessary to patch a freshly installed 
+      system with the latest fixpacks right away and install software 
+      like <application>WarpIN</application>, <application>
+      XWorkplace</application>, <application>Mozilla</application>, and 
+      all the other applications.</para>
+
+      <para>Meanwhile OS/2 does not exist anymore, eCS is the only way 
+      to get the <quote>OS/2 feeling</quote> on your desktop and you 
+      get much more with it. SSI is currently working on eComStation 
+      2.0, which will add more important features and which also shows 
+      a clear trend: Use industry standards that are available as open 
+      source software and integrate them into the WPS. Examples of this 
+      are <application>OpenOffice.org 2.0</application>, <application>
+      Samba</application>, <application>CDRecord</application>, and 
+      much more.</para>
+
+    </section>
+
+    <section>
+
+      <title>The Reason for Voyager</title>
+
+      <para>As described above, eComStation made it possible for the 
+      first time to add things to our operating system that IBM had 
+      refused to include all the years before. This is a great thing 
+      because it is now possible to extend and adjust the system to our 
+      needs.</para>
+
+      <para>However, over the past months it also became clear that the 
+      current kernel of eComStation will reach its design limits one 
+      day. While we still can get it to work on recent hardware due to 
+      extensions like ACPI support, things might change in the future. 
+      The trend nowadays is clearly 64 bit platforms and even if it 
+      will take some months or even years until they are used 
+      everywhere, we cannot use new features of such CPUs and 
+      mainboards with the current kernel.</para>
+
+      <para>Another issue is the time needed to develop new features 
+      like ACPI. After years of running a project like netlabs.org we 
+      are simply tired of writing device drivers for new hardware and 
+      trying to circumvent limitations in the current kernel to get 
+      something to work. This is very boring work and it does not lead 
+      anywhere because new hardware is released every day. So instead 
+      of focusing on interesting work like integrating applications 
+      into the Workplace Shell, we lose time on moving targets.</para>
+
+      <tip>
+
+        <title>Workplace Shell (WPS)</title>
+
+        <para>The Workplace Shell (WPS) is an award-winning 
+        object-oriented desktop shell produced by IBM&apos;s Boca Raton 
+        development lab for OS/2 2.0. It is based on Common User Access 
+        and made a radical shift away from the Program Manager type 
+        interface that earlier versions of OS/2 shared with Windows 3.x 
+        or the application-oriented WIMP interface of the Apple 
+        Macintosh. The Workplace Shell was also used in OS/2 Warp 3 and 
+        Warp 4 (now abandoned by IBM), and is still the user interface 
+        of the revamped successor to OS/2 called eComStation. Source: 
+        <ulink url="http://en.wikipedia.org/wiki/Workplace_Shell"/>
+        </para>
+
+      </tip>
+
+      <para>The same issue exists with GUI-based applications like 
+      <application>Mozilla</application> and <application>
+      OpenOffice.org</application>. They always rely on a GUI Toolkit. 
+      Popular toolkits nowadays are GTK+, qt, wxWidgets, and SWT. We 
+      spent and still spend quite some time on getting those toolkits 
+      to work on OS/2 PM. This also is a never-ending work because they 
+      get extended on a regular base as well. Again, we loose time on 
+      things that are of no immediate benefit, they are just required 
+      to get the application itself to OS/2. This costs both a lot of 
+      time and money, because we have to pay developers to port those 
+      toolkits. Otherwise they never would get finished in a reasonable 
+      time.</para>
+
+      <para>Earlier in the book we asked you about your motivation to 
+      use OS/2 back then. We hope you could remember the motivation and 
+      we also hope that it had something to do with the technical 
+      benefits of OS/2. If you are sceptic against the idea of Voyager 
+      answer yourself the following questions:</para>
+
+      <itemizedlist>
+
+        <listitem>
+
+          <para>Are the arguments for OS/2 still valid nowadays from a 
+          technical point of view?</para>
+
+        </listitem>
+
+        <listitem>
+
+          <para>Would you still choose OS/2 if you wouldn&apos;t care 
+          about unique concepts like the WPS?</para>
+
+        </listitem>
+
+      </itemizedlist>
+
+      <para>For sure there is more to OS/2 and eCS than just the WPS, 
+      we will talk about that later. But in our opinion those concepts 
+      are not necessarily bound to OS/2 as a kernel and operating 
+      system. And that is exactly what Voyager is about: 
+      <emphasis>Implement the unique concepts as open source software 
+      for eCS and for other platforms!</emphasis></para>
+
+    </section>
+
+  </section>
+
+  <section>
+
+    <title>Conclusion</title>
+
+    <para>There are many things in OS/2 that are worth keeping but it 
+    would not make sense to clone the current OS as a whole. The 
+    community could never do that and even if we could, it 
+    wouldn&apos;t solve the problems we are suffering from 
+    nowadays.</para>
+
+    <para>Based on the arguments mentioned before we can come up with a 
+    list of things that would be nice to have in a perfect 
+    environment:</para>
+
+    <itemizedlist>
+
+      <listitem>
+
+        <para>The system provides a stable kernel with a decent device 
+        driver subsystem.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>All recent GUI toolkits are provided by the system, 
+        without porting or maintenance work for us.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Hardware is just there to do a job for us. We do not care 
+        about device drivers, they are provided by the base 
+        system.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>De-facto standards can easily be compiled. Patching of 
+        application source code is not required.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Our programmers implement a WPS-like environment on top 
+        of this system.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Applications are perfectly integrated into this WPS-like 
+        desktop.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>And in a really perfect world we even get our legacy OS/2 
+        and eCS applications to work.</para>
+
+      </listitem>
+
+    </itemizedlist>
+
+    <para>A project like Voyager needs to focus on its main idea, 
+    everything that distracts from that goal should be reconsidered 
+    and, if possible, be replaced by something existing. In the next 
+    chapters, we will explain in detail in the next chapters which core 
+    components need to be written by ourself and which components can 
+    be taken from other projects. We believe that this approach makes 
+    it possible to make Voyager a real piece of software instead of 
+    vaporware or a nice design study as it is at the time 
+    writing.</para>
+
+    <para>It would not make sense to make any statement about how fast 
+    this can be implemented and about how many of the mentioned things 
+    will be reached within the next months and years. But if we do not 
+    try, we will never find out.</para>
+
+  </section>
+
+  <para />
+
+  <para />
+
+  <para />
+
+</chapter>
+

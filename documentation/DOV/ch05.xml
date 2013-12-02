@@ -1,0 +1,364 @@
+<?xml version='1.0'?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3b2/docbookx.dtd">
+<chapter id="dov.triton">
+
+  <title>Triton</title>
+
+  <section id="dov.triton.i">
+
+    <title>Introducton</title>
+
+    <para>The multimedia subsystem of Voyager (called Triton) is a 
+    plugin-based, extendable, flexible architecture, originally 
+    designed for stable playback of any kind of multimedia streams from 
+    any kind of source. The system is not yet capable of recording, 
+    it&apos;s planned for later versions.</para>
+
+    <para>The MMIO subsystem has a layered architecture. It means that 
+    in order to play back a given multimedia content, the subsystem 
+    builds a logical structure of at least five levels. This structure 
+    describes the inner structure of the given multimedia content and 
+    makes it possible to divide the processing and playback of 
+    multimedia contents into different modular parts, making it easier 
+    to find and fix the bugs in plugins. The modular structure also 
+    helps so that once support for a new format is added, it will 
+    probably work from all the supported sources (like from local file 
+    or from an Internet stream), and vice versa, a new plugin for a new 
+    source will make it possible to play back all the supported formats 
+    without any additional code.</para>
+
+    <para>The current version of MMIO has the following layers 
+    defined:</para>
+
+    <itemizedlist>
+
+      <listitem>
+
+        <para>Medium</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Channel</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Elementary Stream</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Raw Stream</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Terminator Nodes (Visualization)</para>
+
+      </listitem>
+
+    </itemizedlist>
+
+    <para>These layers and the layered structure are handled internally 
+    by the system, and all these are built up from a URL. This 
+    effectively means that playing back a given file (or any kind of 
+    multimedia content) is as simple as opening a URL with one MMIO API 
+    call, and sending it a Play command.</para>
+
+    <para>These URLs look this simple:</para>
+
+    <itemizedlist>
+
+      <listitem>
+
+        <para>file://c:/Musics/My_Favourite.mp3</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>http://local.video.store.com:8080/Horror/Killing_The_Killer.avi</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>rtsp://radio.com/live.ra</para>
+
+      </listitem>
+
+    </itemizedlist>
+
+  </section>
+
+  <section id="dov.triton.bo">
+
+    <title>Basic Overview</title>
+
+    <section id="dov.triton.bo.plptsg">
+
+      <title>Plugin List, Process Tree, Stream Groups</title>
+
+      <para>There are three main expressions of MMIO with which one has 
+      to be familiar with.</para>
+
+      <para>The Plugin List means the list of available MMIO Plugins 
+      from where the MMIO subsystem can select plugins to be used for 
+      the playback of a given URL. This list can be queried and 
+      examined, so the application will get an idea about the 
+      capabilities of the system it runs on. Alternatively, it can 
+      decide to de-register old plugins and register new ones.</para>
+
+      <para>The Process Tree is probably the most important thing of 
+      the MMIO subsystem. It is a tree structure, having different kind 
+      of nodes connected together, describing the layered architecture 
+      of the multimedia content to be played back. This tree is built 
+      somewhat automatically by the MMIO subsystem, using the 
+      registered plugins of the Plugin List. The top of the tree has a 
+      URL node, containing only the URL string itself, while the bottom 
+      of the tree will have Terminator nodes, the 
+      <quote>Visualization</quote> nodes for every supported stream of 
+      the URL. Here is an example of an imaginary URL and the Process 
+      Tree created from it by the MMIO subsystem:</para>
+
+      <para>URL: http://www.server.com/Films/LOTR_Trailer.avi</para>
+
+      <para>As you can see, this example has an AVI file containing one 
+      video stream in DIVX format, one audio stream for the video in 
+      MPEG Audio format, and one Subtitle stream for all these, in DVD 
+      Subtitle format. All these elementary streams (ES) have a raw 
+      stream (RS) descendant, meaning that a decoder has been found for 
+      all of them, and all of them has a Terminator (Term) node, 
+      meaning that all the decoder outputs can be sent to the screen or 
+      speaker, so all of them can be played back. More about node types 
+      and their purpose later.</para>
+
+      <para>Having three Terminator nodes means that we have three 
+      independent streams we can play back. We could send a <command>
+      Start Playback</command> command to all the three of these 
+      Terminator nodes, which would mean that the playback of all these 
+      streams would be started, and we would be able to watch and 
+      listen to the movie.</para>
+
+      <para>However, usually it&apos;s not this simple. Nothing 
+      guarantees that starting the playback this way, independently, 
+      stream-by-stream, will result in an experience where the video 
+      and the audio goes together. There must be <quote>lipsync</quote> 
+      as it&apos;s usually called, meaning that the audio and the video 
+      has to go together in order to have an enjoyable 
+      experience.</para>
+
+      <para>That&apos;s the reason why there is a third expression in 
+      the MMIO subsystem to get familiar with: the Stream Groups.</para>
+
+      <para>Stream Groups are logical entities, grouping Terminator 
+      nodes together. One can create a Stream Group from the three 
+      Terminator nodes of the example above, and send the <command>
+      Start Playback</command> command to the Stream Group. The Stream 
+      Group itself will take care of the lipsync, and will make sure 
+      that all the streams grouped together in it will move and act 
+      together.</para>
+
+    </section>
+
+    <section id="dov.triton.bo.nntpt">
+
+      <title>Nodes and Node Types in the Process Tree</title>
+
+      <para>The Process Tree is built from nodes. Every node in the 
+      tree has a type, and has a string describing the format which 
+      that node can provide. Using the Process Tree example we had 
+      before, there is a node which is a URL node (its type is URL), 
+      and can provide <quote>urls</quote> to any other nodes that are 
+      connecting to it.</para>
+
+      <para>The MMIO subsystem looked through its list of available 
+      plugins, and found a media handler plugin that can handle that 
+      URL node. Using that plugin, a new node was created, which is a 
+      Media node, describing the media contained in the URL. This new 
+      Media node was created by the media handler plugin (http handler 
+      plugin, in our example), and that plugin also checked what kind 
+      of stuff it can provide. It saw that the URL contains a file, 
+      which has the extension of <computeroutput>.avi</computeroutput>, 
+      so it reports that this node can provide an AVI container format 
+      to everyone who connects to it. As it&apos;s a Media node, 
+      everybody will be able to use the node&apos;s type-specific 
+      functions, like seeking, reading and other Media-specific 
+      functions.</para>
+
+      <para>The MMIO subsystem tried to <quote>grow</quote> this 
+      process tree, so again looked into its plugin list, and found a 
+      plugin which can handle AVI container formats (cont_AVI format 
+      strings). This is the AVI demuxer plugin. Using that plugin, new 
+      nodes of the Process Tree could be built. The first one is a 
+      Channel node, which describes logical channels in a given 
+      container. There is only one channel in an AVI file, but for 
+      example the MPEG Transport Stream containers, used by the digital 
+      television broadcasting systems have a lot of channels in one 
+      container, namely a lot of TV channels, and each of the channels 
+      have at least one Video elementary stream and one or more Audio 
+      elementary streams. So, the Channel node is to be able to group 
+      the available Elementary Stream Nodes of a given container.</para>
+
+      <para>It&apos;s still the AVI demuxer plugin which examined the 
+      AVI file format (using the Media node to read and seek in the 
+      file) and found out that there are three Elementary Streams (ES) 
+      in this AVI file, namely one video stream in DIVX format, one 
+      audio stream in MPEG Audio format, and a subtitle stream with 
+      DVD-format subtitles. So, the AVI demuxer plugin has created four 
+      new nodes into the Process Tree.</para>
+
+      <para>The ball is at the side of the MMIO subsystem again. 
+      It&apos;s still trying to grow the process tree, so it&apos;s 
+      looking for plugins to handle the three new Nodes of the tree. 
+      It&apos;s lucky again, and based on the plugin list, it finds 
+      decoder plugins for all the three formats, namely a DIVX decoder 
+      plugin for the es_v_DIVX format, an MPEG Audio decoder plugin for 
+      the es_a_MPA format, and a DVD Subtitle decoder/renderer plugin 
+      for the es_s_DVD format.</para>
+
+      <para>Using these decoder plugins for the corresponding nodes, 
+      each of the decoder plugins create one new Node into the tree, a 
+      Raw Stream Node. The Raw Stream (RS) terminology means decoded 
+      elementary streams, so while reading data from Elementary Streams 
+      would give encoded/compressed data, reading from Raw Streams 
+      gives decoded/uncompressed data, which can be directly shown on 
+      the screen, or sent to the audio card.</para>
+
+      <para>The MMIO subsystem does not give up, and still checks if it 
+      has plugins to handle the new nodes. It finds a video output 
+      plugin, which is capable of displaying YUV422 formatted images on 
+      the screen, and connects it to the video RS node. Also finds an 
+      audio output plugin which can handle the PCM audio format, and 
+      connects it to the audio RS node. The subtitle RS node will be 
+      handled by a subtitle visualizer plugin. All these plugins have 
+      one thing in common: they <quote>eat</quote> data from the upper 
+      layers, but do not provide any data, as they consume them by 
+      showing it. That&apos;s why they are called Terminator Nodes, 
+      because they terminate a given branch of the Process Tree.</para>
+
+      <para>Now the MMIO subsystem can see that all the leafs of the 
+      Process Tree are either Terminator nodes (so there is no task to 
+      do with them), or there was no plugin to handle them (none of the 
+      nodes are such in our example). So, it gives up growing the tree, 
+      the Process Tree has been built successfully.</para>
+
+    </section>
+
+  </section>
+
+  <section id="dov.triton.ums">
+
+    <title>Using the MMIO Subsystem</title>
+
+    <section id="dov.triton.ums.f">
+
+      <title>Foreword</title>
+
+      <para>Now that you&apos;ve reached this chapter, you&apos;ve 
+      either read through the hard part, or you&apos;ve simply skipped 
+      the previous parts. If you&apos;ve read through the previous 
+      parts, you know the basic idea behind the MMIO subsystem, and 
+      you&apos;ll be able to use it in a more advanced way, customize 
+      it for your needs. However, if you haven&apos;t read through the 
+      previous parts, it&apos;s not a problem, the MMIO subsystem can 
+      be used very easily without that knowledge too, 
+      <xref linkend="dov.triton.ums.qu"/> is for you then.</para>
+
+    </section>
+
+    <section id="dov.triton.ums.qu">
+
+      <title>Quick Usage</title>
+
+      <para>This chapter is to be done.</para>
+
+    </section>
+
+    <section id="dov.triton.ums.au">
+
+      <title>Advanced Usage</title>
+
+      <para>This chapter is to be done.</para>
+
+      <para>Using the MMIO subsystem:</para>
+
+      <itemizedlist>
+
+        <listitem>
+
+          <para>Init MMIO</para>
+
+        </listitem>
+
+        <listitem>
+
+          <para>Query/Manage plugin list</para>
+
+        </listitem>
+
+        <listitem>
+
+          <para>Open URL</para>
+
+        </listitem>
+
+        <listitem>
+
+          <para>Create stream group</para>
+
+        </listitem>
+
+        <listitem>
+
+          <para>Start playback</para>
+
+        </listitem>
+
+        <listitem>
+
+          <para>Clean up</para>
+
+        </listitem>
+
+      </itemizedlist>
+
+    </section>
+
+  </section>
+
+  <section id="dov.triton.maap">
+
+    <title>The MMIO API for Application Programmers</title>
+
+    <para>This chapter is to be done.</para>
+
+  </section>
+
+  <section id="dov.triton.cpms">
+
+    <title>Creating Plugins for the MMIO Subsystem</title>
+
+    <para>This chapter is to be done.</para>
+
+  </section>
+
+  <section id="dov.triton.pg">
+
+    <title>Programming Guidelines</title>
+
+    <para>This chapter is to be done.</para>
+
+    <para>Use MMIOmem.h and the Triton Porting Layer, where possible, 
+    so the plugins will be portable, memory leaks will be detectable 
+    and trackable.</para>
+
+  </section>
+
+</chapter>
+

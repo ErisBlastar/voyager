@@ -1,0 +1,162 @@
+/* ***** BEGIN LICENSE BLOCK *****
+* Version: CDDL 1.0/LGPL 2.1
+*
+* The contents of this file are subject to the COMMON DEVELOPMENT AND
+* DISTRIBUTION LICENSE (CDDL) Version 1.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of
+* the License at http://www.sun.com/cddl/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is "NOM" Netlabs Object Model
+*
+* The Initial Developer of the Original Code is
+* netlabs.org: Chris Wohlgemuth <cinc-ml@netlabs.org>.
+* Portions created by the Initial Developer are Copyright (C) 2005-2008
+* the Initial Developer. All Rights Reserved.
+*
+* Contributor(s):
+*
+* Alternatively, the contents of this file may be used under the terms of
+* the GNU Lesser General Public License Version 2.1 (the "LGPL"), in which
+* case the provisions of the LGPL are applicable instead of those above. If
+* you wish to allow use of your version of this file only under the terms of
+* the LGPL, and not to allow others to use your version of this file under
+* the terms of the CDDL, indicate your decision by deleting the provisions
+* above and replace them with the notice and other provisions required by the
+* LGPL. If you do not delete the provisions above, a recipient may use your
+* version of this file under the terms of any one of the CDDL or the LGPL.
+*
+* ***** END LICENSE BLOCK ***** */
+
+#ifndef NOMSTRING_IDL_INCLUDED
+#define NOMSTRING_IDL_INCLUDED
+
+native GString;
+
+#include "nomobj.idl"
+
+NOMCLASSNAME(NOMString);
+
+/** \class NOMString
+    The NOMString class is used for strings which automatically grow or shrink.
+    Methods are provided for common tasks when dealing with strings like inserting or
+    appending strings. A string object never can be empty. It always is a string which may have a length of zero.
+
+    Note that you don't have to delete a NOMString object. This is done by the garbage collector. Deleting
+    it doesn't hurt, though.
+ */
+interface NOMString : NOMObject
+{
+#ifdef __NOM_IDL_COMPILER__
+  filestem=nomstring;
+#endif
+
+  /**
+     The current version of this class is 1.0
+   */
+  NOMCLASSVERSION(1, 0);
+
+  /**
+     Assign a string to this NOMString. An initially created NOMString object is empty.
+     This method can be used to assign some value to it.
+
+     \remark
+     This method does not work on a copy. So by assigning a value to the NOMString the
+     old contents is lost. This may have sideeffects in multithreaded environments if used without care.
+
+     \sa assignCString()
+   */
+  NOMString* assign(in NOMString* nomString);   
+
+  /**
+     Assign a C string to this NOMString. An initially created NOMString object is empty.
+     This method can be used to assign some value to it.
+
+     \remark
+     This method does not work on a copy. So by assigning a value to the NOMString the old contents
+     is lost. This may have sideeffects in multithreaded environments if used without care.
+
+     \sa assign()
+  */
+  NOMString* assignString(in string chrString);   
+
+  /**
+     Returns the C string holding the info inside the string object. Use with care. 
+     In most cases you rather want to use copyCString() instead.
+
+     \return The C string representing the contents of the string object. This is not a copy. 
+
+  */
+  string queryString();
+
+  /**
+     Add the NOMString nomString to the end of the string object. 
+
+     \remark The returned string object is not newly allocated. Be aware that the string data
+     held by the object is. 
+
+     \param nomString A NOMString object to be put at the end of the string.
+     \return     
+     Modified NOMString object with the given string object appended. This is not a copy. 
+
+     \sa appendCString(), prepend()
+   */
+  NOMString* append(in NOMString* nomString);
+
+  /**
+     Prepend the NOMString \e nomString to the given string object and return the modified
+     NOMString.
+
+     \remark The returned string object is not newly allocated. Be aware that the string data
+     held by the object is. 
+
+     \param nomString A NOMString object to be put in front of the string.
+     \return
+     NOMString object with the string prepended. This is not a copy. 
+
+     \sa prependCString()
+   */   
+  NOMString* prepend(in NOMString* nomString);
+
+
+  /**
+     \return Returns the length of the string in characters.
+   */
+  gulong length();
+
+  /**
+     Cuts off the end of a string leaving the first ulNewLen characters.
+
+     \remark The returned string object is not newly allocated. Be aware that the string data
+     held by the object is. 
+
+     \return
+     Truncated NOMString object. This is not a copy. 
+  */
+  PNOMString truncate(in gulong ulNewLen);
+
+  /**
+     Create a copy of the NOMString object this method is called on. The caller
+     owns the new NOMString object.
+
+     \return A new NOMString object
+
+     \sa copyCString()
+  */
+  NOMString* copy();
+
+  /**
+     Override of nomInit() to initialize the GString */
+  NOMOVERRIDE(nomInit);
+
+  /**
+     The GString holding the data
+  */
+  NOMINSTANCEVAR(GString* gString);
+};
+
+#endif  /* NOMSTRING_IDL_INCLUDED */

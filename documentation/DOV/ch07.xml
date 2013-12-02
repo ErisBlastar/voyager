@@ -1,0 +1,104 @@
+<?xml version='1.0'?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3b2/docbookx.dtd">
+<chapter id="dov.kernel">
+
+  <title>Kernel</title>
+
+  <para>Teaser Text.</para>
+
+  <section>
+
+    <title>Introduction</title>
+
+    <para>What is the issue with the kernel.</para>
+
+  </section>
+
+  <section>
+
+    <title>Device Driver Subsystem</title>
+
+    <para>Talk about general problems, Linux vs. BSD vs. IOKit vs. SNAP 
+    vs. Windows Wrappers vs. whatever here.</para>
+
+    <section>
+
+      <title>D-BUS</title>
+
+      <para>Explain D-BUS.</para>
+
+    </section>
+
+  </section>
+
+  <section>
+
+    <title>Kernel Options</title>
+
+    <para>Discuss the different options.</para>
+
+    <section>
+
+      <title>OS/2 Kernel Rewrite</title>
+
+      <para>Bla, also mention JdeBP&apos;s thingy.</para>
+
+    </section>
+
+    <section>
+
+      <title>FreeBSD</title>
+
+      <para>Bla</para>
+
+    </section>
+
+    <section>
+
+      <title>Linux</title>
+
+      <para>Bla</para>
+
+    </section>
+
+    <section>
+
+      <title>Windows &amp; Reactos</title>
+
+      <para>Explain why Voyager on Windows or Reactos could be a good 
+      idea.</para>
+
+      <para>sdlfkjdsf</para>
+
+      <para />
+
+    </section>
+
+    <section>
+
+      <title>Darwin</title>
+
+      <para>Bla</para>
+
+    </section>
+
+    <section>
+
+      <title>L4</title>
+
+      <para>Bla, L4Darwin as well.</para>
+
+    </section>
+
+    <section>
+
+      <title>K42</title>
+
+      <para>Bla</para>
+
+    </section>
+
+  </section>
+
+</chapter>
+

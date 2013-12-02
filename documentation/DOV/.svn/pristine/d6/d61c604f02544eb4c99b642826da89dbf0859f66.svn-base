@@ -1,0 +1,124 @@
+<?xml version='1.0'?>
+<!DOCTYPE appendix PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3b2/docbookx.dtd">
+<appendix id="dov.appb">
+
+  <title>About this Book</title>
+
+  <section id="dov.appb.tu">
+
+    <title>Technologies Used</title>
+
+    <para>This book is written using XML based 
+    <ulink url="http://www.docbook.org">DocBook</ulink> syntax. We 
+    decided to use DocBook because it allows one to create various 
+    output out of it like XHTML, PDF and more if necessary. We use a 
+    XML DTD called <quote>DocBook XML V4.3</quote>.</para>
+
+    <para>The content was written using 
+    <ulink url="http://www.eclipse.org">Eclipse</ulink> with 
+    <ulink url="http://www.xmlbuddy.com">XMLBuddy</ulink> and 
+    <ulink url="http://vex.sf.net">Vex XML Plugin</ulink> on a Linux 
+    System. A port of Eclipse to eComStation and OS/2 is in the 
+    works.</para>
+
+    <para>Graphics are done in Inkscape and OpenOffice and imported as 
+    PDF or PNG into the XML document, in the future SVG will be used as 
+    well.</para>
+
+  </section>
+
+  <section id="dov.appb.c">
+
+    <title>Contributing</title>
+
+    <para>There are numerous ways to contribute to this book:</para>
+
+    <itemizedlist>
+
+      <listitem>
+
+        <para>Correct the text. Most people writing on this book are 
+        not native English speakers so contributions in that regard are 
+        always welcome.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Help us on doing the graphics. We are not graphic 
+        designers so it might be easy for you to create prettier 
+        graphics. We need them in SVG, PDF and PNG format. It would be 
+        good if there is a consistent look and feel of the icons and 
+        symbols used.</para>
+
+      </listitem>
+
+      <listitem>
+
+        <para>Write/contribute to (missing) chapters. It is not 
+        possible for us to finish this book alone so every help on 
+        technical details is appreciated!</para>
+
+      </listitem>
+
+    </itemizedlist>
+
+    <para>Before you start working on something get the latest version 
+    of the book first and contact us as well on the mailing-list. We 
+    need any help we can get but it would be a waste of time to 
+    duplicate work! See FIXME for more details about how to get in 
+    contact with us.</para>
+
+    <para>If you work on the XML files make sure the format of the XML 
+    file is not changed if possible, otherwise we get very big 
+    changesets in Subversion which does not really help maintaining it. 
+    If you are in doubt send the XML file to one of the Subversion 
+    commiters to reformat it.</para>
+
+  </section>
+
+  <section id="dov.appb.gxs">
+
+    <title>Getting the XML Source</title>
+
+    <para>The latest version of this book is maintained in a Subversion 
+    repository at netlabs.org. You can get it with any Subversion 
+    client, for example the command-line version:</para>
+
+    <synopsis>
+svn checkout 
+    http://svn.netlabs.org/repos/voyager/doc/DOV
+ </synopsis>
+    <para>This would checkout the latest version of the document to 
+    your system into a directory called <filename>DOV</filename>.</para>
+
+    <para>If you prefer a GUI client you might have a look at 
+    <ulink url="http://www.smartsvn.com">SmartSVN</ulink> or any other 
+    GUI client available.</para>
+
+  </section>
+
+  <section id="dov.appb.rh">
+
+    <title>Revision History</title>
+
+    <para>This section shows the revision history of this book, mainly 
+    for historical reasons. If you enhance the book, please add your 
+    changes on top as well.</para>
+
+    <section>
+
+      <title>Version 0.1, Autumn 2006</title>
+
+      <para>First release of the document to the public for Warpstock 
+      2006. This release is by far not complete yet nor corrected from 
+      an English point of view. It was written during Summer and Autumn 
+      2006 in Biel, Roveredo (both Switzerland) and in Glengarriff 
+      (Ireland).</para>
+
+    </section>
+
+  </section>
+
+</appendix>
+

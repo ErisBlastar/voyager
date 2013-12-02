@@ -1,0 +1,177 @@
+/* ***** BEGIN LICENSE BLOCK *****
+* Version: CDDL 1.0/LGPL 2.1
+*
+* The contents of this file are subject to the COMMON DEVELOPMENT AND
+* DISTRIBUTION LICENSE (CDDL) Version 1.0 (the "License"); you may not use
+* this file except in compliance with the License. You may obtain a copy of
+* the License at http://www.sun.com/cddl/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is "NOM" Netlabs Object Model
+*
+* The Initial Developer of the Original Code is
+* netlabs.org: Chris Wohlgemuth <cinc-ml@netlabs.org>.
+* Portions created by the Initial Developer are Copyright (C) 2005-2006
+* the Initial Developer. All Rights Reserved.
+*
+* Contributor(s):
+*
+* Alternatively, the contents of this file may be used under the terms of
+* the GNU Lesser General Public License Version 2.1 (the "LGPL"), in which
+* case the provisions of the LGPL are applicable instead of those above. If
+* you wish to allow use of your version of this file only under the terms of
+* the LGPL, and not to allow others to use your version of this file under
+* the terms of the CDDL, indicate your decision by deleting the provisions
+* above and replace them with the notice and other provisions required by the
+* LGPL. If you do not delete the provisions above, a recipient may use your
+* version of this file under the terms of any one of the CDDL or the LGPL.
+*
+* ***** END LICENSE BLOCK ***** */
+/** \file nomcls.idl 
+    
+Class definition file for NOM class NOMClass the root metaclass.
+*/
+#ifndef NOMCLS_IDL_INCLUDED
+#define NOMCLS_IDL_INCLUDED
+
+#include "nomobj.idl"
+
+/** \interface NOMClass
+
+    This is the root class for metaclasses.
+
+ */
+interface NOMClass:NOMObject
+{
+#ifdef __NOM_IDL_COMPILER__
+  filestem=nomcls;
+#endif
+
+  NOMCLASSVERSION(1, 0 );
+
+  /**
+    This method is called to create an object of the class this metaclass
+    is the class object for.
+    The method uses nomAllocate() to get the amount of storage necessary to
+    hold one instance of the object to be built. When successful nomRenew()
+    is called with the allocated storage block to initalize the object.
+
+    \sa nomRenew(), nomRenewNoInit(), impl_NOMClass_nomNew()
+   */
+  PNOMObject nomNew();
+
+  /**
+     This method returns the name of the class this class object is the meta class of. This
+     means the returned string is the name of the class the metaclass creates instances of.
+
+     \remarks This method used to be called nomGetName().
+
+     \par How to override:
+     This method is usually not overriden.
+
+     \sa nomQueryClassName()
+   */
+  string nomQueryCreatedClassName();
+
+  /**
+     This method is called for example by nomNew() when creating a new object. It may be
+     used to create an object from a given memory block. If doing so be sure the storage
+     area is big enough to hold an objects instance.
+ 
+     The method first calls nomRenewNoInit() to set important object info on the memory block
+     and then calls nomInit() on the newly created object.
+
+     \par How to override:
+     This method is usually not overriden.
+     
+     \sa nomNew, nomRenewNoInit(), impl_NOMClass_nomRenew()
+   */
+  PNOMObject nomRenew(in gpointer nomObj);
+
+  /**
+     Most of object creation is done in this method which is indirectly called by nomNew().
+     The block of storage given to the method is set to zero first. Setting the pointer to the
+     mtab actually makes an object from the memory.
+     If the class this object is an instance of (or any of the parent classes) did override
+     nomUnInit() the object is registered for finalization with the garbage collector. By doing
+     so it is ensured that nomUnInit() is called on the object when it's collected eventually.
+
+     This method can be used to create an object from any block of memory. It may be faster
+     creating numerous objects from one huge memory area than calling nomNew() for every single
+     object.
+
+     \remark This method does not call nomInit() on the new object. It is guaranteed that this
+     method is always called during object creation.
+
+     \par How to override:
+     This method can be overriden to track the creation of objects. When doing so
+     the parent should be called first.
+
+     \sa nomNew, nomRenew(), impl_NOMClass_nomRenewNoInit()
+   */
+  PNOMObject nomRenewNoInit(in gpointer nomObj);
+
+  /**
+     Allocate size bytes for using when creating objects.
+
+     This method uses NOMMalloc() to allocate the memory. Because NOMMalloc() is just a wrapper
+     around g_malloc() which is replaced by a garbage collected memory allocation routine the returned block of
+     memory is zeroed similar to using NOMCalloc().
+
+     \par How to override:
+     This method is usually not overriden.
+     
+     \sa impl_NOMClass_nomAllocate()
+   */
+  gpointer nomAllocate(in long size);
+
+  /**
+     Free a block of memory allocated using nomAllocate(). Because NOM is using a garbage collector
+     this method does nothing. It's for compatibility with ported code.
+
+     \par How to override:
+     This method is usually not overriden.
+ 
+     \sa impl_NOMClass_nomDeallocate()
+   */
+  void nomDeallocate(in gpointer memptr);
+  void nomSetObjectCreateInfo(in gpointer ncpObject);
+
+  /**
+     Query the structure holding all the info needed for creating new objects.
+
+     \remarks
+     You should know what you're doing if you want to use the structure returned by this  method...
+     The return type may change.
+   */
+  gpointer nomGetObjectCreateInfo();
+
+  /**
+     This method is called after the class object is built. It registers the new
+     class with the NOMClassMgrObj.
+     In addition to registering the class object the class this metaclass can create will
+     also be registered.
+
+     \remarks This method is only called by the system during class creation.
+
+     \par How to override:
+     This method is usually not overriden.
+
+     \sa impl_NOMClass_nomClassReady()
+   */
+  void nomClassReady();
+
+  /**
+     \warning
+     The type of this variable will change!
+  */
+  NOMINSTANCEVAR(gpointer ncpObject);     //NOMClassPriv structure holding info about the object this class can create
+  NOMOVERRIDE(nomInit); 
+
+};
+
+#endif /* NOMCLS_IDL_INCLUDED */

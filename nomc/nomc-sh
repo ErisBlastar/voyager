@@ -1,0 +1,5 @@
+#!/bin/sh 
+#
+#
+
+gcc -E -x c -D NOMCOMPILER -I ./../include/nom/class_h ./nomc-test-input.nom | ./nomc -d /Users/cinc/svn-sources/nom/trunk/out/darwin.x86/release/obj/nomc/c -

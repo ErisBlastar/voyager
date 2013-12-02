@@ -1,0 +1,169 @@
+<refentry id="ORBit2-orbit2-allocators">
+<refmeta>
+<refentrytitle id="top_of_page">Allocators</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>ORBIT2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Allocators</refname>
+<refpurpose>Memory allocation functions for CORBA types.</refpurpose>
+<!--[<xref linkend="desc" endterm="desc.title"/>]-->
+</refnamediv>
+
+<refsynopsisdiv id="synopsis">
+<title id="synopsis.title">Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="CORBA-sequence-set-release">CORBA_sequence_set_release</link>      (s,r)
+#define     <link linkend="CORBA-sequence-get-release">CORBA_sequence_get_release</link>      (s)
+<link linkend="void">void</link>        <link linkend="CORBA-free">CORBA_free</link>                      (<link linkend="gpointer">gpointer</link> mem);
+<link linkend="gpointer">gpointer</link>    <link linkend="ORBit-alloc-tcval">ORBit_alloc_tcval</link>               (<link linkend="CORBA-TypeCode">CORBA_TypeCode</link> tc,
+                                             <link linkend="guint">guint</link> nelements);
+<link linkend="gpointer">gpointer</link>    <link linkend="ORBit-realloc-tcval">ORBit_realloc_tcval</link>             (<link linkend="gpointer">gpointer</link> old,
+                                             <link linkend="CORBA-TypeCode">CORBA_TypeCode</link> tc,
+                                             <link linkend="guint">guint</link> old_num_elements,
+                                             <link linkend="guint">guint</link> num_elements);
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="desc">
+<title id="desc.title">Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1 id="details">
+<title id="details.title">Details</title>
+<refsect2>
+<title><anchor id="CORBA-sequence-set-release" role="macro"/>CORBA_sequence_set_release()</title>
+<indexterm><primary>CORBA_sequence_set_release</primary></indexterm><programlisting>#define CORBA_sequence_set_release(s,r) (s)-&gt;_release = r
+</programlisting>
+<para>
+    <link linkend="CORBA-sequence-set-release"><function>CORBA_sequence_set_release()</function></link> can be used to set the state of the
+    release flag. If the flag is set to <literal>TRUE</literal>, the sequence effectively
+    "owns" the storage pointed to by <structfield>_buffer</structfield>; if
+    <literal>FALSE</literal>, the programmer is responsible for the storage. If, for
+    example, a sequence is returned from an operation with its release
+    flag set to <literal>FALSE</literal>, calling <link linkend="CORBA-free"><function>CORBA_free()</function></link> on the returned sequence
+    pointer will not deallocate the memory pointed to by
+    <structfield>_buffer</structfield>.
+</para>
+<para>
+    Also, passing a null pointer or a pointer to something other than
+    a sequence type to either <link linkend="CORBA-sequence-set-release"><function>CORBA_sequence_set_release()</function></link> or
+    <link linkend="CORBA-sequence-get-release"><function>CORBA_sequence_get_release()</function></link> produces undefined behavior.
+</para>
+<para>
+    <link linkend="CORBA-sequence-set-release"><function>CORBA_sequence_set_release()</function></link> should only be used by the creator of a
+    sequence. If it is not called for a given sequence instance, then
+    the default value of the release flag for that instance is <literal>FALSE</literal>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>s</parameter>&nbsp;:</term>
+<listitem><simpara>a CORBA sequence
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>r</parameter>&nbsp;:</term>
+<listitem><simpara>the new value of the release flag
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="CORBA-sequence-get-release" role="macro"/>CORBA_sequence_get_release()</title>
+<indexterm><primary>CORBA_sequence_get_release</primary></indexterm><programlisting>#define CORBA_sequence_get_release(s) (s)-&gt;_release
+</programlisting>
+<para>
+    Before calling <link linkend="CORBA-free"><function>CORBA_free()</function></link> on the
+    <structfield>_buffer</structfield> member of a sequence directly,
+    the programmer should check the release flag using
+    <link linkend="CORBA-sequence-get-release"><function>CORBA_sequence_get_release()</function></link>. If it returns <literal>FALSE</literal>, the programmer
+    should not invoke <link linkend="CORBA-free"><function>CORBA_free()</function></link> on the
+    <structfield>_buffer</structfield> member; doing so produces
+    undefined behavior.
+</para><variablelist role="params">
+<varlistentry><term><parameter>s</parameter>&nbsp;:</term>
+<listitem><simpara>a CORBA sequence
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="CORBA-free" role="function"/>CORBA_free ()</title>
+<indexterm><primary>CORBA_free</primary></indexterm><programlisting><link linkend="void">void</link>        CORBA_free                      (<link linkend="gpointer">gpointer</link> mem);</programlisting>
+<para>
+    This function should be used to free memory that has been
+    previously allocated with any CORBA memory allocation function.
+    It does deep/recursive/intelligent deallocation of memory,
+    including deallocation of values of <type>CORBA_any</type> types,
+    sequence buffers and elements, etc.
+</para><variablelist role="params">
+<varlistentry><term><parameter>mem</parameter>&nbsp;:</term>
+<listitem><simpara>pointer to any memory block allocated by CORBA/ORBit
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-alloc-tcval" role="function"/>ORBit_alloc_tcval ()</title>
+<indexterm><primary>ORBit_alloc_tcval</primary></indexterm><programlisting><link linkend="gpointer">gpointer</link>    ORBit_alloc_tcval               (<link linkend="CORBA-TypeCode">CORBA_TypeCode</link> tc,
+                                             <link linkend="guint">guint</link> nelements);</programlisting>
+<para>
+    Allocates a memory buffer that can hold <parameter>nelemems</parameter> elements of type <parameter>tc</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tc</parameter>&nbsp;:</term>
+<listitem><simpara>typecode of the elements of the array
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>nelements</parameter>&nbsp;:</term>
+<listitem><simpara>number of elements of the array
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>the address of the newly allocated memory buffer
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-realloc-tcval" role="function"/>ORBit_realloc_tcval ()</title>
+<indexterm><primary>ORBit_realloc_tcval</primary></indexterm><programlisting><link linkend="gpointer">gpointer</link>    ORBit_realloc_tcval             (<link linkend="gpointer">gpointer</link> old,
+                                             <link linkend="CORBA-TypeCode">CORBA_TypeCode</link> tc,
+                                             <link linkend="guint">guint</link> old_num_elements,
+                                             <link linkend="guint">guint</link> num_elements);</programlisting>
+<para>
+    Changes the size of a CORBA memory buffer.
+</para><variablelist role="params">
+<varlistentry><term><parameter>old</parameter>&nbsp;:</term>
+<listitem><simpara>old memory segment, possibly allocated by <link linkend="ORBit-alloc-tcval"><function>ORBit_alloc_tcval()</function></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tc</parameter>&nbsp;:</term>
+<listitem><simpara>typecode of the elements of the array
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>old_num_elements</parameter>&nbsp;:</term>
+<listitem><simpara>current number of elements of the array
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>num_elements</parameter>&nbsp;:</term>
+<listitem><simpara>new desired size of the array
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>the new location of the array
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

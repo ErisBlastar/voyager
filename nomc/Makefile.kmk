@@ -1,0 +1,42 @@
+# $Id: $
+## @file
+# Makefile for the NOM compiler.
+#
+
+DEPTH ?= ..
+SUB_DEPTH = ..
+include $(PATH_KBUILD)/subheader.kmk
+
+#
+# The one we use during buildling.
+# If cross-compiling, we'll have to build it again for the SDK.
+#
+PROGRAMS += nomc
+nomc_TEMPLATE = basebin
+nomc_SDKS = glib2
+nomc_SOURCES = \
+	c/nomc.c \
+	c/open_outfile.c \
+	c/printdata.c \
+	c/token.c \
+	c/util.c \
+	\
+	c-emitter_c/c_file_emitter.c \
+	\
+	parser_c/block_parser.c \
+	parser_c/class_parser.c \
+	parser_c/hash_parser.c \
+	parser_c/interface_parser.c \
+	parser_c/interfacemethod_parser.c \
+	parser_c/lineinfo_parser.c \
+	parser_c/classmethod_parser.c \
+	parser_c/typespec_parser.c
+nomc_INCS = include
+
+#BLDPROGS += bld-idl-compiler
+#bld-idl-compiler_EXTENDS = nom-idl-compiler
+#bld-idl-compiler_TEMPLATE = nombldprog
+
+
+include $(PATH_KBUILD)/subfooter.kmk
+

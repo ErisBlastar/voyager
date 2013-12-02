@@ -1,0 +1,729 @@
+<refentry id="ORBit2-orbit2-small">
+<refmeta>
+<refentrytitle id="top_of_page">orbit2-small</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>ORBIT2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>orbit2-small</refname>
+<refpurpose></refpurpose>
+<!--[<xref linkend="desc" endterm="desc.title"/>]-->
+</refnamediv>
+
+<refsynopsisdiv id="synopsis">
+<title id="synopsis.title">Synopsis</title>
+
+<synopsis>
+
+
+
+            <link linkend="ORBit-IModule">ORBit_IModule</link>;
+const <link linkend="char">char</link>* <link linkend="ORBit-get-safe-tmp">ORBit_get_safe_tmp</link>              (void);
+<link linkend="gpointer">gpointer</link>    <link linkend="ORBit-small-alloc">ORBit_small_alloc</link>               (<link linkend="CORBA-TypeCode">CORBA_TypeCode</link> tc);
+<link linkend="gpointer">gpointer</link>    <link linkend="ORBit-small-allocbuf">ORBit_small_allocbuf</link>            (<link linkend="CORBA-TypeCode">CORBA_TypeCode</link> tc,
+                                             <link linkend="CORBA-unsigned-long">CORBA_unsigned_long</link> length);
+<link linkend="void">void</link>        <link linkend="ORBit-small-freekids">ORBit_small_freekids</link>            (<link linkend="CORBA-TypeCode">CORBA_TypeCode</link> tc,
+                                             <link linkend="gpointer">gpointer</link> p,
+                                             <link linkend="gpointer">gpointer</link> d);
+<link linkend="gpointer">gpointer</link>    <link linkend="ORBit-sequence-alloc">ORBit_sequence_alloc</link>            (<link linkend="CORBA-TypeCode">CORBA_TypeCode</link> sequence_tc,
+                                             <link linkend="CORBA-unsigned-long">CORBA_unsigned_long</link> length);
+<link linkend="void">void</link>        <link linkend="ORBit-sequence-append">ORBit_sequence_append</link>           (<link linkend="gpointer">gpointer</link> sequence,
+                                             <link linkend="gconstpointer">gconstpointer</link> element);
+<link linkend="void">void</link>        <link linkend="ORBit-sequence-set-size">ORBit_sequence_set_size</link>         (<link linkend="gpointer">gpointer</link> sequence,
+                                             <link linkend="CORBA-unsigned-long">CORBA_unsigned_long</link> length);
+#define     <link linkend="ORBit-sequence-index">ORBit_sequence_index</link>            (sequence,idx)
+<link linkend="void">void</link>        <link linkend="ORBit-sequence-concat">ORBit_sequence_concat</link>           (<link linkend="gpointer">gpointer</link> sequence,
+                                             <link linkend="gconstpointer">gconstpointer</link> append);
+enum        <link linkend="ORBitConnectionStatus">ORBitConnectionStatus</link>;
+<link linkend="gpointer">gpointer</link>    <link linkend="ORBit-small-get-servant">ORBit_small_get_servant</link>         (<link linkend="CORBA-Object">CORBA_Object</link> obj);
+<link linkend="ORBitConnectionStatus">ORBitConnectionStatus</link> <link linkend="ORBit-small-get-connection-status">ORBit_small_get_connection_status</link>
+                                            (<link linkend="CORBA-Object">CORBA_Object</link> obj);
+<link linkend="ORBitConnectionStatus">ORBitConnectionStatus</link> <link linkend="ORBit-small-listen-for-broken">ORBit_small_listen_for_broken</link>
+                                            (<link linkend="CORBA-Object">CORBA_Object</link> obj,
+                                             <link linkend="GCallback">GCallback</link> fn,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="ORBitConnectionStatus">ORBitConnectionStatus</link> <link linkend="ORBit-small-unlisten-for-broken-full">ORBit_small_unlisten_for_broken_full</link>
+                                            (<link linkend="CORBA-Object">CORBA_Object</link> obj,
+                                             <link linkend="GCallback">GCallback</link> fn,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="ORBitConnectionStatus">ORBitConnectionStatus</link> <link linkend="ORBit-small-unlisten-for-broken">ORBit_small_unlisten_for_broken</link>
+                                            (<link linkend="CORBA-Object">CORBA_Object</link> obj,
+                                             <link linkend="GCallback">GCallback</link> fn);
+            <link linkend="ORBitConnection">ORBitConnection</link>;
+<link linkend="ORBitConnection">ORBitConnection</link>* <link linkend="ORBit-small-get-connection">ORBit_small_get_connection</link> (<link linkend="CORBA-Object">CORBA_Object</link> obj);
+<link linkend="ORBitConnection">ORBitConnection</link>* <link linkend="ORBit-small-get-connection-ref">ORBit_small_get_connection_ref</link>
+                                            (<link linkend="CORBA-Object">CORBA_Object</link> obj);
+<link linkend="void">void</link>        <link linkend="ORBit-small-connection-unref">ORBit_small_connection_unref</link>    (<link linkend="ORBitConnection">ORBitConnection</link> *cnx);
+<link linkend="void">void</link>        <link linkend="ORBit-connection-set-max-buffer">ORBit_connection_set_max_buffer</link> (<link linkend="ORBitConnection">ORBitConnection</link> *cnx,
+                                             <link linkend="gulong">gulong</link> max_buffer_bytes);
+<link linkend="ORBit-IInterface">ORBit_IInterface</link>* <link linkend="ORBit-small-get-iinterface">ORBit_small_get_iinterface</link>
+                                            (<link linkend="CORBA-Object">CORBA_Object</link> opt_object,
+                                             const <link linkend="CORBA-char">CORBA_char</link> *repo_id,
+                                             <link linkend="CORBA-Environment">CORBA_Environment</link> *ev);
+extern      int     <link linkend="ORBit-small-flags">ORBit_small_flags</link>;
+<link linkend="CORBA-sequence-ORBit-IInterface">CORBA_sequence_ORBit_IInterface</link>* <link linkend="ORBit-small-get-iinterfaces">ORBit_small_get_iinterfaces</link>
+                                            (const <link linkend="char">char</link> *name);
+            <link linkend="ORBitAsyncQueueEntry">ORBitAsyncQueueEntry</link>;
+<link linkend="void">void</link>        <link linkend="ORBit-small-invoke-stub-n">ORBit_small_invoke_stub_n</link>       (<link linkend="CORBA-Object">CORBA_Object</link> object,
+                                             <link linkend="ORBit-IMethods">ORBit_IMethods</link> *methods,
+                                             <link linkend="glong">glong</link> index,
+                                             <link linkend="gpointer">gpointer</link> ret,
+                                             <link linkend="gpointer">gpointer</link> *args,
+                                             <link linkend="CORBA-Context">CORBA_Context</link> ctx,
+                                             <link linkend="CORBA-Environment">CORBA_Environment</link> *ev);
+<link linkend="CORBA-char">CORBA_char</link>* <link linkend="ORBit-small-get-type-id">ORBit_small_get_type_id</link>         (<link linkend="CORBA-Object">CORBA_Object</link> object,
+                                             <link linkend="CORBA-Environment">CORBA_Environment</link> *ev);
+<link linkend="void">void</link>        (<link linkend="ORBitAsyncInvokeFunc">*ORBitAsyncInvokeFunc</link>)         (<link linkend="CORBA-Object">CORBA_Object</link> object,
+                                             <link linkend="ORBit-IMethod">ORBit_IMethod</link> *m_data,
+                                             <link linkend="ORBitAsyncQueueEntry">ORBitAsyncQueueEntry</link> *aqe,
+                                             <link linkend="gpointer">gpointer</link> user_data,
+                                             <link linkend="CORBA-Environment">CORBA_Environment</link> *ev);
+<link linkend="void">void</link>        <link linkend="ORBit-small-demarshal-async">ORBit_small_demarshal_async</link>     (<link linkend="ORBitAsyncQueueEntry">ORBitAsyncQueueEntry</link> *aqe,
+                                             <link linkend="gpointer">gpointer</link> ret,
+                                             <link linkend="gpointer">gpointer</link> *args,
+                                             <link linkend="CORBA-Environment">CORBA_Environment</link> *ev);
+<link linkend="void">void</link>        <link linkend="ORBit-small-invoke-stub">ORBit_small_invoke_stub</link>         (<link linkend="CORBA-Object">CORBA_Object</link> object,
+                                             <link linkend="ORBit-IMethod">ORBit_IMethod</link> *m_data,
+                                             <link linkend="gpointer">gpointer</link> ret,
+                                             <link linkend="gpointer">gpointer</link> *args,
+                                             <link linkend="CORBA-Context">CORBA_Context</link> ctx,
+                                             <link linkend="CORBA-Environment">CORBA_Environment</link> *ev);
+<link linkend="void">void</link>        <link linkend="ORBit-small-invoke-async">ORBit_small_invoke_async</link>        (<link linkend="CORBA-Object">CORBA_Object</link> obj,
+                                             <link linkend="ORBit-IMethod">ORBit_IMethod</link> *m_data,
+                                             <link linkend="ORBitAsyncInvokeFunc">ORBitAsyncInvokeFunc</link> fn,
+                                             <link linkend="gpointer">gpointer</link> user_data,
+                                             <link linkend="gpointer">gpointer</link> *args,
+                                             <link linkend="CORBA-Context">CORBA_Context</link> ctx,
+                                             <link linkend="CORBA-Environment">CORBA_Environment</link> *ev);
+#define     <link linkend="ORBIT-SMALL-FAST-LOCALS:CAPS">ORBIT_SMALL_FAST_LOCALS</link>
+#define     <link linkend="ORBIT-SMALL-FORCE-GENERIC-MARSHAL:CAPS">ORBIT_SMALL_FORCE_GENERIC_MARSHAL</link>
+<link linkend="CORBA-sequence-CORBA-TypeCode">CORBA_sequence_CORBA_TypeCode</link>* <link linkend="ORBit-small-get-types">ORBit_small_get_types</link>
+                                            (const <link linkend="char">char</link> *name);
+<link linkend="gboolean">gboolean</link>    <link linkend="ORBit-small-load-typelib">ORBit_small_load_typelib</link>        (const <link linkend="char">char</link> *libname);
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1 id="desc">
+<title id="desc.title">Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1 id="details">
+<title id="details.title">Details</title>
+<refsect2>
+<title><anchor id="ORBit-IModule" role="struct"/>ORBit_IModule</title>
+<indexterm><primary>ORBit_IModule</primary></indexterm><programlisting>typedef struct {
+	CORBA_unsigned_long           version;
+	ORBit_IInterface            **interfaces;
+	CORBA_sequence_CORBA_TypeCode types;
+} ORBit_IModule;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="ORBit-get-safe-tmp" role="function"/>ORBit_get_safe_tmp ()</title>
+<indexterm><primary>ORBit_get_safe_tmp</primary></indexterm><programlisting>const <link linkend="char">char</link>* ORBit_get_safe_tmp              (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-alloc" role="function"/>ORBit_small_alloc ()</title>
+<indexterm><primary>ORBit_small_alloc</primary></indexterm><programlisting><link linkend="gpointer">gpointer</link>    ORBit_small_alloc               (<link linkend="CORBA-TypeCode">CORBA_TypeCode</link> tc);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tc</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-allocbuf" role="function"/>ORBit_small_allocbuf ()</title>
+<indexterm><primary>ORBit_small_allocbuf</primary></indexterm><programlisting><link linkend="gpointer">gpointer</link>    ORBit_small_allocbuf            (<link linkend="CORBA-TypeCode">CORBA_TypeCode</link> tc,
+                                             <link linkend="CORBA-unsigned-long">CORBA_unsigned_long</link> length);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tc</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>length</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-freekids" role="function"/>ORBit_small_freekids ()</title>
+<indexterm><primary>ORBit_small_freekids</primary></indexterm><programlisting><link linkend="void">void</link>        ORBit_small_freekids            (<link linkend="CORBA-TypeCode">CORBA_TypeCode</link> tc,
+                                             <link linkend="gpointer">gpointer</link> p,
+                                             <link linkend="gpointer">gpointer</link> d);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tc</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>p</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>d</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-sequence-alloc" role="function"/>ORBit_sequence_alloc ()</title>
+<indexterm><primary>ORBit_sequence_alloc</primary></indexterm><programlisting><link linkend="gpointer">gpointer</link>    ORBit_sequence_alloc            (<link linkend="CORBA-TypeCode">CORBA_TypeCode</link> sequence_tc,
+                                             <link linkend="CORBA-unsigned-long">CORBA_unsigned_long</link> length);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>sequence_tc</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>length</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-sequence-append" role="function"/>ORBit_sequence_append ()</title>
+<indexterm><primary>ORBit_sequence_append</primary></indexterm><programlisting><link linkend="void">void</link>        ORBit_sequence_append           (<link linkend="gpointer">gpointer</link> sequence,
+                                             <link linkend="gconstpointer">gconstpointer</link> element);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>sequence</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-sequence-set-size" role="function"/>ORBit_sequence_set_size ()</title>
+<indexterm><primary>ORBit_sequence_set_size</primary></indexterm><programlisting><link linkend="void">void</link>        ORBit_sequence_set_size         (<link linkend="gpointer">gpointer</link> sequence,
+                                             <link linkend="CORBA-unsigned-long">CORBA_unsigned_long</link> length);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>sequence</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>length</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-sequence-index" role="macro"/>ORBit_sequence_index()</title>
+<indexterm><primary>ORBit_sequence_index</primary></indexterm><programlisting>#define        ORBit_sequence_index(sequence,idx) (sequence)-&gt;_buffer[(idx)]
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>sequence</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>idx</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-sequence-concat" role="function"/>ORBit_sequence_concat ()</title>
+<indexterm><primary>ORBit_sequence_concat</primary></indexterm><programlisting><link linkend="void">void</link>        ORBit_sequence_concat           (<link linkend="gpointer">gpointer</link> sequence,
+                                             <link linkend="gconstpointer">gconstpointer</link> append);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>sequence</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>append</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBitConnectionStatus" role="enum"/>enum ORBitConnectionStatus</title>
+<indexterm><primary>ORBitConnectionStatus</primary></indexterm><programlisting>typedef enum {
+	ORBIT_CONNECTION_CONNECTED,
+	ORBIT_CONNECTION_CONNECTING,
+	ORBIT_CONNECTION_DISCONNECTED,
+	ORBIT_CONNECTION_IN_PROC
+} ORBitConnectionStatus;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-get-servant" role="function"/>ORBit_small_get_servant ()</title>
+<indexterm><primary>ORBit_small_get_servant</primary></indexterm><programlisting><link linkend="gpointer">gpointer</link>    ORBit_small_get_servant         (<link linkend="CORBA-Object">CORBA_Object</link> obj);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-get-connection-status" role="function"/>ORBit_small_get_connection_status ()</title>
+<indexterm><primary>ORBit_small_get_connection_status</primary></indexterm><programlisting><link linkend="ORBitConnectionStatus">ORBitConnectionStatus</link> ORBit_small_get_connection_status
+                                            (<link linkend="CORBA-Object">CORBA_Object</link> obj);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-listen-for-broken" role="function"/>ORBit_small_listen_for_broken ()</title>
+<indexterm><primary>ORBit_small_listen_for_broken</primary></indexterm><programlisting><link linkend="ORBitConnectionStatus">ORBitConnectionStatus</link> ORBit_small_listen_for_broken
+                                            (<link linkend="CORBA-Object">CORBA_Object</link> obj,
+                                             <link linkend="GCallback">GCallback</link> fn,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fn</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-unlisten-for-broken-full" role="function"/>ORBit_small_unlisten_for_broken_full ()</title>
+<indexterm><primary>ORBit_small_unlisten_for_broken_full</primary></indexterm><programlisting><link linkend="ORBitConnectionStatus">ORBitConnectionStatus</link> ORBit_small_unlisten_for_broken_full
+                                            (<link linkend="CORBA-Object">CORBA_Object</link> obj,
+                                             <link linkend="GCallback">GCallback</link> fn,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fn</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-unlisten-for-broken" role="function"/>ORBit_small_unlisten_for_broken ()</title>
+<indexterm><primary>ORBit_small_unlisten_for_broken</primary></indexterm><programlisting><link linkend="ORBitConnectionStatus">ORBitConnectionStatus</link> ORBit_small_unlisten_for_broken
+                                            (<link linkend="CORBA-Object">CORBA_Object</link> obj,
+                                             <link linkend="GCallback">GCallback</link> fn);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fn</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBitConnection" role="struct"/>ORBitConnection</title>
+<indexterm><primary>ORBitConnection</primary></indexterm><programlisting>typedef struct _ORBitConnection ORBitConnection;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-get-connection" role="function"/>ORBit_small_get_connection ()</title>
+<indexterm><primary>ORBit_small_get_connection</primary></indexterm><programlisting><link linkend="ORBitConnection">ORBitConnection</link>* ORBit_small_get_connection (<link linkend="CORBA-Object">CORBA_Object</link> obj);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-get-connection-ref" role="function"/>ORBit_small_get_connection_ref ()</title>
+<indexterm><primary>ORBit_small_get_connection_ref</primary></indexterm><programlisting><link linkend="ORBitConnection">ORBitConnection</link>* ORBit_small_get_connection_ref
+                                            (<link linkend="CORBA-Object">CORBA_Object</link> obj);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-connection-unref" role="function"/>ORBit_small_connection_unref ()</title>
+<indexterm><primary>ORBit_small_connection_unref</primary></indexterm><programlisting><link linkend="void">void</link>        ORBit_small_connection_unref    (<link linkend="ORBitConnection">ORBitConnection</link> *cnx);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>cnx</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-connection-set-max-buffer" role="function"/>ORBit_connection_set_max_buffer ()</title>
+<indexterm><primary>ORBit_connection_set_max_buffer</primary></indexterm><programlisting><link linkend="void">void</link>        ORBit_connection_set_max_buffer (<link linkend="ORBitConnection">ORBitConnection</link> *cnx,
+                                             <link linkend="gulong">gulong</link> max_buffer_bytes);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>cnx</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>max_buffer_bytes</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-get-iinterface" role="function"/>ORBit_small_get_iinterface ()</title>
+<indexterm><primary>ORBit_small_get_iinterface</primary></indexterm><programlisting><link linkend="ORBit-IInterface">ORBit_IInterface</link>* ORBit_small_get_iinterface
+                                            (<link linkend="CORBA-Object">CORBA_Object</link> opt_object,
+                                             const <link linkend="CORBA-char">CORBA_char</link> *repo_id,
+                                             <link linkend="CORBA-Environment">CORBA_Environment</link> *ev);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>opt_object</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>repo_id</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ev</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-flags" role="variable"/>ORBit_small_flags</title>
+<indexterm><primary>ORBit_small_flags</primary></indexterm><programlisting>extern int     ORBit_small_flags;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-get-iinterfaces" role="function"/>ORBit_small_get_iinterfaces ()</title>
+<indexterm><primary>ORBit_small_get_iinterfaces</primary></indexterm><programlisting><link linkend="CORBA-sequence-ORBit-IInterface">CORBA_sequence_ORBit_IInterface</link>* ORBit_small_get_iinterfaces
+                                            (const <link linkend="char">char</link> *name);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBitAsyncQueueEntry" role="struct"/>ORBitAsyncQueueEntry</title>
+<indexterm><primary>ORBitAsyncQueueEntry</primary></indexterm><programlisting>typedef struct _ORBitAsyncQueueEntry ORBitAsyncQueueEntry;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-invoke-stub-n" role="function"/>ORBit_small_invoke_stub_n ()</title>
+<indexterm><primary>ORBit_small_invoke_stub_n</primary></indexterm><programlisting><link linkend="void">void</link>        ORBit_small_invoke_stub_n       (<link linkend="CORBA-Object">CORBA_Object</link> object,
+                                             <link linkend="ORBit-IMethods">ORBit_IMethods</link> *methods,
+                                             <link linkend="glong">glong</link> index,
+                                             <link linkend="gpointer">gpointer</link> ret,
+                                             <link linkend="gpointer">gpointer</link> *args,
+                                             <link linkend="CORBA-Context">CORBA_Context</link> ctx,
+                                             <link linkend="CORBA-Environment">CORBA_Environment</link> *ev);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>methods</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ret</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>args</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ctx</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ev</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-get-type-id" role="function"/>ORBit_small_get_type_id ()</title>
+<indexterm><primary>ORBit_small_get_type_id</primary></indexterm><programlisting><link linkend="CORBA-char">CORBA_char</link>* ORBit_small_get_type_id         (<link linkend="CORBA-Object">CORBA_Object</link> object,
+                                             <link linkend="CORBA-Environment">CORBA_Environment</link> *ev);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ev</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBitAsyncInvokeFunc" role="function"/>ORBitAsyncInvokeFunc ()</title>
+<indexterm><primary>ORBitAsyncInvokeFunc</primary></indexterm><programlisting><link linkend="void">void</link>        (*ORBitAsyncInvokeFunc)         (<link linkend="CORBA-Object">CORBA_Object</link> object,
+                                             <link linkend="ORBit-IMethod">ORBit_IMethod</link> *m_data,
+                                             <link linkend="ORBitAsyncQueueEntry">ORBitAsyncQueueEntry</link> *aqe,
+                                             <link linkend="gpointer">gpointer</link> user_data,
+                                             <link linkend="CORBA-Environment">CORBA_Environment</link> *ev);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>m_data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>aqe</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ev</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-demarshal-async" role="function"/>ORBit_small_demarshal_async ()</title>
+<indexterm><primary>ORBit_small_demarshal_async</primary></indexterm><programlisting><link linkend="void">void</link>        ORBit_small_demarshal_async     (<link linkend="ORBitAsyncQueueEntry">ORBitAsyncQueueEntry</link> *aqe,
+                                             <link linkend="gpointer">gpointer</link> ret,
+                                             <link linkend="gpointer">gpointer</link> *args,
+                                             <link linkend="CORBA-Environment">CORBA_Environment</link> *ev);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>aqe</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ret</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>args</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ev</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-invoke-stub" role="function"/>ORBit_small_invoke_stub ()</title>
+<indexterm><primary>ORBit_small_invoke_stub</primary></indexterm><programlisting><link linkend="void">void</link>        ORBit_small_invoke_stub         (<link linkend="CORBA-Object">CORBA_Object</link> object,
+                                             <link linkend="ORBit-IMethod">ORBit_IMethod</link> *m_data,
+                                             <link linkend="gpointer">gpointer</link> ret,
+                                             <link linkend="gpointer">gpointer</link> *args,
+                                             <link linkend="CORBA-Context">CORBA_Context</link> ctx,
+                                             <link linkend="CORBA-Environment">CORBA_Environment</link> *ev);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>m_data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ret</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>args</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ctx</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ev</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-invoke-async" role="function"/>ORBit_small_invoke_async ()</title>
+<indexterm><primary>ORBit_small_invoke_async</primary></indexterm><programlisting><link linkend="void">void</link>        ORBit_small_invoke_async        (<link linkend="CORBA-Object">CORBA_Object</link> obj,
+                                             <link linkend="ORBit-IMethod">ORBit_IMethod</link> *m_data,
+                                             <link linkend="ORBitAsyncInvokeFunc">ORBitAsyncInvokeFunc</link> fn,
+                                             <link linkend="gpointer">gpointer</link> user_data,
+                                             <link linkend="gpointer">gpointer</link> *args,
+                                             <link linkend="CORBA-Context">CORBA_Context</link> ctx,
+                                             <link linkend="CORBA-Environment">CORBA_Environment</link> *ev);</programlisting>
+<para>
+This method is used to invoke a remote (or local) method
+asynchronously. <parameter>fn</parameter> is called back on return - either with an empty
+CORBA_Environment indicating success, or with the error.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>m_data</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fn</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>args</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ctx</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ev</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBIT-SMALL-FAST-LOCALS:CAPS" role="macro"/>ORBIT_SMALL_FAST_LOCALS</title>
+<indexterm><primary>ORBIT_SMALL_FAST_LOCALS</primary></indexterm><programlisting>#define ORBIT_SMALL_FAST_LOCALS           1
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="ORBIT-SMALL-FORCE-GENERIC-MARSHAL:CAPS" role="macro"/>ORBIT_SMALL_FORCE_GENERIC_MARSHAL</title>
+<indexterm><primary>ORBIT_SMALL_FORCE_GENERIC_MARSHAL</primary></indexterm><programlisting>#define ORBIT_SMALL_FORCE_GENERIC_MARSHAL 2
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-get-types" role="function"/>ORBit_small_get_types ()</title>
+<indexterm><primary>ORBit_small_get_types</primary></indexterm><programlisting><link linkend="CORBA-sequence-CORBA-TypeCode">CORBA_sequence_CORBA_TypeCode</link>* ORBit_small_get_types
+                                            (const <link linkend="char">char</link> *name);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ORBit-small-load-typelib" role="function"/>ORBit_small_load_typelib ()</title>
+<indexterm><primary>ORBit_small_load_typelib</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    ORBit_small_load_typelib        (const <link linkend="char">char</link> *libname);</programlisting>
+<para>
+This method has security issues if you do not use
+an absolute path in <parameter>libname</parameter>. The environment variables
+ORBIT_TYPELIB_PATH and GNOME2_PATH are used to scan for
+type libraries.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>libname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the type library to load
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> FALSE if load failed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

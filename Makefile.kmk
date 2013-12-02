@@ -1,0 +1,41 @@
+# $Id: $
+## @file
+# Top level sub-makefile.
+#
+
+
+DEPTH = .
+SUB_DEPTH = .
+include $(PATH_KBUILD)/subheader.kmk
+
+ifdef SDK_glib2_FROM_NOM
+ SUBDIRS = glib
+endif
+
+
+#
+# Include the sub-makefiles.
+#
+ifneq ($(BUILD_TARGET),freebsd)
+ include gc6.8/Makefile.kmk
+endif
+include idl-compiler/Makefile.kmk
+include nom/Makefile.kmk
+include tests/Makefile.kmk
+include nomc/Makefile.kmk
+
+#
+# Stuff that should be installed for the build to run.
+#
+INSTALLS += instbin
+instbin_TEMPLATE = nombin
+instbin_SOURCES =
+ifdef SDK_glib2_FROM_SITE
+ instbin_SOURCES.win.x86 = \
+ 	$(PATH_SDK_glib2)/bin/intl.dll \
+ 	$(PATH_SDK_glib2)/bin/libglib-2.0-0.dll
+endif
+
+
+include $(PATH_KBUILD)/subfooter.kmk
+

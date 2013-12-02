@@ -1,0 +1,15 @@
+The code assumes static linking, and a single thread.
+
+
+How to compile:
+
+./configure --enable-threads=no
+
+./make
+
+The lib can be found in ./.libs
+
+Not too much testing up to now.
+
+
+-Cinc-
